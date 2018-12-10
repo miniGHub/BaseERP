@@ -1,2 +1,2 @@
-# BaseERP
-Enterprise Resource Planning
+# BasePSS
+Purchase Sales Stock
