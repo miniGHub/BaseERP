@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="./resources/css/theme-crisp-all.css" />
+	<script type="text/javascript" src="./resources/js/ext-all.js" ></script>
+	<script type="text/javascript" src="./resources/js/locale-zh_CN.js" ></script>
+	<title>login</title>
+</head>
+<script>
+    function selectUser() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("POST", "user/showUser.do", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("id=1");
+    }
+</script>
+
+<script type="text/javascript">
+    Ext.onReady(function() {
+        Ext.create('Ext.Panel', {
+            renderTo: 'helloWorldPanel',
+            height: 200,
+            width: 600,
+            title: 'Hello world',
+            html: 'First Ext JS Hello World Program'
+        });
+    });
+</script>
+<body>
+<p id="test">Hello World!</p>
+<button type="button" onclick="selectUser()">onclick test</button>
+<div id="helloWorldPanel"></div>
+</body>
+</html>
