@@ -19,6 +19,9 @@
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("id=1");
     }
+    function change2home(){
+        location.href="./resources/html/home.html";
+	}
 </script>
 
 <script type="text/javascript">
@@ -35,6 +38,7 @@
 <body>
 <p id="test">Hello World!</p>
 <button type="button" onclick="selectUser()">onclick test</button>
+<button type="button" onclick="change2home()">onclick home</button>
 <div id="helloWorldPanel"></div>
 </body>
 </html>
