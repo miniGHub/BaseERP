@@ -112,6 +112,19 @@
       <artifactId>commons-dbcp</artifactId>
       <version>1.4</version>
     </dependency>
+      <!-- activiti 依赖配置 开始-->
+      <dependency>
+          <groupId>org.activiti</groupId>
+          <artifactId>activiti-engine</artifactId>
+          <version>5.22.0</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.activiti</groupId>
+          <artifactId>activiti-spring</artifactId>
+          <version>5.22.0</version>
+      </dependency>
+      <!-- activiti 依赖配置 结束 -->
 
     <!-- jackson  -->
     <dependency>
