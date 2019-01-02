@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为ICG002Dao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.ICG002Dao">
+
+    <select id="selectCG002" resultType="com.mini.model.CG002" parameterType="String">
+        SELECT * FROM CG001 WHERE purchase_note_id = #{purchase_note_id}
+    </select>
+
+    <delete id="deleteCG002" parameterType="com.mini.model.CG002">
+        DELETE FROM CG002 WHERE purchase_detail_id = #{purchase_detail_id}
+    </delete>
+
+    <insert id="insertCG002" parameterType="com.mini.model.CG002" flushCache="true">
+        INSERT INTO CG001 (purchase_detail_id, purchase_note_id, sales_order_note_id, supplier_id, respority_id, entry_date, pay_date, pay_id, pay_balance, contact_id, contact_pay_id, contact_pay_balance, discount_balance, operator_id, depart_id, remark, addition, freeuse1, freeuse2, freeuse3) VALUES
+        <foreach item="item" collection="list" separator=",">
+            (#{item.purchase_detail_id}, #{item.purchase_note_id}, #{item.sales_order_note_id}, #{item.supplier_id}, #{item.respority_id}, #{item.entry_date}, #{item.pay_date}, #{item.pay_id}, #{item.pay_balance}, #{item.contact_id}, #{item.contact_pay_id}, #{item.contact_pay_balance}, #{item.discount_balance}, #{item.operator_id}, #{item.depart_id}, #{item.remark}, #{item.addition}, #{item.freeuse1}, #{item.freeuse2}, #{item.freeuse3})
+        </foreach>
+    </insert>
+
+    <update id="updateCG002" parameterType="com.mini.model.CG002" flushCache="true">
+        UPDATE CG002
+        <set>
+            <if test="product_id != null">
+                product_id = #{product_id},
+            </if>
+            <if test="repority_id != null">
+                repority_id = #{repority_id},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="unit_price != null">
+                unit_price = #{unit_price},
+            </if>
+            <if test="balance != null">
+                balance = #{balance},
+            </if>
+            <if test="invoice_balance != null">
+                invoice_balance = #{invoice_balance},
+            </if>
+            <if test="barcode != null">
+                barcode = #{barcode},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="comment != null">
+                comment = #{comment},
+            </if>
+            <if test="freeuse1 != null">
+                freeuse1 = #{freeuse1},
+            </if>
+            <if test="freeuse2 != null">
+                freeuse2 = #{freeuse2},
+            </if>
+            <if test="freeuse3 != null">
+                freeuse3 = #{freeuse3},
+            </if>
+        </set>
+        WHERE purchase_detail_id = #{purchase_detail_id}
+    </update>
+
+</mapper>

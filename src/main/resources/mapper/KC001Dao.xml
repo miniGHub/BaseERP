@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IKC001Dao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.IKC001Dao">
+
+    <select id="selectKC001" resultType="com.mini.model.KC001" parameterType="Map">
+        SELECT * FROM KC001
+        <where>
+            <if test="product_id != null">
+                product_id = #{product_id},
+            </if>
+            <if test="repority_id != null">
+                repority_id = #{repority_id},
+            </if>
+            <if test="freeuse1 != null">
+                freeuse1 = #{freeuse1},
+            </if>
+            <if test="freeuse2 != null">
+                freeuse2 = #{freeuse2},
+            </if>
+            <if test="freeuse3 != null">
+                freeuse3 = #{freeuse3},
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteKC001" parameterType="com.mini.model.KC001">
+        DELETE FROM KC001 WHERE product_id = #{product_id}
+    </delete>
+
+    <insert id="insertKC001" parameterType="com.mini.model.KC001" flushCache="true">
+        INSERT INTO KC001 (product_id, respority_id, amount, freeuse1, freeuse2, freeuse3)
+        VALUES (#{product_id}, #{respority_id}, #{amount}, #{freeuse1}, #{freeuse2}, #{freeuse3})
+    </insert>
+
+    <update id="updateKC001" parameterType="com.mini.model.KC001" flushCache="true">
+        UPDATE KC001
+        <set>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="freeuse1 != null">
+                freeuse1 = #{freeuse1},
+            </if>
+            <if test="freeuse2 != null">
+                freeuse2 = #{freeuse2},
+            </if>
+            <if test="freeuse3 != null">
+                freeuse3 = #{freeuse3},
+            </if>
+        </set>
+        WHERE product_id = #{product_id} and repority_id = #{repority_id}
+    </update>
+
+</mapper>

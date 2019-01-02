@@ -1,0 +1,23 @@
+CREATE TABLE CG001 (
+  purchase_note_id varchar(50) NOT NULL COMMENT 'purchase note',
+  sales_order_note_id varchar(50) NOT NULL COMMENT 'sales order note',
+  supplier_id varchar(10),
+  respority_id varchar(10),
+  entry_date date,
+  pay_date date,
+  pay_id varchar(50),
+  pay_balance double,
+  contact_id varchar(10),
+  contact_pay_id varchar(50),
+  contact_pay_balance double,
+  discount_balance double,
+  operator_id varchar(10),
+  depart_id  int,
+  remark  varchar(255),
+  addition varchar(255),
+  freeuse1 int,
+  freeuse2 varchar(255),
+  freeuse3 date,
+  PRIMARY KEY (purchase_note_id),
+  UNIQUE KEY purchase_note_id USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
