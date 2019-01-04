@@ -13,26 +13,44 @@
     </delete>
 
     <insert id="insertKC002" parameterType="com.mini.model.KC002" flushCache="true">
-        INSERT INTO KC002 (product_id, respority_id, in_date, amount, purchase_note_id, sales_return_note_id, sales_exchange_note_id, purchase_exchange_note_id, freeuse1, freeuse2, freeuse3) VALUES
+        INSERT INTO KC002 (product_id, repository_id, in_date, amount, purchase_note_id, sales_return_note_id, sales_exchange_note_id, purchase_exchange_note_id, freeuse1, freeuse2, freeuse3) VALUES
         <foreach item="item" collection="list" separator=",">
-            (#{item.product_id}, #{item.respority_id}, #{item.in_date}, #{item.amount}, #{item.purchase_note_id}, #{item.sales_return_note_id}, #{item.sales_exchange_note_id}, #{item.purchase_exchange_note_id}, #{item.freeuse1}, #{item.freeuse2}, #{item.freeuse3})
+            (#{item.product_id}, #{item.repository_id}, #{item.in_date}, #{item.amount}, #{item.purchase_note_id}, #{item.sales_return_note_id}, #{item.sales_exchange_note_id}, #{item.purchase_exchange_note_id}, #{item.freeuse1}, #{item.freeuse2}, #{item.freeuse3})
         </foreach>
     </insert>
 
     <update id="updateKC002" parameterType="com.mini.model.KC002" flushCache="true">
-        UPDATE KC002 SET
-        product_id       = #{product_id},
-        repority_id      = #{repority_id},
-        in_date          = #{in_date},
-        amount           = #{amount},
-        purchase_note_id = #{purchase_note_id},
-        sales_return_note_id   = #{sales_return_note_id},
-        sales_exchange_note_id = #{sales_exchange_note_id},
-        purchase_exchange_note_id = #{purchase_exchange_note_id},
-        freeuse1       = #{freeuse1},
-        freeuse2       = #{freeuse2},
-        freeuse3       = #{freeuse3}
-        WHERE product_id = #{product_id}
+        UPDATE KC002
+        <set>
+            <if test="repository_id != null">
+                repository_id = #{repository_id},
+            </if>
+            <if test="in_date != null">
+                in_date = #{in_date},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="sales_return_note_id != null">
+                sales_return_note_id = #{sales_return_note_id},
+            </if>
+            <if test="sales_exchange_note_id != null">
+                sales_exchange_note_id = #{sales_exchange_note_id},
+            </if>
+            <if test="purchase_exchange_note_id != null">
+                purchase_exchange_note_id = #{purchase_exchange_note_id},
+            </if>
+            <if test="freeuse1 != null">
+                freeuse1 = #{freeuse1},
+            </if>
+            <if test="freeuse2 != null">
+                freeuse2 = #{freeuse2},
+            </if>
+            <if test="freeuse3 != null">
+                freeuse3 = #{freeuse3},
+            </if>
+        </set>
+        WHERE product_id = #{product_id} and purchase_note_id = #{purchase_note_id}
     </update>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.mini.service.impl;
 
 import com.mini.dao.IKC001Dao;
+import com.mini.dao.IKC002Dao;
 import com.mini.model.KC001;
 import com.mini.service.IKC001Service;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ public class KC001ServiceImpl implements IKC001Service {
 
     @Resource
     private IKC001Dao  KC001Dao;
+
+    @Resource
+    private IKC002Dao  KC002Dao;
 
     @Override
     public KC001[] selectKC001(Map param) {
@@ -32,5 +36,6 @@ public class KC001ServiceImpl implements IKC001Service {
     @Override
     public void deleteKC001(String product_id) {
         this.KC001Dao.deleteKC001(product_id);
+        this.KC002Dao.deleteKC002(product_id);
     }
 }

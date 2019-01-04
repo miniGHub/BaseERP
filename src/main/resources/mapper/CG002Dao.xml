@@ -5,17 +5,17 @@
 <mapper namespace="com.mini.dao.ICG002Dao">
 
     <select id="selectCG002" resultType="com.mini.model.CG002" parameterType="String">
-        SELECT * FROM CG001 WHERE purchase_note_id = #{purchase_note_id}
+        SELECT * FROM CG002 WHERE purchase_note_id = #{purchase_note_id}
     </select>
 
-    <delete id="deleteCG002" parameterType="com.mini.model.CG002">
-        DELETE FROM CG002 WHERE purchase_detail_id = #{purchase_detail_id}
+    <delete id="deleteCG002" parameterType="String">
+        DELETE FROM CG002 WHERE purchase_note_id = #{purchase_note_id}
     </delete>
 
     <insert id="insertCG002" parameterType="com.mini.model.CG002" flushCache="true">
-        INSERT INTO CG001 (purchase_detail_id, purchase_note_id, sales_order_note_id, supplier_id, respority_id, entry_date, pay_date, pay_id, pay_balance, contact_id, contact_pay_id, contact_pay_balance, discount_balance, operator_id, depart_id, remark, addition, freeuse1, freeuse2, freeuse3) VALUES
+        INSERT INTO CG002 (purchase_detail_id, purchase_note_id, product_id, repository_id, amount, unit_price, balance, invoice_balance, barcode, state, comment, freeuse1, freeuse2, freeuse3) VALUES
         <foreach item="item" collection="list" separator=",">
-            (#{item.purchase_detail_id}, #{item.purchase_note_id}, #{item.sales_order_note_id}, #{item.supplier_id}, #{item.respority_id}, #{item.entry_date}, #{item.pay_date}, #{item.pay_id}, #{item.pay_balance}, #{item.contact_id}, #{item.contact_pay_id}, #{item.contact_pay_balance}, #{item.discount_balance}, #{item.operator_id}, #{item.depart_id}, #{item.remark}, #{item.addition}, #{item.freeuse1}, #{item.freeuse2}, #{item.freeuse3})
+            (#{item.purchase_detail_id}, #{item.purchase_note_id}, #{item.product_id}, #{item.repository_id}, #{item.amount}, #{item.unit_price}, #{item.balance}, #{item.invoice_balance}, #{item.barcode}, #{item.state}, #{item.comment}, #{item.freeuse1}, #{item.freeuse2}, #{item.freeuse3})
         </foreach>
     </insert>
 
@@ -25,8 +25,8 @@
             <if test="product_id != null">
                 product_id = #{product_id},
             </if>
-            <if test="repority_id != null">
-                repority_id = #{repority_id},
+            <if test="repository_id != null">
+                repository_id = #{repository_id},
             </if>
             <if test="amount != null">
                 amount = #{amount},

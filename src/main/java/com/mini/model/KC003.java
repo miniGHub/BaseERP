@@ -1,19 +1,51 @@
 package com.mini.model;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.lang.reflect.Field;
 import java.util.Date;
 
 public class KC003 {
     private String  product_id;
     private String  respority_id;
     private Date    out_date;
-    private int     amount;
+    private Integer amount;
     private String  sales_note_id;
     private String  purchase_return_note_id;
     private String  sales_exchange_note_id;
     private String  purchase_exchange_note_id;
-    private int     freeuse1;
+    private Integer freeuse1;
     private String  freeuse2;
     private Date    freeuse3;
+
+    public KC003() {
+
+    }
+    public KC003(JSONObject json) {
+        Field[] members = this.getClass().getDeclaredFields();
+        for (Field item : members) {
+            if (json.containsKey(item.getName())){
+                item.setAccessible(true);
+                try {
+                    if (item.getType() == java.lang.String.class) {
+                        item.set(this, json.getString(item.getName()));
+                    }
+                    else if (item.getType() == java.util.Date.class) {
+                        item.set(this, json.getDate(item.getName()));
+                    }
+                    else if (item.getType() == java.lang.Integer.class) {
+                        item.set(this, json.getInteger(item.getName()));
+                    }
+                    else if (item.getType() == java.lang.Double.class) {
+                        item.set(this, json.getDouble(item.getName()));
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                item.setAccessible(false);
+            }
+        }
+    }
 
     public String getProduct_id() {
         return product_id;
@@ -39,11 +71,11 @@ public class KC003 {
         this.out_date = out_date;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
@@ -79,11 +111,11 @@ public class KC003 {
         this.purchase_exchange_note_id = purchase_exchange_note_id;
     }
 
-    public int getFreeuse1() {
+    public Integer getFreeuse1() {
         return freeuse1;
     }
 
-    public void setFreeuse1(int freeuse1) {
+    public void setFreeuse1(Integer freeuse1) {
         this.freeuse1 = freeuse1;
     }
 

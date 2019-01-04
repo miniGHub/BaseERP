@@ -10,8 +10,8 @@
             <if test="product_id != null">
                 product_id = #{product_id},
             </if>
-            <if test="repority_id != null">
-                repority_id = #{repority_id},
+            <if test="repository_id != null">
+                repository_id = #{repository_id},
             </if>
             <if test="freeuse1 != null">
                 freeuse1 = #{freeuse1},
@@ -30,8 +30,8 @@
     </delete>
 
     <insert id="insertKC001" parameterType="com.mini.model.KC001" flushCache="true">
-        INSERT INTO KC001 (product_id, respority_id, amount, freeuse1, freeuse2, freeuse3)
-        VALUES (#{product_id}, #{respority_id}, #{amount}, #{freeuse1}, #{freeuse2}, #{freeuse3})
+        INSERT INTO KC001 (product_id, repository_id, amount, freeuse1, freeuse2, freeuse3)
+        VALUES (#{product_id}, #{repository_id}, #{amount}, #{freeuse1}, #{freeuse2}, #{freeuse3})
     </insert>
 
     <update id="updateKC001" parameterType="com.mini.model.KC001" flushCache="true">
@@ -50,7 +50,7 @@
                 freeuse3 = #{freeuse3},
             </if>
         </set>
-        WHERE product_id = #{product_id} and repority_id = #{repority_id}
+        WHERE product_id = #{product_id} and repository_id = #{repository_id}
     </update>
 
 </mapper>

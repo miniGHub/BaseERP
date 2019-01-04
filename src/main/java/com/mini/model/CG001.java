@@ -1,27 +1,59 @@
 package com.mini.model;
 
+import com.alibaba.fastjson.JSONObject;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 public class CG001 {
     private String  purchase_note_id;
     private String  sales_order_note_id;
     private String  supplier_id;
-    private String  respority_id;
+    private String  repository_id;
     private Date    entry_date;
     private Date    pay_date;
     private String  pay_id;
-    private double  pay_balance;
+    private Double  pay_balance;
     private String  contact_id;
     private String  contact_pay_id;
-    private double  contact_pay_balance;
-    private double  discount_balance;
+    private Double  contact_pay_balance;
+    private Double  discount_balance;
     private String  operator_id;
-    private int     depart_id;
+    private Integer depart_id;
     private String  remark;
     private String  addition;
-    private int     freeuse1;
+    private Integer freeuse1;
     private String  freeuse2;
     private Date    freeuse3;
+
+    public CG001() {
+
+    }
+
+    public CG001(JSONObject json) {
+        Field[] members = this.getClass().getDeclaredFields();
+        for (Field item : members) {
+            if (json.containsKey(item.getName())){
+                item.setAccessible(true);
+                try {
+                    if (item.getType() == java.lang.String.class) {
+                        item.set(this, json.getString(item.getName()));
+                    }
+                    else if (item.getType() == java.util.Date.class) {
+                        item.set(this, json.getDate(item.getName()));
+                    }
+                    else if (item.getType() == java.lang.Integer.class) {
+                        item.set(this, json.getInteger(item.getName()));
+                    }
+                    else if (item.getType() == java.lang.Double.class) {
+                        item.set(this, json.getDouble(item.getName()));
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                item.setAccessible(false);
+            }
+        }
+    }
 
     public String getPurchase_note_id() {
         return purchase_note_id;
@@ -47,12 +79,12 @@ public class CG001 {
         this.supplier_id = supplier_id;
     }
 
-    public String getRespority_id() {
-        return respority_id;
+    public String getRepository_id() {
+        return repository_id;
     }
 
-    public void setRespority_id(String respority_id) {
-        this.respority_id = respority_id;
+    public void setRepository_id(String repository_id) {
+        this.repository_id = repository_id;
     }
 
     public Date getEntry_date() {
@@ -79,11 +111,11 @@ public class CG001 {
         this.pay_id = pay_id;
     }
 
-    public double getPay_balance() {
+    public Double getPay_balance() {
         return pay_balance;
     }
 
-    public void setPay_balance(double pay_balance) {
+    public void setPay_balance(Double pay_balance) {
         this.pay_balance = pay_balance;
     }
 
@@ -103,19 +135,19 @@ public class CG001 {
         this.contact_pay_id = contact_pay_id;
     }
 
-    public double getContact_pay_balance() {
+    public Double getContact_pay_balance() {
         return contact_pay_balance;
     }
 
-    public void setContact_pay_balance(double contact_pay_balance) {
+    public void setContact_pay_balance(Double contact_pay_balance) {
         this.contact_pay_balance = contact_pay_balance;
     }
 
-    public double getDiscount_balance() {
+    public Double getDiscount_balance() {
         return discount_balance;
     }
 
-    public void setDiscount_balance(double discount_balance) {
+    public void setDiscount_balance(Double discount_balance) {
         this.discount_balance = discount_balance;
     }
 
@@ -127,11 +159,11 @@ public class CG001 {
         this.operator_id = operator_id;
     }
 
-    public int getDepart_id() {
+    public Integer getDepart_id() {
         return depart_id;
     }
 
-    public void setDepart_id(int depart_id) {
+    public void setDepart_id(Integer depart_id) {
         this.depart_id = depart_id;
     }
 
@@ -151,11 +183,11 @@ public class CG001 {
         this.addition = addition;
     }
 
-    public int getFreeuse1() {
+    public Integer getFreeuse1() {
         return freeuse1;
     }
 
-    public void setFreeuse1(int freeuse1) {
+    public void setFreeuse1(Integer freeuse1) {
         this.freeuse1 = freeuse1;
     }
 

@@ -1,15 +1,19 @@
 package com.mini.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mini.HttpBody;
 import com.mini.model.CG002;
 import com.mini.service.ICG002Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cg002")
@@ -22,8 +26,9 @@ public class CG002Controller {
     public void selectCG002(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String purchase_note_id = request.getParameter("purchase_note_id");
-        CG002[] cg002 = this.CG002Service.selectCG002(purchase_note_id);
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("showCG002(): receive request "+jsondata.toJSONString());
+        CG002[] cg002 = this.CG002Service.selectCG002(jsondata.getString("purchase_note_id"));
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(cg002));
         response.getWriter().close();
@@ -33,10 +38,11 @@ public class CG002Controller {
     public void deleteCG002(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String purchase_note_id = request.getParameter("purchase_note_id");
-        this.CG002Service.deleteCG002(purchase_note_id);
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("deleteCG002(): receive request "+jsondata.toJSONString());
+        if (jsondata.containsKey("purchase_note_id")) {
+            this.CG002Service.deleteCG002(jsondata.getString("purchase_note_id"));
+        }
         response.getWriter().close();
     }
 
@@ -44,12 +50,10 @@ public class CG002Controller {
     public void updateCG002(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        CG002 one = new CG002();
-        one.setPurchase_note_id(request.getParameter("purchase_note_id"));
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("updateCG002(): receive request "+jsondata.toJSONString());
+        CG002 one = new CG002(jsondata);
         this.CG002Service.updateCG002(one);
-//        ...
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
         response.getWriter().close();
     }
 
@@ -57,15 +61,13 @@ public class CG002Controller {
     public void insertCG002(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        int amount = 3;
-        CG002[] ones = new CG002[amount];
-        for (CG002 item:ones) {
-            // TODO: fix here
-            item.setPurchase_note_id(request.getParameter("purchase_note_id"));
+        JSONArray jsonarray = HttpBody.getRequestJsons(request);
+        System.out.println("insertCG002(): receive request "+jsonarray.toString());
+        List<CG002> params = new ArrayList<>();
+        for (int i=0; i<jsonarray.size();i++) {
+            params.add(new CG002(jsonarray.getJSONObject(i)));
         }
-        this.CG002Service.insertCG002(ones);
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
+        this.CG002Service.insertCG002(params);
         response.getWriter().close();
     }
 }

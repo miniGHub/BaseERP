@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CG001 test</title>
+</head>
+<script>
+    function showCG001() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+            }
+        }
+        console.log("call showCG001");
+        xmlhttp.open("POST","../../cg001/showCG001.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-20181230-0002"});
+//        var data = JSON.stringify({"entry_date_from":"2018-12-01"})
+        xmlhttp.send(data);
+    }
+    function deleteCG001() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showCG001();
+            }
+        }
+        console.log("call deleteCG001");
+        xmlhttp.open("POST","../../cg001/deleteCG001.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-20181230-0002"});
+        xmlhttp.send(data);
+    }
+    function insertCG001() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showCG001();
+            }
+        }
+        console.log("call insertCG001");
+        xmlhttp.open("POST","../../cg001/insertCG001.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-20181230-0002",
+            "sales_order_note_id":"sales_xxxx_0001",
+            "supplier_id":"sup_0101",
+            "repository_id":"shenyang",
+            "entry_date":"2018-12-13 10:55:00",
+            "pay_balance":1.23,
+            "depart_id":22
+        });
+        xmlhttp.send(data);
+    }
+    function updateCG001() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showCG001();
+            }
+        }
+        console.log("call updateCG001");
+        xmlhttp.open("POST","../../cg001/updateCG001.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-20181230-0002",
+            "repository_id":"fushun",
+            "entry_date":"2018-12-30 22:00:30",
+            "operator_id":"luchao"
+        });
+        xmlhttp.send(data);
+    }
+    function back2home() {
+        location.href="../../login.html";
+    }
+</script>
+
+<body>
+<p id="test">CG001 TEST</p>
+<button type="button" onclick="insertCG001()">insert test</button>
+<button type="button" onclick="updateCG001()">udpate test</button>
+<button type="button" onclick="deleteCG001()">delete test</button>
+<button type="button" onclick="back2home()">back to home</button>
+<div id="helloWorldPanel"></div>
+</body>
+</html>

@@ -6,6 +6,7 @@ import com.mini.service.ICG002Service;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("CG002Service")
 public class CG002ServiceImpl implements ICG002Service {
@@ -24,8 +25,8 @@ public class CG002ServiceImpl implements ICG002Service {
     }
 
     @Override
-    public void insertCG002(CG002[] one) {
-        this.CG002Dao.insertCG002(one);
+    public void insertCG002(List<CG002> cg002list) {
+        this.CG002Dao.insertCG002(cg002list);
     }
 
     @Override

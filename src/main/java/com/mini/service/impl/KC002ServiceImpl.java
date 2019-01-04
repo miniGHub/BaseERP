@@ -3,9 +3,11 @@ package com.mini.service.impl;
 import com.mini.dao.IKC002Dao;
 import com.mini.model.KC002;
 import com.mini.service.IKC002Service;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+@Service("KC002Service")
 public class KC002ServiceImpl implements IKC002Service {
 
     @Resource

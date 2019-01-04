@@ -1,16 +1,16 @@
 package com.mini.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mini.HttpBody;
 import com.mini.model.CG001;
 import com.mini.service.ICG001Service;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -24,12 +24,9 @@ public class CG001Controller {
     public void selectCG001(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String purchase_note_id = request.getParameter("purchase_note_id");
-        Map param = new HashMap();
-        if (purchase_note_id != null) {
-            param.put("purchase_note_id", purchase_note_id);
-        }
-        // ...
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("showCG001(): receive request "+jsondata.toJSONString());
+        Map param = jsondata.getInnerMap();
         CG001[] cg001 = this.CG001Service.selectCG001(param);
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(cg001));
@@ -40,10 +37,11 @@ public class CG001Controller {
     public void deleteCG001(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String purchase_note_id = request.getParameter("purchase_note_id");
-        this.CG001Service.deleteCG001(purchase_note_id);
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("deleteCG001(): receive request "+jsondata.toJSONString());
+        if (jsondata.containsKey("purchase_note_id")) {
+            this.CG001Service.deleteCG001(jsondata.getString("purchase_note_id"));
+        }
         response.getWriter().close();
     }
 
@@ -51,12 +49,10 @@ public class CG001Controller {
     public void updateCG001(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        CG001 one = new CG001();
-        one.setPurchase_note_id(request.getParameter("purchase_note_id"));
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("updateCG001(): receive request "+jsondata.toJSONString());
+        CG001 one = new CG001(jsondata);
         this.CG001Service.updateCG001(one);
-//        ...
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
         response.getWriter().close();
     }
 
@@ -64,11 +60,10 @@ public class CG001Controller {
     public void insertCG001(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        CG001 one = new CG001();
-        one.setPurchase_note_id(request.getParameter("purchase_note_id"));
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("insertCG001(): receive request "+jsondata.toJSONString());
+        CG001 one = new CG001(jsondata);
         this.CG001Service.insertCG001(one);
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
         response.getWriter().close();
     }
 }

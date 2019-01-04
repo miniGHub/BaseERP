@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CG002 test</title>
+</head>
+<script>
+    function showCG002() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+            }
+        }
+        console.log("call showCG002");
+        xmlhttp.open("POST","../../cg002/showCG002.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-20181230-0002"});
+        xmlhttp.send(data);
+    }
+    function deleteCG002() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showCG002();
+            }
+        }
+        console.log("call deleteCG002");
+        xmlhttp.open("POST","../../cg002/deleteCG002.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-20181230-0002"});
+        xmlhttp.send(data);
+    }
+    function insertCG002() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showCG002();
+            }
+        }
+        console.log("call insertCG002");
+        xmlhttp.open("POST","../../cg002/insertCG002.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify([{
+            "purchase_detail_id":"LCMX-20181230-0001",
+            "purchase_note_id":"LC-20181230-0002",
+            "product_id":"b_0001",
+            "repository_id":"shenyang",
+            "amount":234,
+            "unit_price":1.23
+        },{
+            "purchase_detail_id":"LCMX-20181230-0002",
+            "purchase_note_id":"LC-20181230-0002",
+            "product_id":"p_0001",
+            "repository_id":"shenyang",
+            "amount":20,
+            "unit_price":12.23
+        },{
+            "purchase_detail_id":"LCMX-20181230-0003",
+            "purchase_note_id":"LC-20181230-0002",
+            "product_id":"m_0001",
+            "repository_id":"shenyang",
+            "amount":100,
+            "unit_price":188.44
+        }]);
+        xmlhttp.send(data);
+    }
+    function updateCG002() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showCG002();
+            }
+        }
+        console.log("call updateCG002");
+        xmlhttp.open("POST","../../cg002/updateCG002.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({
+            "purchase_detail_id":"LCMX-20181230-0002",
+            "repository_id":"fushun",
+            "amount":333,
+            "unit_price":999.44
+        });
+        xmlhttp.send(data);
+    }
+    function back2home() {
+        location.href="../../login.html";
+    }
+</script>
+
+<body>
+<p id="test">CG002 TEST</p>
+<button type="button" onclick="insertCG002()">insert test</button>
+<button type="button" onclick="updateCG002()">update test</button>
+<button type="button" onclick="deleteCG002()">delete test</button>
+<button type="button" onclick="back2home()">back to home</button>
+<div id="helloWorldPanel"></div>
+</body>
+</html>

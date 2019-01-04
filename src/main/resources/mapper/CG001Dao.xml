@@ -16,8 +16,8 @@
             <if test="supplier_id != null">
                 and supplier_id = #{supplier_id}
             </if>
-            <if test="respority_id != null">
-                and respority_id = #{respority_id}
+            <if test="repository_id != null">
+                and repository_id = #{repository_id}
             </if>
             <if test="operator_id != null">
                 and operator_id = #{operator_id}
@@ -45,8 +45,8 @@
     </delete>
 
     <insert id="insertCG001" parameterType="com.mini.model.CG001" flushCache="true">
-        INSERT INTO CG001 (purchase_note_id, sales_order_note_id, supplier_id, respority_id, entry_date, pay_date, pay_id, pay_balance, contact_id, contact_pay_id, contact_pay_balance, discount_balance, operator_id, depart_id, remark, addition, freeuse1, freeuse2, freeuse3)
-        VALUES (#{purchase_note_id}, #{sales_order_note_id}, #{supplier_id}, #{respority_id}, #{entry_date}, #{pay_date}, #{pay_id}, #{pay_balance}, #{contact_id}, #{contact_pay_id}, #{contact_pay_balance}, #{discount_balance}, #{operator_id}, #{depart_id}, #{remark}, #{addition}, #{freeuse1}, #{freeuse2}, #{freeuse3})
+        INSERT INTO CG001 (purchase_note_id, sales_order_note_id, supplier_id, repository_id, entry_date, pay_date, pay_id, pay_balance, contact_id, contact_pay_id, contact_pay_balance, discount_balance, operator_id, depart_id, remark, addition, freeuse1, freeuse2, freeuse3)
+        VALUES (#{purchase_note_id}, #{sales_order_note_id}, #{supplier_id}, #{repository_id}, #{entry_date}, #{pay_date}, #{pay_id}, #{pay_balance}, #{contact_id}, #{contact_pay_id}, #{contact_pay_balance}, #{discount_balance}, #{operator_id}, #{depart_id}, #{remark}, #{addition}, #{freeuse1}, #{freeuse2}, #{freeuse3})
     </insert>
 
     <update id="updateCG001" parameterType="com.mini.model.CG001" flushCache="true">
@@ -58,8 +58,8 @@
             <if test="supplier_id != null">
                 supplier_id = #{supplier_id},
             </if>
-            <if test="respority_id != null">
-                respority_id = #{respority_id},
+            <if test="repository_id != null">
+                repository_id = #{repository_id},
             </if>
             <if test="entry_date != null">
                 entry_date = #{entry_date},
@@ -94,8 +94,8 @@
             <if test="remark != null">
                 remark = #{remark},
             </if>
-            <if test="addtion != null">
-                addtion = #{addtion},
+            <if test="addition != null">
+                addtion = #{addition},
             </if>
         </set>
         WHERE purchase_note_id = #{purchase_note_id}

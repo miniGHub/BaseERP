@@ -1,22 +1,63 @@
 package com.mini.model;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.lang.reflect.Field;
 import java.util.Date;
 
 public class CG002 {
     private String  purchase_detail_id;
     private String  purchase_note_id;
     private String  product_id;
-    private String  repority_id;
-    private int     amount;
-    private double  unit_price;
-    private double  balance;
-    private double  invoice_balance;
+    private String  repository_id;
+    private Integer amount;
+    private Double  unit_price;
+    private Double  balance;
+    private Double  invoice_balance;
     private String  barcode;
-    private int     state;
+    private Integer state;
     private String  comment;
-    private int     freeuse1;
+    private Integer freeuse1;
     private String  freeuse2;
     private Date    freeuse3;
+
+    public CG002() {
+
+    }
+
+    public CG002(JSONObject json) {
+        Field[] members = this.getClass().getDeclaredFields();
+        for (Field item : members) {
+            if (json.containsKey(item.getName())){
+                item.setAccessible(true);
+                try {
+                    if (item.getType() == java.lang.String.class) {
+                        item.set(this, json.getString(item.getName()));
+                    }
+                    else if (item.getType() == java.util.Date.class) {
+                        item.set(this, json.getDate(item.getName()));
+                    }
+                    else if (item.getType() == java.lang.Integer.class) {
+                        item.set(this, json.getInteger(item.getName()));
+                    }
+                    else if (item.getType() == java.lang.Double.class) {
+                        item.set(this, json.getDouble(item.getName()));
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                item.setAccessible(false);
+            }
+        }
+    }
+
+    public String getPurchase_detail_id() {
+        return purchase_detail_id;
+    }
+
+    public void setPurchase_detail_id(String purchase_detail_id) {
+        this.purchase_detail_id = purchase_detail_id;
+    }
 
     public String getPurchase_note_id() {
         return purchase_note_id;
@@ -34,43 +75,43 @@ public class CG002 {
         this.product_id = product_id;
     }
 
-    public String getRepority_id() {
-        return repority_id;
+    public String getRepository_id() {
+        return repository_id;
     }
 
-    public void setRepority_id(String repority_id) {
-        this.repority_id = repority_id;
+    public void setRepository_id(String repository_id) {
+        this.repository_id = repository_id;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
-    public double getUnit_price() {
+    public Double getUnit_price() {
         return unit_price;
     }
 
-    public void setUnit_price(double unit_price) {
+    public void setUnit_price(Double unit_price) {
         this.unit_price = unit_price;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
-    public double getInvoice_balance() {
+    public Double getInvoice_balance() {
         return invoice_balance;
     }
 
-    public void setInvoice_balance(double invoice_balance) {
+    public void setInvoice_balance(Double invoice_balance) {
         this.invoice_balance = invoice_balance;
     }
 
@@ -82,11 +123,11 @@ public class CG002 {
         this.barcode = barcode;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -98,11 +139,11 @@ public class CG002 {
         this.comment = comment;
     }
 
-    public int getFreeuse1() {
+    public Integer getFreeuse1() {
         return freeuse1;
     }
 
-    public void setFreeuse1(int freeuse1) {
+    public void setFreeuse1(Integer freeuse1) {
         this.freeuse1 = freeuse1;
     }
 
@@ -120,13 +161,5 @@ public class CG002 {
 
     public void setFreeuse3(Date freeuse3) {
         this.freeuse3 = freeuse3;
-    }
-
-    public String getPurchase_detail_id() {
-        return purchase_detail_id;
-    }
-
-    public void setPurchase_detail_id(String purchase_detail_id) {
-        this.purchase_detail_id = purchase_detail_id;
     }
 }
