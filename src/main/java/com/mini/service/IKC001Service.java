@@ -9,5 +9,5 @@ public interface IKC001Service {
     KC001[] selectKC001(Map param);
     void updateKC001(KC001 one);
     void insertKC001(KC001 one);
-    void deleteKC001(String product_id);
+    void deleteKC001(Map param);
 }

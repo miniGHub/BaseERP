@@ -10,7 +10,7 @@ CREATE TABLE KC002 (
   freeuse1 int,
   freeuse2 varchar(255),
   freeuse3 datetime,
-  PRIMARY KEY (product_id)
+  PRIMARY KEY (product_id, repository_id, purchase_note_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 INSERT INTO KC002 (product_id, repository_id, in_date, amount, purchase_note_id)
 VALUES ('a-0002', 'shenyang', '2019-01-02 12:30:30', 200, 'JH-2018-12-30-0001'),

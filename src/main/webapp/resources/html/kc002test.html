@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KC002 test</title>
+</head>
+<script>
+    function showKC002() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+            }
+        }
+        console.log("call showKC002");
+        xmlhttp.open("POST","../../kc002/showKC002.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-2018-12-30-0001"});
+        xmlhttp.send(data);
+    }
+    function deleteKC002() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showKC002();
+            }
+        }
+        console.log("call deleteKC002");
+        xmlhttp.open("POST","../../kc002/deleteKC002.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-2018-12-30-0001"});
+        xmlhttp.send(data);
+    }
+    function insertKC002() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showKC002();
+            }
+        }
+        console.log("call insertKC002");
+        xmlhttp.open("POST","../../kc002/insertKC002.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify([{
+            "purchase_note_id":"LC-2018-12-30-0001",
+            "product_id":"d-0001",
+            "repository_id":"shenyang",
+            "amount":234
+        },{
+            "purchase_note_id":"LC-2018-12-30-0001",
+            "product_id":"e-0001",
+            "repository_id":"shenyang",
+            "amount":222
+        },{
+            "purchase_note_id":"LC-2018-12-30-0001",
+            "product_id":"f-0001",
+            "repository_id":"shenyang",
+            "amount":666
+        }]);
+        xmlhttp.send(data);
+    }
+    function updateKC002() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showKC002();
+            }
+        }
+        console.log("call updateKC002");
+        xmlhttp.open("POST","../../kc002/updateKC002.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({
+            "purchase_note_id":"LC-2018-12-30-0001",
+            "product_id":"d-0001",
+            "repository_id":"shenyang",
+            "amount":110
+        });
+        xmlhttp.send(data);
+    }
+    function back2home() {
+        location.href="../../login.html";
+    }
+</script>
+
+<body>
+<p id="test">KC002 TEST</p>
+<button type="button" onclick="insertKC002()">insert test</button>
+<button type="button" onclick="updateKC002()">update test</button>
+<button type="button" onclick="deleteKC002()">delete test</button>
+<button type="button" onclick="back2home()">back to home</button>
+<div id="helloWorldPanel"></div>
+</body>
+</html>

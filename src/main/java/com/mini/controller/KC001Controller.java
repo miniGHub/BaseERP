@@ -1,6 +1,8 @@
 package com.mini.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mini.HttpBody;
 import com.mini.model.KC001;
 import com.mini.service.IKC001Service;
 import org.springframework.stereotype.Controller;
@@ -24,11 +26,9 @@ public class KC001Controller {
     public void selectKC001(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String product_id = request.getParameter("product_id");
-        Map param = new HashMap();
-        if (product_id != null) {
-            param.put("product_id", product_id);
-        }
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("showKC001(): receive request "+jsondata.toJSONString());
+        Map param = jsondata.getInnerMap();
         KC001[] kc001 = this.KC001Service.selectKC001(param);
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(kc001));
@@ -36,13 +36,13 @@ public class KC001Controller {
     }
 
     @RequestMapping("/deleteKC001.do")
-    public void deleteCG002(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void deleteKC001(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String product_id = request.getParameter("product_id");
-        this.KC001Service.deleteKC001(product_id);
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("deleteKC001(): receive request "+jsondata.toJSONString());
+        Map param = jsondata.getInnerMap();
+        this.KC001Service.deleteKC001(param);
         response.getWriter().close();
     }
 
@@ -50,24 +50,21 @@ public class KC001Controller {
     public void updateKC001(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        KC001 one = new KC001();
-        one.setProduct_id(request.getParameter("product_id"));
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("updateKC001(): receive request "+jsondata.toJSONString());
+        KC001 one = new KC001(jsondata);
         this.KC001Service.updateKC001(one);
-//        ...
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
         response.getWriter().close();
     }
 
     @RequestMapping("/insertKC001.do")
-    public void insertCG002(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void insertKC001(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        KC001 one = new KC001();
-        one.setProduct_id(request.getParameter("product_id"));
+        JSONObject jsondata = HttpBody.getRequestJson(request);
+        System.out.println("insertKC001(): receive request "+jsondata.toJSONString());
+        KC001 one = new KC001(jsondata);
         this.KC001Service.insertKC001(one);
-//        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().write(mapper.writeValueAsString(cg001));
         response.getWriter().close();
     }
 }

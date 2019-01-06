@@ -34,8 +34,8 @@ public class KC001ServiceImpl implements IKC001Service {
     }
 
     @Override
-    public void deleteKC001(String product_id) {
-        this.KC001Dao.deleteKC001(product_id);
-        this.KC002Dao.deleteKC002(product_id);
+    public void deleteKC001(Map param) {
+        this.KC001Dao.deleteKC001(param);
+        this.KC002Dao.deleteKC002(param);
     }
 }

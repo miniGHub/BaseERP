@@ -8,25 +8,33 @@
         SELECT * FROM KC001
         <where>
             <if test="product_id != null">
-                product_id = #{product_id},
+                product_id = #{product_id}
             </if>
             <if test="repository_id != null">
-                repository_id = #{repository_id},
+                and repository_id = #{repository_id}
             </if>
             <if test="freeuse1 != null">
-                freeuse1 = #{freeuse1},
+                and freeuse1 = #{freeuse1}
             </if>
             <if test="freeuse2 != null">
-                freeuse2 = #{freeuse2},
+                and freeuse2 = #{freeuse2}
             </if>
             <if test="freeuse3 != null">
-                freeuse3 = #{freeuse3},
+                and freeuse3 = #{freeuse3}
             </if>
         </where>
     </select>
 
-    <delete id="deleteKC001" parameterType="com.mini.model.KC001">
-        DELETE FROM KC001 WHERE product_id = #{product_id}
+    <delete id="deleteKC001" parameterType="Map">
+        DELETE FROM KC001
+        <where>
+            <if test="product_id != null">
+                product_id = #{product_id}
+            </if>
+            <if test="repository_id != null">
+                and repository_id = #{repository_id}
+            </if>
+        </where>
     </delete>
 
     <insert id="insertKC001" parameterType="com.mini.model.KC001" flushCache="true">

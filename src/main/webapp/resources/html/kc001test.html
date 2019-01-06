@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KC001 test</title>
+</head>
+<script>
+    function showKC001() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+            }
+        }
+        console.log("call showKC001");
+        xmlhttp.open("POST","../../kc001/showKC001.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"product_id":"d-0001","repository_id":"shenyang"});
+        xmlhttp.send(data);
+    }
+    function deleteKC001() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showKC001();
+            }
+        }
+        console.log("call deleteKC001");
+        xmlhttp.open("POST","../../kc001/deleteKC001.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"product_id":"d-0001"});
+        xmlhttp.send(data);
+    }
+    function insertKC001() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showKC001();
+            }
+        }
+        console.log("call insertKC001");
+        xmlhttp.open("POST","../../kc001/insertKC001.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({
+            "product_id":"d-0001",
+            "repository_id":"shenyang",
+            "amount":234
+        });
+        xmlhttp.send(data);
+    }
+    function updateKC001() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+                showKC001();
+            }
+        }
+        console.log("call updateKC001");
+        xmlhttp.open("POST","../../kc001/updateKC001.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({
+            "product_id":"d-0001",
+            "repository_id":"shenyang",
+            "amount":333
+        });
+        xmlhttp.send(data);
+    }
+    function back2home() {
+        location.href="../../login.html";
+    }
+</script>
+
+<body>
+<p id="test">KC001 TEST</p>
+<button type="button" onclick="insertKC001()">insert test</button>
+<button type="button" onclick="updateKC001()">update test</button>
+<button type="button" onclick="deleteKC001()">delete test</button>
+<button type="button" onclick="back2home()">back to home</button>
+<div id="helloWorldPanel"></div>
+</body>
+</html>
