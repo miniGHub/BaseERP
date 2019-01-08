@@ -38,4 +38,9 @@ public class KC001ServiceImpl implements IKC001Service {
         this.KC001Dao.deleteKC001(param);
         this.KC002Dao.deleteKC002(param);
     }
+
+    @Override
+    public void addKC001Amount(Map param) {
+        this.KC001Dao.addKC001Amount(param);
+    }
 }

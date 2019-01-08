@@ -9,4 +9,5 @@ public interface IKC001Dao {
     void updateKC001(KC001 one);
     void insertKC001(KC001 one);
     void deleteKC001(Map param);
+    void addKC001Amount(Map param);
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KC001 test</title>
+</head>
+<script>
+    function CGtoKCtest() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            console.log("state: "+xmlhttp.readyState+", status: "+xmlhttp.status+", result: "+xmlhttp.responseText);
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("test").innerHTML = xmlhttp.responseText;
+            }
+        }
+        console.log("call showKC001");
+        xmlhttp.open("POST","../../conversion/CGtoKC.do",true);
+        xmlhttp.setRequestHeader("Content-Type","application/json");
+        var data=JSON.stringify({"purchase_note_id":"LC-20181230-0002"});
+        xmlhttp.send(data);
+    }
+    function back2home() {
+        location.href="../../login.html";
+    }
+</script>
+
+<body>
+<p id="test">CGtoKC TEST</p>
+<button type="button" onclick="CGtoKCtest()">insert test</button>
+<button type="button" onclick="back2home()">back to home</button>
+<div id="helloWorldPanel"></div>
+</body>
+</html>

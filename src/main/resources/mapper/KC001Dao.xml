@@ -61,4 +61,7 @@
         WHERE product_id = #{product_id} and repository_id = #{repository_id}
     </update>
 
+    <delete id="addKC001Amount" parameterType="Map">
+        UPDATE KC001 SET amount = amount + #{amount} WHERE product_id = #{product_id} and repository_id = #{repository_id}
+    </delete>
 </mapper>
