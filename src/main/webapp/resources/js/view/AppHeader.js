@@ -1,0 +1,10 @@
+Ext.define('AppIndex.view.AppHeader',{
+    extend:'Ext.Container',
+    xtype:'app_header',
+    height:52,
+    layout:{type:'hbox',align:'middle'},
+    items:[
+        {xtype:'component',html:'<h2>XX系统</h2>'},
+        {xtype:'component',html:'ExtJs实例',flex:1}
+    ]
+});

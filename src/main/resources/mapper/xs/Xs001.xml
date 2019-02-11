@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.xs.IXs001">
+
+    <select id="SelectSalesOrderNoteDetail" resultType="XS001" parameterType="String">
+        select * from XS001 where client_id = #{salesOrderNoteId}
+    </select>
+
+    <insert id="InsertSalesOrderNoteDetail" parameterType="com.mini.model.xs.XS001">
+        insert into XS001
+        values
+        (
+          #{xs001.sales_order_note_id}, #{xs001.client_id}, #{xs001.repository_id}, #{xs001.entry_date},
+          #{xs001.delivery_date}, #{xs001.note_status}, #{xs001.operator_id}, #{xs001.depart_id},
+          #{xs001.remark}, #{xs001.addition}, #{xs001.freeuse1}, #{xs001.freeuse2},#{xs001.freeuse3}
+        )
+    </insert>
+</mapper>

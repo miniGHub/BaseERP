@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.dic.IDicProduct">
+
+    <select id="SelectAll" resultType="DIC_PRODUCT">
+        SELECT * FROM DIC_PRODUCT
+    </select>
+
+    <select id="SelectName" resultType="String" parameterType="int">
+        SELECT * FROM DIC_PRODUCT WHERE product_type = #{product_type}
+    </select>
+
+</mapper>

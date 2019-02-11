@@ -1,0 +1,33 @@
+Ext.define('AppIndex.view.AppHome',{
+    extend:'Ext.container.Container',
+    xtype:'app_home',
+    controller:'home',
+    requires:['AppIndex.controller.AppHomeController',
+        'AppIndex.view.AppHeader',
+        'AppIndex.view.AppNavigation',
+        'AppIndex.view.AppCenter',
+        'AppIndex.view.SalesOrderNoteView',
+        'AppIndex.view.SalesNoteView',
+        'AppIndex.view.PurchaseNoteView'
+    ],
+
+    layout:{
+        type:'border'
+    },
+
+    items:[
+        {
+            region:'north',
+            xtype:'app_header'
+        },
+        {
+            region:'west',
+            xtype:'app_navigation',
+            title:'导航栏'
+        },
+        {
+            region:'center',
+            xtype:'app_center',
+        }
+    ]
+});
