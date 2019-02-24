@@ -4,14 +4,14 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.xs.IXs002">
 
-    <select id="SelectSalesOrderNoteProductDetail" resultType="XS002" parameterType="String">
-        select * from XS002 where client_id = #{salesOrderNoteId}
+    <select id="SelectSalesOrderNoteProductDetail" resultType="com.mini.model.xs.XS002" parameterType="String">
+        select * from XS002 where sales_order_note_id = #{salesOrderNoteId}
     </select>
 
     <insert id="InsertSalesOrderNoteProductDetail" parameterType="java.util.List">
         insert into XS002
         values
-        <foreach collection="list" item="XS002" separator="," index="index">
+        <foreach collection="list" item="com.mini.model.xs.XS002" separator="," index="index">
             (
             #{XS002.sales_order_note_id}, #{XS002.batch_id}, #{XS002.product_id}, #{XS002.client_id},
             #{XS002.amount}, #{XS002.unit_price}, #{XS002.balance}, #{XS002.discount},
