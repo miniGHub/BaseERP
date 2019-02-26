@@ -31,6 +31,12 @@ Ext.define("AppIndex.view.AppNavigation",{
                     children: [
                         {text:"进货单", id: "app_purchase_note_view", leaf: true}
                     ]
+                },
+                {
+                    text: "库存",
+                    children: [
+                        {text:"入库单", id: "app_storage_in_view", leaf: true}
+                    ]
                 }
             ]
             /*

@@ -14,7 +14,7 @@ Ext.define('AppIndex.store.SendStore', {
             'Content-Type': 'application/json'
         },
         paramsAsJson:true,
-        url : 'http://localhost:8080/BasePSS/',
+        url : 'http://localhost:8080/',
         extraParams:{},
     },
     autoLoad: false

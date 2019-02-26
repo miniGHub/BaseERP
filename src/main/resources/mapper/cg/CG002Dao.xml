@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为ICG002Dao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.cg.ICG002Dao">
+
+    <select id="selectCG002" resultType="com.mini.model.cg.CG002" parameterType="java.lang.String">
+        SELECT * FROM CG002 WHERE purchase_note_id = #{purchase_note_id}
+    </select>
+
+    <delete id="deleteCG002" parameterType="String">
+        DELETE FROM CG002 WHERE purchase_note_id = #{purchase_note_id}
+    </delete>
+
+    <insert id="insertCG002" parameterType="com.mini.model.cg.CG002" flushCache="true">
+        INSERT INTO CG002 (purchase_note_id, product_id, repository_id, amount, unit_price, balance, invoice_balance, barcode, state, comment, freeuse1, freeuse2, freeuse3) VALUES
+        <foreach item="item" collection="list" separator=",">
+            (#{item.purchase_note_id}, #{item.product_id}, #{item.repository_id}, #{item.amount}, #{item.unit_price}, #{item.balance}, #{item.invoice_balance}, #{item.barcode}, #{item.state}, #{item.comment}, #{item.freeuse1}, #{item.freeuse2}, #{item.freeuse3})
+        </foreach>
+    </insert>
+
+    <update id="updateCG002" parameterType="com.mini.model.cg.CG002" flushCache="true">
+        UPDATE CG002
+        <set>
+            <if test="product_id != null">
+                product_id = #{product_id},
+            </if>
+            <if test="repository_id != null">
+                repository_id = #{repository_id},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="unit_price != null">
+                unit_price = #{unit_price},
+            </if>
+            <if test="balance != null">
+                balance = #{balance},
+            </if>
+            <if test="invoice_balance != null">
+                invoice_balance = #{invoice_balance},
+            </if>
+            <if test="barcode != null">
+                barcode = #{barcode},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="comment != null">
+                comment = #{comment},
+            </if>
+            <if test="freeuse1 != null">
+                freeuse1 = #{freeuse1},
+            </if>
+            <if test="freeuse2 != null">
+                freeuse2 = #{freeuse2},
+            </if>
+            <if test="freeuse3 != null">
+                freeuse3 = #{freeuse3},
+            </if>
+        </set>
+        WHERE purchase_detail_id = #{purchase_detail_id}
+    </update>
+
+</mapper>

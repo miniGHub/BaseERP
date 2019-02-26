@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为ICG001Dao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.cg.ICG001Dao">
+
+    <select id="selectCG001" resultType="com.mini.model.cg.CG001" parameterType="Map">
+        SELECT * FROM CG001
+        <where>
+            <if test="purchase_note_id != null">
+                purchase_note_id = #{purchase_note_id}
+            </if>
+            <if test="sales_order_note_id != null">
+                and sales_order_note_id = #{sales_order_note_id}
+            </if>
+            <if test="supplier_id != null">
+                and supplier_id = #{supplier_id}
+            </if>
+            <if test="repository_id != null">
+                and repository_id = #{repository_id}
+            </if>
+            <if test="operator_id != null">
+                and operator_id = #{operator_id}
+            </if>
+            <if test="depart_id != null">
+                and depart_id = #{depart_id}
+            </if>
+            <if test="entry_date_from != null">
+                and entry_date &gt;= #{entry_date_from}
+            </if>
+            <if test="entry_date_to != null">
+                and entry_date &lt;= #{entry_date_to}
+            </if>
+            <if test="pay_date_from != null">
+                and pay_date &gt;= #{pay_date_from}
+            </if>
+            <if test="pay_date_to != null">
+                and pay_date &lt;= #{pay_date_to}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteCG001" parameterType="com.mini.model.cg.CG001">
+        DELETE FROM CG001 WHERE purchase_note_id = #{purchase_note_id}
+    </delete>
+
+    <insert id="insertCG001" parameterType="com.mini.model.cg.CG001" flushCache="true">
+        INSERT INTO CG001 (purchase_note_id, sales_order_note_id, supplier_id, repository_id, entry_date, pay_date, pay_id, pay_balance, contact_id, contact_pay_id, contact_pay_balance, discount_balance, operator_id, depart_id, remark, addition, freeuse1, freeuse2, freeuse3)
+        VALUES (#{purchase_note_id}, #{sales_order_note_id}, #{supplier_id}, #{repository_id}, #{entry_date}, #{pay_date}, #{pay_id}, #{pay_balance}, #{contact_id}, #{contact_pay_id}, #{contact_pay_balance}, #{discount_balance}, #{operator_id}, #{depart_id}, #{remark}, #{addition}, #{freeuse1}, #{freeuse2}, #{freeuse3})
+    </insert>
+
+    <update id="updateCG001" parameterType="com.mini.model.cg.CG001" flushCache="true">
+        UPDATE CG001
+        <set>
+            <if test="sales_order_note_id != null">
+                sales_order_note_id = #{sales_order_note_id},
+            </if>
+            <if test="supplier_id != null">
+                supplier_id = #{supplier_id},
+            </if>
+            <if test="repository_id != null">
+                repository_id = #{repository_id},
+            </if>
+            <if test="entry_date != null">
+                entry_date = #{entry_date},
+            </if>
+            <if test="pay_date != null">
+                pay_date = #{pay_date},
+            </if>
+            <if test="pay_id != null">
+                pay_id = #{pay_id},
+            </if>
+            <if test="pay_balance != null">
+                pay_balance = #{pay_balance},
+            </if>
+            <if test="contact_id != null">
+                contact_id = #{contact_id},
+            </if>
+            <if test="contact_pay_id != null">
+                contact_pay_id = #{contact_pay_id},
+            </if>
+            <if test="contact_pay_balance != null">
+                contact_pay_balance = #{contact_pay_balance},
+            </if>
+            <if test="discount_balance != null">
+                discount_balance = #{discount_balance},
+            </if>
+            <if test="operator_id != null">
+                operator_id = #{operator_id},
+            </if>
+            <if test="depart_id != null">
+                depart_id = #{depart_id},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="addition != null">
+                addtion = #{addition},
+            </if>
+        </set>
+        WHERE purchase_note_id = #{purchase_note_id}
+    </update>
+
+    <select id="countPurchaseNoteIdLike" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(purchase_note_id) FROM CG001 where purchase_note_id like #{purchase_note_id_like}
+    </select>
+</mapper>

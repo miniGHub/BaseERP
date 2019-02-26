@@ -4,8 +4,12 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.xs.IXs001">
 
-    <select id="SelectSalesOrderNoteDetail" resultType="XS001" parameterType="String">
-        select * from XS001 where client_id = #{salesOrderNoteId}
+    <select id="SelectUnsolvedSalesOrder" resultType="com.mini.model.UnsolvedSalesOrder">
+        select sales_order_note_id from XS001 where note_status = '0'
+    </select>
+
+    <select id="SelectSalesOrderNoteDetail" resultType="com.mini.model.xs.XS001" parameterType="String">
+        select * from XS001 where sales_order_note_id = #{salesOrderNoteId}
     </select>
 
     <insert id="InsertSalesOrderNoteDetail" parameterType="com.mini.model.xs.XS001">
@@ -17,4 +21,8 @@
           #{xs001.remark}, #{xs001.addition}, #{xs001.freeuse1}, #{xs001.freeuse2},#{xs001.freeuse3}
         )
     </insert>
+
+    <update id="UpdateSalesOrderStatus" parameterType="Map">
+        update XS001 set note_status=#{note_status} where sales_order_note_id = #{sales_order_note_id}
+    </update>
 </mapper>

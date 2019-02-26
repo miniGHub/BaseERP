@@ -3,6 +3,7 @@ package com.mini.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.model.ResponseCode;
 import com.mini.model.SalesOrderNote;
+import com.mini.model.UnsolvedSalesOrder;
 import com.mini.model.xs.XS001;
 import com.mini.service.IXsService;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,22 @@ public class XsController {
     public void GetSaleOrderNote(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String id = "";
+        String id = request.getParameter("Sales_order_note_id");
         XS001 xs001 = mXsService.GetSalesOrderNote(id);
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(xs001));
+        response.getWriter().close();
+    }
+
+    @RequestMapping("/UnsolvedSalesOrder")
+    public void UnsolvedSalesOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        System.out.println("UnsolvedSalesOrder() come in");
+        UnsolvedSalesOrder[] ids = mXsService.GetUnsolvedSalesOrder();
+        System.out.println("get size: " + ids.length);
+        ObjectMapper mapper = new ObjectMapper();
+        response.getWriter().write(mapper.writeValueAsString(ids));
         response.getWriter().close();
     }
 

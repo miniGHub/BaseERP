@@ -8,7 +8,8 @@ Ext.define('AppIndex.view.AppHome',{
         'AppIndex.view.AppCenter',
         'AppIndex.view.SalesOrderNoteView',
         'AppIndex.view.SalesNoteView',
-        'AppIndex.view.PurchaseNoteView'
+        'AppIndex.view.PurchaseNoteView',
+        'AppIndex.view.StorageInView'
     ],
 
     layout:{
