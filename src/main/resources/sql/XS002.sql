@@ -1,0 +1,21 @@
+CREATE TABLE `XS002` (
+  `sales_order_note_id` varchar(50) NOT NULL COMMENT '销售订单单据编号',
+  `batch_id` varchar(50) COMMENT '批号',
+  `product_id` varchar(10) COMMENT '商品编号',
+  `client_id` varchar(10) COMMENT '客户编号',
+  `amount` int COMMENT '数量',
+  `unit_price` double COMMENT '单价',
+  `balance` double COMMENT '金额（总价）',
+  `discount` double COMMENT '折扣',
+  `discount_unit_price` double COMMENT '折后单价',
+  `discount_balance` double COMMENT '折后金额',
+  `rate` double COMMENT '税率',
+  `rate_balance` double COMMENT '含税金额',
+  `barcode` varchar(50) COMMENT '条码',
+  `state` int COMMENT '状态',
+  `comment` varchar(255) COMMENT '备用',
+  `freeuse1` int COMMENT '备用1',
+  `freeuse2` varchar(255) COMMENT '备用2',
+  `freeuse3` date COMMENT '备用3',
+  KEY idx_sales_order_note_id (sales_order_note_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -2,6 +2,10 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
     extend: 'Ext.form.Panel',
     xtype:'app_purchase_note_view_form',
 
+    requires: [
+        'AppIndex.store.GetSalesOrderNoteApprovalingStore'
+    ],
+
     border:false,
     layout: 'anchor',
     reference: 'form', //指定组件层级
@@ -41,17 +45,7 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
             triggerAction : 'all',
             selectOnFocus : true,
             store: {
-                fields: ['sales_order_note_id'],
-                proxy: {
-                    type : 'ajax',
-                    headers: {"Accept": 'application/json', 'Content-Type': 'application/json'},
-                    reader : {
-                        type : 'json'
-                    },
-                    url : 'http://localhost:8080/xs/UnsolvedSalesOrder',
-                    noCache:false
-                },
-                autoLoad: true
+                type:'get_sales_order_note_approvaling_store'
             },
             queryMode : 'local',
 //            anchor : '100%',

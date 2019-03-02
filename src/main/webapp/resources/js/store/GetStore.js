@@ -9,7 +9,7 @@ Ext.define('AppIndex.store.GetStore', {
             type : 'json'
         },
 //        paramsAsJson:true,
-        url : 'http://localhost:8080/',
+        url : 'http://localhost:8080/BasePSS/',
         extraParams:{},
         noCache:false
     },

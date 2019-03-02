@@ -33,7 +33,6 @@ Ext.define('AppIndex.controller.SalesOrderNoteController',{
         var sendStore = Ext.create('AppIndex.store.SendStore');
         sendStore.proxy.url += 'xs/SubmitSalesOrderNote';
         sendStore.proxy.extraParams =  sendParam;
-        // sendStore.proxy.extraParams = test;
         // console.log(sendStore.proxy.url);
         sendStore.load({
             scope:this,
