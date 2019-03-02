@@ -4,21 +4,21 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.xs.IXs001">
 
-    <select id="SelectUnsolvedSalesOrder" resultType="com.mini.model.UnsolvedSalesOrder">
-        select sales_order_note_id from XS001 where note_status = '0'
+    <select id="SelectSalesOrderNoteDetail" resultType="com.mini.model.xs.XS001" parameterType="String">
+        select * from XS001 where sales_order_note_id = #{salesOrderNoteId};
     </select>
 
-    <select id="SelectSalesOrderNoteDetail" resultType="com.mini.model.xs.XS001" parameterType="String">
-        select * from XS001 where sales_order_note_id = #{salesOrderNoteId}
+    <select id="SelectSalesOrderNoteApprovaling" resultType="String">
+        select sales_order_note_id from XS001 where note_status = 0;
     </select>
 
     <insert id="InsertSalesOrderNoteDetail" parameterType="com.mini.model.xs.XS001">
         insert into XS001
         values
         (
-          #{xs001.sales_order_note_id}, #{xs001.client_id}, #{xs001.repository_id}, #{xs001.entry_date},
-          #{xs001.delivery_date}, #{xs001.note_status}, #{xs001.operator_id}, #{xs001.depart_id},
-          #{xs001.remark}, #{xs001.addition}, #{xs001.freeuse1}, #{xs001.freeuse2},#{xs001.freeuse3}
+          #{sales_order_note_id}, #{client_id}, #{repository_id}, #{entry_date},
+          #{delivery_date}, #{note_status}, #{operator_id}, #{depart_id},
+          #{remark}, #{addition}, #{freeuse1}, #{freeuse2},#{freeuse3}
         )
     </insert>
 

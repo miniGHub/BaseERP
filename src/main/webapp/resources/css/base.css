@@ -46,3 +46,11 @@ body {
     float:left;
     background-color: #9cc9e9;
  }
+
+.icon_add {
+    background-image: url('./images/icons/fam/add.png');
+}
+
+.icon_modify {
+    background-image: url('./images/icons/fam/page_white_edit.png');
+}

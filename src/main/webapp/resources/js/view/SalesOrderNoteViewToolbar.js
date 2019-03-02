@@ -5,12 +5,12 @@ Ext.define('AppIndex.view.SalesOrderNoteViewToolbar',{
     items:[
         {
             text:'提交',
-            //iconCls:'x-fa fa-plus',
+            iconCls: 'icon_add',
             handler: 'SalesOrderNoteSubmit'
         },
         {
             text:'修改',
-            //iconCls:'x-fa fa-plus',
+            iconCls:'icon_modify',
             handler: 'SalesOrderNoteModify'
         },
         {

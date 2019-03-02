@@ -2,12 +2,13 @@ package com.mini.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.model.PurchaseOrderNote;
-import com.mini.model.ResponseCode;
 import com.mini.model.cg.CG001;
 import com.mini.model.cg.CG002;
+import com.mini.model.response.ResponseCode;
 import com.mini.model.xs.XS001;
 import com.mini.model.xs.XS002;
-import com.mini.service.*;
+import com.mini.service.ICgService;
+import com.mini.service.IXsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,16 +20,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cg")
 public class CgController {
-    @Resource
-    private ICG001Service mCG001Service;
 
     @Resource
-    private ICG002Service mCG002Service;
+    private ICgService mCgService;
 
     @Resource
     private IXsService mXsService;
@@ -36,10 +37,10 @@ public class CgController {
     private String generatePurchaseNoteId() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String id_prefix = "JH-"+df.format(new Date())+"-";
-        int amount = mCG001Service.countTodayItems(id_prefix+"%");
+        int amount = mCgService.countTodayItems(id_prefix+"%");
         return String.format("%s%04d", id_prefix, amount+1);
     }
-
+    
     @RequestMapping("/LoadBaseFromSalesOrder")
     public void LoadBaseFromSalesOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
@@ -95,9 +96,9 @@ public class CgController {
         CG001 cg001 = purchaseOrderNote.getForm();
         List<CG002> cg002s = purchaseOrderNote.getGrid();
         System.out.println("SubmitPurchaseNote(): save cg001");
-        if (mCG001Service.insertCG001(cg001) == 1) {
+        if (mCgService.insertCG001(cg001) == 1) {
             System.out.println("SubmitPurchaseNote(): save cg002 amount "+cg002s.size());
-            if (mCG002Service.insertCG002(cg002s) == cg002s.size()) {
+            if (mCgService.insertCG002(cg002s) == cg002s.size()) {
                 String sales_order_note_id = cg001.getSales_order_note_id();
                 HashMap<String, Object> param = new HashMap<>();
                 param.put("sales_order_note_id", sales_order_note_id);

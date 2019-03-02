@@ -1,12 +1,15 @@
 CREATE TABLE KC001 (
-  product_id varchar(50) NOT NULL,
-  repository_id varchar(50) NOT NULL,
+  product_id varchar(50),
+  repository_id varchar(50),
   amount int,
   freeuse1 int,
   freeuse2 varchar(255),
-  freeuse3 datetime,
-  PRIMARY KEY (product_id, repository_id)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  freeuse3 date,
+  PRIMARY KEY (product_id, repository_id),
+  KEY idx_product_id (product_id),
+  KEY idx_repository_id (repository_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 INSERT INTO KC001 (product_id, repository_id, amount)
 VALUES ('a-0002', 'shenyang', 0),
 ('b-0001', 'shenyang', 0),

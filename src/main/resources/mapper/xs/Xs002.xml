@@ -11,13 +11,13 @@
     <insert id="InsertSalesOrderNoteProductDetail" parameterType="java.util.List">
         insert into XS002
         values
-        <foreach collection="list" item="com.mini.model.xs.XS002" separator="," index="index">
+        <foreach collection="list" item="xs002" separator="," index="index">
             (
-            #{XS002.sales_order_note_id}, #{XS002.batch_id}, #{XS002.product_id}, #{XS002.client_id},
-            #{XS002.amount}, #{XS002.unit_price}, #{XS002.balance}, #{XS002.discount},
-            #{XS002.discount_unit_price}, #{XS002.discount_balance}, #{XS002.rate},#{XS002.rate_balance},
-            #{XS002.barcode}, #{XS002.rate}, #{XS002.comment}, #{XS002.freeuse1},
-            #{XS002.freeuse2}, #{XS002.freeuse3}
+            #{xs002.sales_order_note_id}, #{xs002.batch_id}, #{xs002.product_id}, #{xs002.client_id},
+            #{xs002.amount}, #{xs002.unit_price}, #{xs002.balance}, #{xs002.discount},
+            #{xs002.discount_unit_price}, #{xs002.discount_balance}, #{xs002.rate},#{xs002.rate_balance},
+            #{xs002.barcode}, #{xs002.rate}, #{xs002.comment}, #{xs002.freeuse1},
+            #{xs002.freeuse2}, #{xs002.freeuse3}
             )
         </foreach>
     </insert>
