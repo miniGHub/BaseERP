@@ -4,12 +4,26 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.dic.IDicProduct">
 
-    <select id="SelectAll" resultType="DIC_PRODUCT">
-        SELECT * FROM DIC_PRODUCT
+    <select id="SelectAllProduct" resultType="DIC_PRODUCT">
+        SELECT * FROM DIC_PRODUCT ORDER BY product_type;
     </select>
 
-    <select id="SelectName" resultType="String" parameterType="int">
-        SELECT * FROM DIC_PRODUCT WHERE product_type = #{product_type}
+    <select id="SelectProduct" resultType="DIC_PRODUCT" parameterType="int">
+        SELECT * FROM DIC_PRODUCT WHERE product_type = #{productType};
     </select>
+
+    <insert id="InsertProduct" parameterType="java.util.List">
+        insert into DIC_PRODUCT
+        values
+        <foreach collection="list" item="product" index="index" separator=",">
+            (
+            #{product.product_type}, #{product.product_name}, #{product.freeuse1}, #{product.freeuse2}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="DeleteProduct">
+        delete from DIC_PRODUCT;
+    </delete>
 
 </mapper>

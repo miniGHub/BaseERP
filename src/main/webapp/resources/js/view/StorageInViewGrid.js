@@ -38,7 +38,12 @@ Ext.define('AppIndex.view.StorageInViewGrid', {
     }],
     plugins:[
         Ext.create('Ext.grid.plugin.CellEditing',{
-            clicksToEdit:1 //设置单击单元格编辑
+            id:'storage_in_cell_editing',
+            clicksToEdit:1,
+            destroy: function() {
+                console.log('storage in destroy');
+                this.fireEvent('beforedestroy', this);
+            }
         })
     ],
     columns: [

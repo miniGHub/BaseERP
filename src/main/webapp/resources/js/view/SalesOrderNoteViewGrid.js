@@ -38,7 +38,12 @@ Ext.define('AppIndex.view.SalesOrderNoteViewGrid', {
     }],
     plugins:[
         Ext.create('Ext.grid.plugin.CellEditing',{
-            clicksToEdit:1 //设置单击单元格编辑
+            id:'sales_order_note_cell_editing',
+            clicksToEdit:1,
+            destroy: function() {
+                console.log('sales order note destroy');
+                this.fireEvent('beforedestroy', this);
+            }
         })
     ],
     columns: [
@@ -56,6 +61,6 @@ Ext.define('AppIndex.view.SalesOrderNoteViewGrid', {
         { text: '含税金额', dataIndex: 'rate_balance', editor: 'textfield'},
         { text: '条码', dataIndex: 'barcode', editor: 'textfield'},
         { text: '状态', dataIndex: 'state', editor: 'textfield'},
-        { text: '备注', dataIndex: 'comment', editor: 'textfield', flex:1}
+        { text: '备注', dataIndex: 'comment', editor: 'textfield'}
     ],
 });

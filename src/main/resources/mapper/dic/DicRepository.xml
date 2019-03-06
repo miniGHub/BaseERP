@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.dic.IDicRepository">
+
+    <select id="SelectAllRepository" resultType="DIC_REPOSITORY">
+        SELECT * FROM DIC_REPOSITORY ORDER BY repository_type;
+    </select>
+
+    <select id="SelectRepository" resultType="DIC_REPOSITORY" parameterType="int">
+        SELECT * FROM DIC_REPOSITORY WHERE repository_type = #{repositoryType};
+    </select>
+
+    <insert id="InsertRepository" parameterType="java.util.List">
+        insert into DIC_REPOSITORY
+        values
+        <foreach collection="list" item="repository" index="index" separator=",">
+            (
+            #{repository.repository_type}, #{repository.repository_name}, #{repository.freeuse1}, #{repository.freeuse2}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="DeleteRepository">
+        delete from DIC_REPOSITORY;
+    </delete>
+
+</mapper>

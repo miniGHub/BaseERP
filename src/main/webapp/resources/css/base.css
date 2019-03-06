@@ -48,9 +48,25 @@ body {
  }
 
 .icon_add {
-    background-image: url('./images/icons/fam/add.png');
+    background-image: url('./images/icons/add.png');
 }
 
-.icon_modify {
-    background-image: url('./images/icons/fam/page_white_edit.png');
+.icon_edit {
+    background-image: url('./images/icons/pencil.png');
+}
+
+.icon_delete {
+    background-image: url('./images/icons/delete.png');
+}
+
+.icon_save {
+    background-image: url('./images/icons/disk.png');
+}
+
+.icon_refresh {
+    background-image: url('./images/icons/arrow_refresh.png');
+}
+
+.icon_printer {
+    background-image: url('./images/icons/printer.png');
 }

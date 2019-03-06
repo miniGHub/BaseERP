@@ -11,7 +11,7 @@
     <insert id="InsertSalesOrderNoteProductDetail" parameterType="java.util.List">
         insert into XS002
         values
-        <foreach collection="list" item="xs002" separator="," index="index">
+        <foreach collection="list" item="xs002" index="index" separator=",">
             (
             #{xs002.sales_order_note_id}, #{xs002.batch_id}, #{xs002.product_id}, #{xs002.client_id},
             #{xs002.amount}, #{xs002.unit_price}, #{xs002.balance}, #{xs002.discount},
