@@ -2,7 +2,11 @@ package com.mini.dao.dic;
 
 import com.mini.model.dic.DIC_DEPART;
 
+import java.util.ArrayList;
+
 public interface IDicDepart {
-    public DIC_DEPART SelectAll();
-    public String SelectName(int departId);
+    ArrayList<DIC_DEPART> SelectAllDepart();
+    DIC_DEPART SelectDepart(int departId);
+    void InsertDepart(ArrayList<DIC_DEPART> depart);
+    void DeleteDepart();
 }

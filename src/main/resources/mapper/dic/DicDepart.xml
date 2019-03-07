@@ -4,12 +4,25 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.dic.IDicDepart">
 
-    <select id="SelectAll" resultType="DIC_DEPART">
-        SELECT * FROM DIC_DEPART
+    <select id="SelectAllDepart" resultType="DIC_DEPART">
+        SELECT * FROM DIC_DEPART ORDER BY depart_id;
     </select>
 
-    <select id="SelectName" resultType="String" parameterType="int">
-        SELECT * FROM DIC_DEPART WHERE depart_id = #{departId}
+    <select id="SelectDepart" resultType="DIC_DEPART" parameterType="int">
+        SELECT * FROM DIC_DEPART WHERE depart_id = #{departId};
     </select>
 
+    <insert id="InsertDepart" parameterType="java.util.List">
+        insert into DIC_DEPART
+        values
+        <foreach collection="list" item="depart" index="index" separator=",">
+            (
+            #{depart.depart_id}, #{depart.depart_name}, #{depart.freeuse1}, #{depart.freeuse2}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="DeleteDepart">
+        delete from DIC_DEPART;
+    </delete>
 </mapper>

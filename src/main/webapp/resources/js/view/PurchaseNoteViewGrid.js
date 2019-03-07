@@ -38,7 +38,12 @@ Ext.define('AppIndex.view.PurchaseNoteViewGrid', {
     }],
     plugins:[
         Ext.create('Ext.grid.plugin.CellEditing',{
-            clicksToEdit:1 //设置单击单元格编辑
+            id:'purchase_note_cell_editing',
+            clicksToEdit:1,
+            destroy: function() {
+                console.log('purchase note destroy');
+                this.fireEvent('beforedestroy', this);
+            }
         })
     ],
     columns: [

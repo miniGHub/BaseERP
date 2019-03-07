@@ -10,12 +10,12 @@ Ext.define('AppIndex.view.SalesOrderNoteViewToolbar',{
         },
         {
             text:'修改',
-            iconCls:'icon_modify',
+            iconCls:'icon_edit',
             handler: 'SalesOrderNoteModify'
         },
         {
             text:'打印',
-            //iconCls:'x-fa fa-plus',
+            iconCls:'icon_printer',
             handler: 'SalesOrderNotePrint'
         }
     ]

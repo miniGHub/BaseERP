@@ -40,7 +40,7 @@
         <!-- 注入数据库连接池 -->
         <property name="dataSource" ref="dataSource"/>
         <!-- 扫描model包 使用别名 -->
-        <property name="typeAliasesPackage" value="com.mini.model.xs;com.mini.model.cg;com.mini.model.info;com.mini.model.dic"/>
+        <property name="typeAliasesPackage" value="com.mini.model.xs;com.mini.model.cg;com.mini.model.kc;com.mini.model.info;com.mini.model.dic"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
         <property name="mapperLocations">
             <list>
@@ -48,6 +48,7 @@
                 <value>classpath:mapper/cg/*.xml</value>
                 <value>classpath:mapper/info/*.xml</value>
                 <value>classpath:mapper/dic/*.xml</value>
+                <value>classpath:mapper/kc/*.xml</value>
             </list>
         </property>
     </bean>

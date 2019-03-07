@@ -2,7 +2,11 @@ package com.mini.dao.dic;
 
 import com.mini.model.dic.DIC_PRODUCT;
 
+import java.util.ArrayList;
+
 public interface IDicProduct {
-    public DIC_PRODUCT SelectAll();
-    public String SelectName(int produtcType);
+    ArrayList<DIC_PRODUCT> SelectAllProduct();
+    DIC_PRODUCT SelectProduct(int productType);
+    void InsertProduct(ArrayList<DIC_PRODUCT> product);
+    void DeleteProduct();
 }

@@ -4,12 +4,13 @@ Ext.define('AppIndex.view.AppHome',{
     controller:'home',
     requires:['AppIndex.controller.AppHomeController',
         'AppIndex.view.AppHeader',
-        'AppIndex.view.AppNavigation',
+        'AppIndex.view.AppWest',
         'AppIndex.view.AppCenter',
         'AppIndex.view.SalesOrderNoteView',
         'AppIndex.view.SalesNoteView',
         'AppIndex.view.PurchaseNoteView',
-        'AppIndex.view.StorageInView'
+        'AppIndex.view.StorageInView',
+        'AppIndex.view.RoleManagerView'
     ],
 
     layout:{
@@ -23,12 +24,11 @@ Ext.define('AppIndex.view.AppHome',{
         },
         {
             region:'west',
-            xtype:'app_navigation',
-            title:'导航栏'
+            xtype:'app_west'
         },
         {
             region:'center',
-            xtype:'app_center',
+            xtype:'app_center'
         }
     ]
 });

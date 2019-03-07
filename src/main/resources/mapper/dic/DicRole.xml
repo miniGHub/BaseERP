@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.dic.IDicRole">
+
+    <select id="SelectAllRole" resultType="DIC_ROLE">
+        SELECT * FROM DIC_ROLE ORDER BY role_id;
+    </select>
+
+    <select id="SelectRole" resultType="DIC_ROLE" parameterType="int">
+        SELECT * FROM DIC_ROLE WHERE role_id = #{roleId};
+    </select>
+
+    <insert id="InsertRole" parameterType="java.util.List">
+        insert into DIC_ROLE
+        values
+        <foreach collection="list" item="role" index="index" separator=",">
+            (
+            #{role.role_id}, #{role.role_name}, #{role.freeuse1}, #{role.freeuse2}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="DeleteRole">
+        delete from DIC_ROLE;
+    </delete>
+
+</mapper>

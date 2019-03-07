@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface IXs001 {
-    public XS001 SelectSalesOrderNoteDetail(String salesOrderNoteId);
-    public ArrayList<String> SelectSalesOrderNoteApprovaling();
-    public void InsertSalesOrderNoteDetail(XS001 xs001);
-    public int UpdateSalesOrderStatus(HashMap<String, Object> param);
+    XS001 SelectSalesOrderNoteDetail(String salesOrderNoteId);
+    ArrayList<String> SelectSalesOrderNoteApprovaling();
+    void InsertSalesOrderNoteDetail(XS001 xs001);
+    int UpdateSalesOrderStatus(HashMap<String, Object> param);
 }
