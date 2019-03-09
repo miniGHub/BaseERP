@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.xs.IXs004">
+
+    <insert id="InsertSalesNoteProductDetail" parameterType="java.util.List">
+        insert into XS004
+        values
+        <foreach collection="list" item="xs004" separator="," index="index">
+            (
+            #{xs004.sales_note_id}, #{xs004.product_id}, #{xs004.respority_id},
+            #{xs004.amount}, #{xs004.unit_price}, #{xs004.balance},
+            #{xs004.discount_unit_price}, #{xs004.discount_balance},#{xs004.invoice_balance},
+            #{xs004.barcode}, #{xs004.state}, #{xs004.comment}, #{xs004.freeuse1},
+            #{xs004.freeuse2}, #{xs004.freeuse3}
+            )
+        </foreach>
+    </insert>
+</mapper>
