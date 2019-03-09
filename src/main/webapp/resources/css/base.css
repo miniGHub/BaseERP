@@ -70,3 +70,7 @@ body {
 .icon_printer {
     background-image: url('./images/icons/printer.png');
 }
+
+.icon_load {
+    background-image: url('./images/icons/package_down.png');
+}

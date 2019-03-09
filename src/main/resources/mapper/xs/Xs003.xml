@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.xs.IXs003">
+
+    <insert id="InsertSalesNoteDetail" parameterType="com.mini.model.xs.XS003">
+        insert into XS003
+        values
+        (
+          #{sales_note_id}, #{sales_order_note_id}, #{supplier_note_id}, #{lend_sales_note_id},
+          #{client_id}, #{respority_id}, #{entry_date}, #{collect_date},
+          #{collect_id}, #{collect_balance}, #{discount_balance}, #{note_status},
+          #{operator_id}, #{depart_id},
+          #{remark}, #{addition}, #{freeuse1}, #{freeuse2},#{freeuse3}
+        )
+    </insert>
+    <select id="countSalesNoteIdLike" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(sales_note_id) FROM XS003 where sales_note_id like #{sales_note_id_like}
+    </select>
+
+</mapper>
