@@ -5,17 +5,17 @@ Ext.define('AppIndex.view.StorageInViewToolbar',{
     items:[
         {
             text:'加载',
-            //iconCls:'x-fa fa-plus',
+            iconCls:'icon_load',
             handler: 'StorageInLoad'
         },
         {
             text:'入库',
-            //iconCls:'x-fa fa-plus',
+            iconCls:'icon_add',
             handler: 'StorageInSubmit'
         },
         {
             text:'打印',
-            //iconCls:'x-fa fa-plus',
+            iconCls:'icon_printer',
             handler: 'StorageInPrint'
         }
     ]

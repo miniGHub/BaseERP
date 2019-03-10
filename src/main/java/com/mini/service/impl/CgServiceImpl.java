@@ -8,8 +8,7 @@ import com.mini.service.ICgService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("CgService")
 public class CgServiceImpl implements ICgService {
@@ -21,25 +20,24 @@ public class CgServiceImpl implements ICgService {
     private ICg002 CG002Dao;
 
     @Override
-    public CG001[] selectCG001(Map param) {
-        return this.CG001Dao.selectCG001(param);
+    public boolean savePurchaseNote(CG001 one, List<CG002> cg002List) {
+        if (this.CG001Dao.insertCG001(one) == 1) {
+            if (this.CG002Dao.insertCG002(cg002List) == cg002List.size()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
-    public int deleteCG001(String purchase_note_id) {
-        int ret = this.CG001Dao.deleteCG001(purchase_note_id);
-        this.CG002Dao.deleteCG002(purchase_note_id);
-        return ret;
-    }
-
-    @Override
-    public int insertCG001(CG001 one) {
-        return this.CG001Dao.insertCG001(one);
-    }
-
-    @Override
-    public int updateCG001(CG001 one) {
-        return this.CG001Dao.updateCG001(one);
+    public boolean updatePurchaseNote(CG001 one, List<CG002> cg002List) {
+        if (this.CG001Dao.updateCG001(one) == 1) {
+            this.CG002Dao.deleteCG002(one.getPurchase_note_id());
+            if (this.CG002Dao.insertCG002(cg002List) == cg002List.size()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -48,22 +46,28 @@ public class CgServiceImpl implements ICgService {
     }
 
     @Override
-    public CG002[] selectCG002(String purchase_note_id) {
+    public CG001 getPurchaseNote(String purchase_note_id) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("purchase_note_id", purchase_note_id);
+        CG001[] cg001s = this.CG001Dao.selectCG001(param);
+        if (cg001s.length >= 1) {
+            return cg001s[0];
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<CG002> getPurchaseNoteDetail(String purchase_note_id) {
         return this.CG002Dao.selectCG002(purchase_note_id);
     }
 
     @Override
-    public int deleteCG002(String purchase_note_id) {
-        return this.CG002Dao.deleteCG002(purchase_note_id);
+    public ArrayList<String> GetPurchaseNoteInApproval() {
+        return this.CG001Dao.SelectPurchaseNoteInApproval();
     }
 
     @Override
-    public int insertCG002(List<CG002> cg002list) {
-        return this.CG002Dao.insertCG002(cg002list);
-    }
-
-    @Override
-    public int updateCG002(CG002 one) {
-        return this.CG002Dao.updateCG002(one);
+    public boolean updatePurchaseNoteStatus(HashMap<String, Object> param) {
+        return (this.CG001Dao.updatePurchaseNoteStatus(param) == 1);
     }
 }

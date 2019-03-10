@@ -12,7 +12,7 @@ Ext.define('AppIndex.model.StorageInModelGrid', {
     fields:[
         {name: 'product_id', type: 'string'},
         {name: 'repository_id', type: 'string'},
-        {name: 'in_date',  type: 'string'},
+        {name: 'in_date',  type: 'date'},
         {name: 'amount', type: 'int'},
         {name: 'purchase_note_id',  type: 'string'},
         {name: 'sales_return_note_id',  type: 'string'},

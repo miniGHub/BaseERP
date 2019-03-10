@@ -1,10 +1,10 @@
-package com.mini.model;
+package com.mini.model.request;
 
 import java.util.List;
 import com.mini.model.cg.CG001;
 import com.mini.model.cg.CG002;
 
-public class PurchaseOrderNote {
+public class ReqPurchaseNote {
     private CG001 form;
     private List<CG002> grid;
 

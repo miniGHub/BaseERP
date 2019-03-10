@@ -17,6 +17,7 @@ public class CG001 {
     private Double  discount_balance;
     private String  operator_id;
     private Integer depart_id;
+    private Integer note_status;
     private String  remark;
     private String  addition;
     private Integer freeuse1;
@@ -137,6 +138,14 @@ public class CG001 {
 
     public void setDepart_id(Integer depart_id) {
         this.depart_id = depart_id;
+    }
+
+    public Integer getNote_status() {
+        return note_status;
+    }
+
+    public void setNote_status(Integer note_status) {
+        this.note_status = note_status;
     }
 
     public String getRemark() {

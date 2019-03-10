@@ -5,22 +5,17 @@ Ext.define('AppIndex.view.PurchaseNoteViewToolbar',{
     items:[
         {
             text:'加载',
-            //iconCls:'x-fa fa-plus',
+            iconCls:'icon_load',
             handler: 'PurchaseNoteLoad'
         },
         {
             text:'提交',
-            //iconCls:'x-fa fa-plus',
+            iconCls: 'icon_add',
             handler: 'PurchaseNoteSubmit'
         },
         {
-            text:'修改',
-            //iconCls:'x-fa fa-plus',
-            handler: 'PurchaseNoteModify'
-        },
-        {
             text:'打印',
-            //iconCls:'x-fa fa-plus',
+            iconCls:'icon_printer',
             handler: 'PurchaseNotePrint'
         }
     ]

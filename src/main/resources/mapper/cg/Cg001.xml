@@ -45,8 +45,8 @@
     </delete>
 
     <insert id="insertCG001" parameterType="com.mini.model.cg.CG001" flushCache="true">
-        INSERT INTO CG001 (purchase_note_id, sales_order_note_id, supplier_id, repository_id, entry_date, pay_date, pay_id, pay_balance, contact_id, contact_pay_id, contact_pay_balance, discount_balance, operator_id, depart_id, remark, addition, freeuse1, freeuse2, freeuse3)
-        VALUES (#{purchase_note_id}, #{sales_order_note_id}, #{supplier_id}, #{repository_id}, #{entry_date}, #{pay_date}, #{pay_id}, #{pay_balance}, #{contact_id}, #{contact_pay_id}, #{contact_pay_balance}, #{discount_balance}, #{operator_id}, #{depart_id}, #{remark}, #{addition}, #{freeuse1}, #{freeuse2}, #{freeuse3})
+        INSERT INTO CG001 (purchase_note_id, sales_order_note_id, supplier_id, repository_id, entry_date, pay_date, pay_id, pay_balance, contact_id, contact_pay_id, contact_pay_balance, discount_balance, operator_id, depart_id, note_status, remark, addition, freeuse1, freeuse2, freeuse3)
+        VALUES (#{purchase_note_id}, #{sales_order_note_id}, #{supplier_id}, #{repository_id}, #{entry_date}, #{pay_date}, #{pay_id}, #{pay_balance}, #{contact_id}, #{contact_pay_id}, #{contact_pay_balance}, #{discount_balance}, #{operator_id}, #{depart_id}, #{note_status}, #{remark}, #{addition}, #{freeuse1}, #{freeuse2}, #{freeuse3})
     </insert>
 
     <update id="updateCG001" parameterType="com.mini.model.cg.CG001" flushCache="true">
@@ -104,4 +104,12 @@
     <select id="countPurchaseNoteIdLike" parameterType="java.lang.String" resultType="int">
         SELECT COUNT(purchase_note_id) FROM CG001 where purchase_note_id like #{purchase_note_id_like}
     </select>
+
+    <select id="SelectPurchaseNoteInApproval" resultType="String">
+        SELECT purchase_note_id from CG001 where note_status = 0;
+    </select>
+
+    <update id="updatePurchaseNoteStatus" parameterType="Map">
+        update CG001 set note_status=#{note_status} where purchase_note_id = #{purchase_note_id}
+    </update>
 </mapper>

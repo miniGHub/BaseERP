@@ -44,6 +44,7 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
             forceSelection : true,
             triggerAction : 'all',
             selectOnFocus : true,
+            matchFieldWidth:false,
             store: {
                 type:'get_sales_order_note_approvaling_store'
             },
@@ -64,6 +65,8 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
         {
             fieldLabel: '付款日期',
             name: 'pay_date',
+            xtype: 'datefield',
+            format: 'Y-m-d',
             allowBlank: false
         },
         {
