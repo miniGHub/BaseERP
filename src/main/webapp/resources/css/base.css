@@ -74,3 +74,15 @@ body {
 .icon_load {
     background-image: url('./images/icons/package_down.png');
 }
+
+.icon_login {
+    background-image: url('./images/icons/door_in.png');
+}
+
+.icon_home {
+    background-image: url('./images/icons/application_home.png');
+}
+
+.icon_exit {
+    background-image: url('./images/icons/control_power.png');
+}

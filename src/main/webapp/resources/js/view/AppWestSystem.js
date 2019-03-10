@@ -25,8 +25,7 @@ Ext.define("AppIndex.view.AppWestSystem",{
         animate:true,
         root: {
             expanded: true,
-            id:'all',
-            text:'All',
+            id:'app_west_system_root',
             children: [
                 {
                     text: "系统权限",

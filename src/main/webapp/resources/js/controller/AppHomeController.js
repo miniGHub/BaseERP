@@ -43,27 +43,41 @@ Ext.define('AppIndex.controller.AppHomeController',{
         if (comName == undefined) {
             return;
         }
-        var me=this,
-            homeView = me.getView(),
-            navigationTree = homeView.down(comName),
-            centerPanel = homeView.down('app_center'),
-            store=navigationTree.getStore(),
-            node=store.getNodeById(id);
-        var className, cmp;
+        var homeView =  this.getView();
+        var menuTree =  homeView.down(comName);
+        var node = menuTree.getStore().getNodeById(id);
+        var centerPanel = homeView.down('app_center');
+        var tab = centerPanel.getComponent(id + '_item_id');            // param: require item id.
 
         //响应路由，左侧树定位到相应节点
-        navigationTree.getSelectionModel().select(node);
-        navigationTree.getView().focusNode(node);
+        menuTree.getSelectionModel().select(node);
+        menuTree.getView().focusNode(node);
 
-        centerPanel.removeAll(true);
+        if (!node.isLeaf()) {
+            console.log(id + " is not leaf!");
+            return;
+        }
 
-        if (node.isLeaf()) {
-            className = Ext.ClassManager.getNameByAlias('widget.' + id);
-            console.log('cls:' + className);
-            cmp = Ext.create(className);
-            centerPanel.add(cmp);
+        if (tab) {
+            centerPanel.setActiveTab(tab);
+        } else {
+            var className = Ext.ClassManager.getNameByAlias('widget.' + id);
+            var comp = Ext.create(className);
+            centerPanel.setActiveTab(centerPanel.add(comp));
         }
     },
+    onExitClick:function(){
+        // Remove the localStorage key/value
+        localStorage.removeItem('hasLogin');
+        localStorage.removeItem('');
+
+        // Remove Main View
+        this.getView().destroy();
+
+        Ext.create({
+            xtype: 'app_login_view'
+        });
+    }
     /*
     beforeHandleRoute: function (id, action) {
         console.log("beforeHandleRoute " + id + "," + action);

@@ -2,10 +2,12 @@ Ext.define('AppIndex.view.SalesNoteView',{
     extend:'Ext.panel.Panel',
     xtype:'app_sales_note_view',
     controller:'sales_note_view',
-    requires:['AppIndex.controller.SalesNoteController',
-            'AppIndex.view.SalesNoteViewToolbar',
-            'AppIndex.view.SalesNoteViewForm',
-            'AppIndex.view.SalesNoteViewGrid'],
+    requires:[
+        'AppIndex.controller.SalesNoteController',
+        'AppIndex.view.SalesNoteViewToolbar',
+        'AppIndex.view.SalesNoteViewForm',
+        'AppIndex.view.SalesNoteViewGrid'
+    ],
 
     title: '销售单',
     width: window.innerWidth - 300,

@@ -2,8 +2,11 @@ package com.mini.controller;
 
 import com.mini.common.Constant;
 import com.mini.model.UserCode;
+import com.mini.model.dic.DIC_ROLE;
 import com.mini.model.info.INFO_USER;
+import com.mini.model.response.RespUserInfo;
 import com.mini.model.response.ResponseCode;
+import com.mini.service.IDicService;
 import com.mini.service.IInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +22,9 @@ public class InfoController {
 
     @Resource
     private IInfoService mInfoService;
+
+    @Resource
+    private IDicService mDicService;
 
     @RequestMapping(value = "/login", method = {RequestMethod.POST})
     @ResponseBody
@@ -39,10 +45,29 @@ public class InfoController {
 
     @RequestMapping(value = "/getUserInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public INFO_USER GetUserInfo(@RequestBody INFO_USER reqInfoUser) {
+    public RespUserInfo GetUserInfo(@RequestBody INFO_USER reqInfoUser) {
         System.out.println("GetUserInfo id:" + reqInfoUser.getId());
 
-        return mInfoService.GetUserInfo(reqInfoUser.getId());
-    }
+        RespUserInfo respUserInfo = new RespUserInfo();
+        INFO_USER infoUser;
+        DIC_ROLE dicRole;
 
+        infoUser = mInfoService.GetUserInfo(reqInfoUser.getId());
+        if (infoUser != null) {
+            respUserInfo.setId(infoUser.getId());
+            respUserInfo.setName(infoUser.getName());
+
+            dicRole = mDicService.GetRole(infoUser.getRole_id());
+            if (dicRole != null) {
+                respUserInfo.setRole_id(dicRole.getRole_id());
+                respUserInfo.setRole_name(dicRole.getRole_name());
+            } else {
+                System.out.println("GetUserInfo DicRole is null!!!");
+            }
+        } else {
+            System.out.println("GetUserInfo UserInfo is null!!!");
+        }
+
+        return respUserInfo;
+    }
 }

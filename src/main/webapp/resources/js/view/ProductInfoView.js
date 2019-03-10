@@ -1,6 +1,7 @@
 Ext.define('AppIndex.view.ProductInfoView',{
     extend:'Ext.panel.Panel',
     xtype:'app_product_info_view',
+    itemId:'app_product_info_view_item_id',
     controller:'product_info_view',
 
     requires:[

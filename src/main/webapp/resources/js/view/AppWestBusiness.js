@@ -27,8 +27,7 @@ Ext.define("AppIndex.view.AppWestBusiness",{
         animate:true,
         root: {
             expanded: true,
-            id:'all',
-            text:'All',
+            id:'app_west_business_root',
             children: [
                 {
                     text: "销售",

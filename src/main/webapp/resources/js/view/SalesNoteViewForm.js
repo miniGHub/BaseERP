@@ -87,5 +87,11 @@ Ext.define('AppIndex.view.SalesNoteViewForm',{
             fieldLabel: '附加说明',
             name: 'addition'
         }
-    ]
+    ],
+    buttons: [{
+        text: '登录',
+        listeners: {
+            click: 'onClockLogin'
+        }
+    }]
 });

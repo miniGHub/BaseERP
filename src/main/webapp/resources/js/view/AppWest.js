@@ -8,7 +8,7 @@ Ext.define("AppIndex.view.AppWest",{
         'AppIndex.view.AppWestSystem'
     ],
 
-    title:'导航栏',
+    title:'导航菜单',
     width:250,
     minWidth:100,
     collapsible:true,

@@ -1,6 +1,7 @@
 Ext.define('AppIndex.view.SalesOrderNoteView',{
     extend:'Ext.panel.Panel',
     xtype:'app_sales_order_note_view',
+    itemId: 'app_sales_order_note_view_item_id',                        // for tab panel
     controller:'sales_order_note_view',
     requires:['AppIndex.controller.SalesOrderNoteController',
         'AppIndex.view.SalesOrderNoteViewToolbar',
@@ -14,6 +15,8 @@ Ext.define('AppIndex.view.SalesOrderNoteView',{
     layout: {
         type:'border'
     },
+
+    closable:true,
 
     items:[
         {
