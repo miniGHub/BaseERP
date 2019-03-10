@@ -1,6 +1,7 @@
 Model层数据库表名全部大写(XS001,INFO_USER)，其余都是驼峰标识(Xs001,InfoUser)。
 不使用Java数组(数组无法动态增加删除)，尽量都使用ArrayList
 前后台数据传输方式尽量是POST+JSON方式。
+Extjs当view需要访问后台时，创建对应的controller
 后台 
 	Controller层处理Request和Response类。
 	Dao层尽量接口名称尽量不要有“表名”。写业务名称。

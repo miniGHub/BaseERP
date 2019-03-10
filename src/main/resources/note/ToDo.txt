@@ -3,14 +3,14 @@ grid导入excel
 “购买单位” 做成下拉框 模糊查询方式
 model输入文本框数值验证
 fieldLabel使用viewModel
-输入框响应TAB按键
 model与view如何关联
 xs001 xs002增加事务处理
 批量创建数据库表结构
 图表生成
-extjs支持多TAB页操作
-POST数据长度最大限制大类折叠
+POST数据长度最大限制
 根据用户权限分配导航栏
 导航住实现方式优化，现在用com[]实现比较low
 Store分三类 请求后台-共通 请求后台-指定 只是前台使用
 Grid分页显示
+最终发布war包时绑定服务器mac地址，避免被轻松盗用
+增加log日志

@@ -6,14 +6,12 @@ Ext.application({
     // autoCreateViewport:'AppHome',
 
     stores: [
-
         // TODO: add global / shared stores here
-
     ],
 
     views: [
         'AppIndex.view.LoginView',
-        'AppIndex.view.AppHome'
+        'AppIndex.view.AppHome',
     ],
 
     listen: {
@@ -30,8 +28,7 @@ Ext.application({
     },
     init:function(){
         console.log("init");
-        var me=this;
-        //me.setDefaultToken('all');
+        // this.setDefaultToken('all');
     },
     launch : function() {
         console.log("launch");
@@ -54,15 +51,11 @@ Ext.application({
             this.setMainView("AppIndex.view.AppHome");
         }
         else {
+            //this.setMainView("AppIndex.view.LoginView");
             Ext.create({
                 xtype: 'app_login_view'
             });
         }
-        /*
-        Ext.create({
-            xtype: loggedIn ? 'app_home' : 'app_login_view'
-        });
-        */
     },
     onAppUpdate: function () {
         Ext.Msg.confirm('Application Update', 'This application has an update, reload?',

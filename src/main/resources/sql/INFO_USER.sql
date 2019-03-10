@@ -9,4 +9,4 @@ CREATE TABLE `INFO_USER` (
   `freeuse2` varchar(255) COMMENT '备用2',
   `freeuse3` date COMMENT '备用3'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO `INFO_USER` VALUES ('0000', '0000', 0, '超级管理员', 0, '13012345678', null, null, null);
+INSERT INTO `INFO_USER` VALUES ('0000', '0000', 1, '超级用户', 1, '13012345678', null, null, null);

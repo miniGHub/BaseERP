@@ -1,6 +1,7 @@
 Ext.define('AppIndex.view.RepositoryInfoView',{
     extend:'Ext.panel.Panel',
     xtype:'app_repository_info_view',
+    itemId:'app_repository_info_view_item_id',
     controller:'repository_info_view',
 
     requires:[

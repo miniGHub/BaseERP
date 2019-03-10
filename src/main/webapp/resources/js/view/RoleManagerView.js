@@ -1,6 +1,7 @@
 Ext.define('AppIndex.view.RoleManagerView',{
     extend:'Ext.panel.Panel',
     xtype:'app_role_manager_view',
+    itemId: 'app_role_manager_view_item_id',
     controller:'role_manager_view',
 
     requires:[

@@ -5,7 +5,7 @@ CREATE TABLE `DIC_ROLE` (
   `freeuse2` varchar(255) COMMENT '备用2'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `DIC_ROLE` VALUES (1, '超级管理员', null, null);
+INSERT INTO `DIC_ROLE` VALUES (1, '系统管理员', null, null);
 INSERT INTO `DIC_ROLE` VALUES (2, '总经理', null, null);
 INSERT INTO `DIC_ROLE` VALUES (3, '销售主管', null, null);
 INSERT INTO `DIC_ROLE` VALUES (4, '采购主管', null, null);

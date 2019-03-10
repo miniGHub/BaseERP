@@ -9,7 +9,7 @@ Ext.define('AppIndex.controller.LoginController',{
         console.log("onLoginClick!");
 
         // form data
-        var form = this.getView().down('form')
+        var form = this.getView().down('form');
         var formData = form.getValues();
         console.log('formData:' + Ext.encode(formData));
 
@@ -42,6 +42,10 @@ Ext.define('AppIndex.controller.LoginController',{
                 }
             }
         });
+    },
+    onClockRefresh:function(){
+        var form = this.getView().down('form');
+        form.reset();
     },
     loginCallback:function(records, operation){
         console.log("loginCallback");
@@ -80,9 +84,47 @@ Ext.define('AppIndex.controller.LoginController',{
     },
     loginSuccess:function(){
         console.log("loginSuccess");
+        this.getUserInfo();
         localStorage.setItem("HasLogin", "login");
         this.closeView();
         AppIndex.getApplication().setMainView("AppIndex.view.AppHome");
+    },
+    getUserInfo:function(){
+        console.log("getUserInfo");
+
+        // form data
+        var form = this.getView().down('form');
+        var formData = form.getValues();
+        console.log("id:" + formData['id']);
+
+        // send parameters
+        var sendParam ={
+            id: formData['id']
+        };
+        console.log('sendParam:' + Ext.encode(sendParam));
+
+        var sendStore = Ext.create('AppIndex.store.SendStore');
+        sendStore.proxy.url += 'info/getUserInfo';
+        sendStore.proxy.extraParams =  sendParam;
+        // console.log(sendStore.proxy.url);
+        sendStore.load({
+            scope:this,
+            callback: function (records, operation, success) {
+                console.log('records:' + records);
+                console.log('operation:' + operation);
+                console.log('success:' + success);
+                if (!success) {
+                    console.log('getUserInfo failed!!!');
+                    return;
+                }
+                console.log("xxx id:" + records[0].data.role_id);
+                console.log("xxx name" + records[0].data.role_name);
+                localStorage.setItem("UserId", records[0].data.id);
+                localStorage.setItem("UserName", records[0].data.name);
+                localStorage.setItem("RoleId", records[0].data.role_id);
+                localStorage.setItem("RoleName", records[0].data.role_name);
+            }
+        });
     }
 
 });

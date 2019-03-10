@@ -2,7 +2,8 @@ Ext.define('AppIndex.view.AppHome',{
     extend:'Ext.container.Container',
     xtype:'app_home',
     controller:'home',
-    requires:['AppIndex.controller.AppHomeController',
+    requires:[
+        'AppIndex.controller.AppHomeController',
         'AppIndex.view.AppHeader',
         'AppIndex.view.AppWest',
         'AppIndex.view.AppCenter',

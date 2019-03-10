@@ -25,8 +25,7 @@ Ext.define("AppIndex.view.AppWestBasic",{
         animate:true,
         root: {
             expanded: true,
-            id:'all',
-            text:'All',
+            id:'app_west_basic_root',
             children: [
                 {
                     text: "数据维护",
