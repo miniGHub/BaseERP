@@ -1,12 +1,12 @@
-package com.mini.model;
+package com.mini.model.request;
 
-import java.util.List;
+import java.util.ArrayList;
 import com.mini.model.cg.CG001;
 import com.mini.model.cg.CG002;
 
-public class PurchaseOrderNote {
+public class ReqPurchaseNote {
     private CG001 form;
-    private List<CG002> grid;
+    private ArrayList<CG002> grid;
 
     public CG001 getForm() {
         return form;
@@ -16,11 +16,11 @@ public class PurchaseOrderNote {
         this.form = form;
     }
 
-    public List<CG002> getGrid() {
+    public ArrayList<CG002> getGrid() {
         return grid;
     }
 
-    public void setGrid(List<CG002> grid) {
+    public void setGrid(ArrayList<CG002> grid) {
         this.grid = grid;
     }
 }

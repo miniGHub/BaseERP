@@ -8,8 +8,6 @@ Ext.define('AppIndex.controller.StorageInController',{
     routes:{},
 
     StorageInSubmit: function() {
-        Ext.Msg.alert('入库', 'StorageInSubmit');
-
         // grid data
         var store = this.getView().down('app_storage_in_view_grid').getStore();
         var gridData = [];
@@ -18,43 +16,52 @@ Ext.define('AppIndex.controller.StorageInController',{
             delete record.data['id'];
             gridData.push(record.data);
         });
-        // console.log('gridData:'+ Ext.encode(gridData));
-
         // send parameters
         var sendParam ={
             grid: gridData
         };
-        console.log('sendParam:' + Ext.encode(sendParam));
-
+        console.log("storage amount：" + store.getCount());
         var sendStore = Ext.create('AppIndex.store.SendStore');
         sendStore.proxy.url += 'kc/SubmitStorageIn';
-        sendStore.proxy.extraParams =  sendParam;
+        sendStore.proxy.extraParams = sendParam;
         // sendStore.proxy.extraParams = test;
         // console.log(sendStore.proxy.url);
         sendStore.load({
             scope:this,
             callback: function (records, operation, success) {
-                console.log('records:' + records);
-                console.log('operation:' + operation);
-                console.log('success:' + success);
+                if (success) {
+                    console.log(records);
+                }
+                if (success) {
+                    Ext.Msg.alert('入库单', '提交成功');
+                }
             }
         });
     },
 
     StorageInPrint: function() {
-        Ext.Msg.alert('打印', 'StorageInPrint');
+
     },
     StorageInLoad: function() {
-        Ext.Msg.alert('加载', 'StorageInLoad');
+        var form = this.getView().down('app_storage_in_view_form').getForm().getValues();
+        var id = form['purchase_note_id'];
+        console.log("purchase note id：" + id);
         var getStore = Ext.create('AppIndex.store.GetStore');
-        getStore.proxy.uri += "kc/LoadFromPurchaseNote";
-        getStore.proxy.extraParams = {'purchase_note_id': "JH-2018-12-23-0001"};
+        getStore.proxy.url += "kc/LoadFromPurchaseNote";
+        getStore.proxy.extraParams = {'purchase_note_id': id};
+        console.log(getStore.proxy.url);
         getStore.load({
             scope:this,
             callback: function (records, operation, success) {
-                console.log('records:' + records);
-                console.log('operation:' + operation);
-                console.log('success:' + success);
+                if (success) {
+                    console.log(records);
+                    if (records.length > 0) {
+                        this.getView().down('app_storage_in_view_grid').getStore().loadRecords(records);
+                    }
+                }
+                else {
+                    Ext.Msg.alert('入库单', '没有得到数据');
+                }
             }
         });
     }

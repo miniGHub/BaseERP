@@ -5,6 +5,6 @@ Ext.define('AppIndex.store.StorageInStoreGrid', {
 
     autoLoad: false,
     data:[
-        ['', '', '', 0, '', '', '', '', '']
+        ['', '', '', 0, '', '', '', 0, '']
     ]
 });

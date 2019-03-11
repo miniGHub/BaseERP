@@ -1,6 +1,7 @@
 Ext.define('AppIndex.view.PurchaseNoteView',{
     extend:'Ext.panel.Panel',
     xtype:'app_purchase_note_view',
+    itemId: 'app_purchase_note_view_item_id',
     controller:'purchase_note_view',
     requires:['AppIndex.controller.PurchaseNoteController',
         'AppIndex.view.PurchaseNoteViewToolbar',
@@ -14,6 +15,7 @@ Ext.define('AppIndex.view.PurchaseNoteView',{
     layout: {
         type:'border'
     },
+    closable:true,
 
     items:[
         {

@@ -8,6 +8,7 @@ import com.mini.service.IKcService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,11 +43,6 @@ public class KcServiceImpl implements IKcService {
     }
 
     @Override
-    public void addKC001Amount(Map param) {
-        this.KC001Dao.addKC001Amount(param);
-    }
-
-    @Override
     public KC002[] selectKC002(Map param) {
         return this.KC002Dao.selectKC002(param);
     }
@@ -57,8 +53,14 @@ public class KcServiceImpl implements IKcService {
     }
 
     @Override
-    public void insertKC002(List<KC002> kc002list) {
-        this.KC002Dao.insertKC002(kc002list);
+    public boolean saveStorageIn(ArrayList<KC002> kc002list) {
+        for (int i=0; i<kc002list.size(); i++) {
+            this.KC001Dao.addKC001Amount(kc002list.get(i));
+        }
+        if (this.KC002Dao.insertKC002(kc002list) == kc002list.size()) {
+            return true;
+        }
+        return false;
     }
 
     @Override

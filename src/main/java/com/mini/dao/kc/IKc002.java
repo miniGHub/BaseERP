@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface IKc002 {
     KC002[] selectKC002(Map param);
-    void updateKC002(KC002 one);
-    void insertKC002(List<KC002> one);
-    void deleteKC002(Map param);
+    int updateKC002(KC002 one);
+    int insertKC002(List<KC002> one);
+    int deleteKC002(Map param);
 }

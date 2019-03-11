@@ -10,16 +10,17 @@ public class CG001 {
     private Date    entry_date;
     private Date    pay_date;
     private String  pay_id;
-    private Double  pay_balance;
+    private double  pay_balance;
     private String  contact_id;
     private String  contact_pay_id;
-    private Double  contact_pay_balance;
-    private Double  discount_balance;
+    private double  contact_pay_balance;
+    private double  discount_balance;
     private String  operator_id;
-    private Integer depart_id;
+    private int     depart_id;
+    private int     note_status;
     private String  remark;
     private String  addition;
-    private Integer freeuse1;
+    private int     freeuse1;
     private String  freeuse2;
     private Date    freeuse3;
 
@@ -83,11 +84,11 @@ public class CG001 {
         this.pay_id = pay_id;
     }
 
-    public Double getPay_balance() {
+    public double getPay_balance() {
         return pay_balance;
     }
 
-    public void setPay_balance(Double pay_balance) {
+    public void setPay_balance(double pay_balance) {
         this.pay_balance = pay_balance;
     }
 
@@ -107,19 +108,19 @@ public class CG001 {
         this.contact_pay_id = contact_pay_id;
     }
 
-    public Double getContact_pay_balance() {
+    public double getContact_pay_balance() {
         return contact_pay_balance;
     }
 
-    public void setContact_pay_balance(Double contact_pay_balance) {
+    public void setContact_pay_balance(double contact_pay_balance) {
         this.contact_pay_balance = contact_pay_balance;
     }
 
-    public Double getDiscount_balance() {
+    public double getDiscount_balance() {
         return discount_balance;
     }
 
-    public void setDiscount_balance(Double discount_balance) {
+    public void setDiscount_balance(double discount_balance) {
         this.discount_balance = discount_balance;
     }
 
@@ -131,12 +132,20 @@ public class CG001 {
         this.operator_id = operator_id;
     }
 
-    public Integer getDepart_id() {
+    public int getDepart_id() {
         return depart_id;
     }
 
-    public void setDepart_id(Integer depart_id) {
+    public void setDepart_id(int depart_id) {
         this.depart_id = depart_id;
+    }
+
+    public int getNote_status() {
+        return note_status;
+    }
+
+    public void setNote_status(int note_status) {
+        this.note_status = note_status;
     }
 
     public String getRemark() {
@@ -155,11 +164,11 @@ public class CG001 {
         this.addition = addition;
     }
 
-    public Integer getFreeuse1() {
+    public int getFreeuse1() {
         return freeuse1;
     }
 
-    public void setFreeuse1(Integer freeuse1) {
+    public void setFreeuse1(int freeuse1) {
         this.freeuse1 = freeuse1;
     }
 

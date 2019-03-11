@@ -5,8 +5,8 @@ import java.util.Date;
 public class KC001 {
     private String  product_id;
     private String  repository_id;
-    private Integer amount;
-    private Integer freeuse1;
+    private int     amount;
+    private int     freeuse1;
     private String  freeuse2;
     private Date    freeuse3;
 
@@ -30,19 +30,19 @@ public class KC001 {
         this.repository_id = repository_id;
     }
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
-    public Integer getFreeuse1() {
+    public int getFreeuse1() {
         return freeuse1;
     }
 
-    public void setFreeuse1(Integer freeuse1) {
+    public void setFreeuse1(int freeuse1) {
         this.freeuse1 = freeuse1;
     }
 

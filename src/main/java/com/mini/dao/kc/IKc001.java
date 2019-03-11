@@ -1,13 +1,14 @@
 package com.mini.dao.kc;
 
 import com.mini.model.kc.KC001;
+import com.mini.model.kc.KC002;
 
 import java.util.Map;
 
 public interface IKc001 {
     KC001[] selectKC001(Map param);
-    void updateKC001(KC001 one);
-    void insertKC001(KC001 one);
-    void deleteKC001(Map param);
-    void addKC001Amount(Map param);
+    int updateKC001(KC001 one);
+    int insertKC001(KC001 one);
+    int deleteKC001(Map param);
+    int addKC001Amount(KC002 kc002);
 }
