@@ -1,12 +1,10 @@
 package com.mini.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mini.model.cg.CG001;
 import com.mini.model.cg.CG002;
 import com.mini.model.kc.KC002;
 import com.mini.model.request.ReqStorageIn;
 import com.mini.model.response.ResponseCode;
-import com.mini.model.xs.XS001;
 import com.mini.service.ICgService;
 import com.mini.service.IKcService;
 import org.springframework.stereotype.Controller;

@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 @Controller
 @RequestMapping("/cg")
@@ -99,7 +98,7 @@ public class CgController {
     @ResponseBody
     public ResponseCode SubmitPurchaseNote(@RequestBody ReqPurchaseNote purchaseOrderNote) {
         CG001 cg001 = purchaseOrderNote.getForm();
-        List<CG002> cg002s = purchaseOrderNote.getGrid();
+        ArrayList<CG002> cg002s = purchaseOrderNote.getGrid();
         System.out.println("SubmitPurchaseNote(): saving");
         ResponseCode code = new ResponseCode();
         cg001.setNote_status(0);
@@ -125,7 +124,7 @@ public class CgController {
     @ResponseBody
     public ResponseCode UpdatePurchaseNote(@RequestBody ReqPurchaseNote purchaseOrderNote) {
         CG001 cg001 = purchaseOrderNote.getForm();
-        List<CG002> cg002s = purchaseOrderNote.getGrid();
+        ArrayList<CG002> cg002s = purchaseOrderNote.getGrid();
         System.out.println("SubmitPurchaseNote(): save cg001");
         ResponseCode code = new ResponseCode();
         if (mCgService.updatePurchaseNote(cg001, cg002s)) {
@@ -147,9 +146,9 @@ public class CgController {
         System.out.println(results);
         ArrayList<RespPurchaseNoteId> NoteIdList = new ArrayList<>();
 
-        for (int i = 0; i < results.size(); i++) {
+        for (String result : results) {
             RespPurchaseNoteId respSalesOrderNote = new RespPurchaseNoteId();
-            respSalesOrderNote.setPurchase_note_id(results.get(i));
+            respSalesOrderNote.setPurchase_note_id(result);
             NoteIdList.add(respSalesOrderNote);
         }
 

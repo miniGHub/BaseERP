@@ -6,12 +6,12 @@ public class KC003 {
     private String  product_id;
     private String  respority_id;
     private Date    out_date;
-    private Integer amount;
+    private int     amount;
     private String  sales_note_id;
     private String  purchase_return_note_id;
     private String  sales_exchange_note_id;
     private String  purchase_exchange_note_id;
-    private Integer freeuse1;
+    private int     freeuse1;
     private String  freeuse2;
     private Date    freeuse3;
 
@@ -43,11 +43,11 @@ public class KC003 {
         this.out_date = out_date;
     }
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -83,11 +83,11 @@ public class KC003 {
         this.purchase_exchange_note_id = purchase_exchange_note_id;
     }
 
-    public Integer getFreeuse1() {
+    public int getFreeuse1() {
         return freeuse1;
     }
 
-    public void setFreeuse1(Integer freeuse1) {
+    public void setFreeuse1(int freeuse1) {
         this.freeuse1 = freeuse1;
     }
 

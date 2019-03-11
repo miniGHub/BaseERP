@@ -1,21 +1,20 @@
 package com.mini.model.cg;
 
-import java.lang.reflect.Field;
 import java.util.Date;
 
 public class CG002 {
-    private Integer purchase_detail_id;
+    private int     purchase_detail_id;
     private String  purchase_note_id;
     private String  product_id;
     private String  repository_id;
-    private Integer amount;
-    private Double  unit_price;
-    private Double  balance;
-    private Double  invoice_balance;
+    private int     amount;
+    private double  unit_price;
+    private double  balance;
+    private double  invoice_balance;
     private String  barcode;
-    private Integer state;
+    private int     state;
     private String  comment;
-    private Integer freeuse1;
+    private int     freeuse1;
     private String  freeuse2;
     private Date    freeuse3;
 
@@ -23,11 +22,11 @@ public class CG002 {
 
     }
 
-    public Integer getPurchase_detail_id() {
+    public int getPurchase_detail_id() {
         return purchase_detail_id;
     }
 
-    public void setPurchase_detail_id(Integer purchase_detail_id) {
+    public void setPurchase_detail_id(int purchase_detail_id) {
         this.purchase_detail_id = purchase_detail_id;
     }
 
@@ -55,35 +54,35 @@ public class CG002 {
         this.repository_id = repository_id;
     }
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
-    public Double getUnit_price() {
+    public double getUnit_price() {
         return unit_price;
     }
 
-    public void setUnit_price(Double unit_price) {
+    public void setUnit_price(double unit_price) {
         this.unit_price = unit_price;
     }
 
-    public Double getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    public Double getInvoice_balance() {
+    public double getInvoice_balance() {
         return invoice_balance;
     }
 
-    public void setInvoice_balance(Double invoice_balance) {
+    public void setInvoice_balance(double invoice_balance) {
         this.invoice_balance = invoice_balance;
     }
 
@@ -95,11 +94,11 @@ public class CG002 {
         this.barcode = barcode;
     }
 
-    public Integer getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(int state) {
         this.state = state;
     }
 
@@ -111,11 +110,11 @@ public class CG002 {
         this.comment = comment;
     }
 
-    public Integer getFreeuse1() {
+    public int getFreeuse1() {
         return freeuse1;
     }
 
-    public void setFreeuse1(Integer freeuse1) {
+    public void setFreeuse1(int freeuse1) {
         this.freeuse1 = freeuse1;
     }
 
