@@ -1,13 +1,13 @@
-Ext.define('AppIndex.view.RepositoryInfoViewGrid', {
+Ext.define('AppIndex.view.RepositoryDicViewGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'app_repository_info_view_grid',
+    xtype: 'app_repository_dic_view_grid',
 
     requires: [
-        'AppIndex.store.RepositoryInfoStoreGrid'
+        'AppIndex.store.GetAllRepositoryDicStore'
     ],
 
     store:{
-        type:'repository_info_store_grid'
+        type:'get_all_repository_dic_store'
     },
     selModel: {
         selType: 'cellmodel'
@@ -51,7 +51,7 @@ Ext.define('AppIndex.view.RepositoryInfoViewGrid', {
             sortable:false
         },
         {
-            text: '仓库名称',
+            text: '仓库分类名称',
             dataIndex: 'repository_name',
             editor: 'textfield',
             width: 400,
@@ -65,7 +65,7 @@ Ext.define('AppIndex.view.RepositoryInfoViewGrid', {
         this.callParent(arguments);
 
         // hide product_type
-        var columns = this.getView().up('app_repository_info_view_grid').getColumns();
+        var columns = this.getView().up('app_repository_dic_view_grid').getColumns();
         columns[0].hidden = true;
         columns[0].hide();
     }

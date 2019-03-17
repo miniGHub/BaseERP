@@ -3,33 +3,34 @@ Ext.define('AppIndex.view.RoleManagerViewGrid', {
     xtype: 'app_role_manager_view_grid',
 
     requires: [
-        'AppIndex.store.RoleManagerStoreGrid'
+        'AppIndex.store.GetAllRoleStore'
     ],
 
     store:{
-        type:'role_manager_store_grid'
+        type:'get_all_role_store'
     },
     selModel: {
         selType: 'cellmodel'
     },
     stripeRows:true, //斑马线效果
-    tbar:[{
-        text:'新增',
-        iconCls: 'icon_add',
-        handler: 'onClickAdd'
-    },'-',{
-        text:'删除',
-        iconCls: 'icon_delete',
-        handler: 'onClickDelete'
-    },'-',{
-        text:'保存',
-        iconCls: 'icon_save',
-        handler: 'onClickSave'
-    },'-',{
-        text:'刷新',
-        iconCls: 'icon_refresh',
-        handler: 'onClickRefresh'
-    }
+    tbar:[
+        {
+            text:'新增',
+            iconCls: 'icon_add',
+            handler: 'onClickAdd'
+        },'-',{
+            text:'删除',
+            iconCls: 'icon_delete',
+            handler: 'onClickDelete'
+        },'-',{
+            text:'保存',
+            iconCls: 'icon_save',
+            handler: 'onClickSave'
+        },'-',{
+            text:'刷新',
+            iconCls: 'icon_refresh',
+            handler: 'onClickRefresh'
+        }
     ],
     plugins:[
         Ext.create('Ext.grid.plugin.CellEditing',{
@@ -68,42 +69,15 @@ Ext.define('AppIndex.view.RoleManagerViewGrid', {
             sortable:false
         }
     ],
-    /*
-    dockedItems: [
-        {
-            xtype: 'pagingtoolbar',
-            store:{
-                type:'role_manager_store_grid'
-            },
-            dock: 'bottom',
-            displayInfo: true,
-            displayMsg : '显示单位信息 {0} - {1} of {2}',
-            emptyMsg : "没有单位信息",
-        }
-    ],
-    */
     onRender: function () {
         console.log("onRender ");
         this.callParent(arguments);
 
+        var grid = this.getView().up('app_role_manager_view_grid');
+
         // hide role_id
-        var columns = this.getView().up('app_role_manager_view_grid').getColumns();
+        var columns = grid.getColumns();
         columns[0].hidden = true;
         columns[0].hide();
-/***
-        // grid data
-        var store = this.getView().up('app_role_manager_view_grid').getStore();
-        store.loadPage(1);
-
-        // hide refresh button
-        var length = this.getView().up('app_role_manager_view_grid').dockedItems.keys.length;
-        var refreshStr= "";
-        for (var i = 0; i < length; i++) {
-            if (this.getView().up('app_role_manager_view_grid').dockedItems.keys[i].indexOf("pagingtoolbar") !== -1) {
-                refreshStr= this.getView().up('app_role_manager_view_grid').dockedItems.keys[i];
-            }
-        }
-        this.getView().up('app_role_manager_view_grid').dockedItems.get(refreshStr).child('#refresh').hide(true);
- ***/
     }
 });

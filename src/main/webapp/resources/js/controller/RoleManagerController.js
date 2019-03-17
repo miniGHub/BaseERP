@@ -91,12 +91,42 @@ Ext.define('AppIndex.controller.RoleManagerController',{
     onClickRefresh : function () {
         console.log("onClickRefresh");
 
-        // grid data
+        // refresh grid data
         var store = this.getView().down('app_role_manager_view_grid').getStore();
-        store.reload();
+        store.proxy.extraParams.isReqDB = true;
+        store.currentPage = 1;
+        store.load({
+            scope: this,
+            callback: function (records, operation, success) {
+                // reset param isReqDB
+                store.proxy.extraParams.isReqDB = false;
+            }
+        });
     },
     roleManagerCallback: function (records, operation) {
         console.log('role manager callback');
 
+        var code = records[0].data.code;
+        switch (code) {
+            case -1:
+                Ext.MessageBox.show({
+                    title: 'Warn',
+                    msg: '保存失败',
+                    buttons: Ext.MessageBox.OK,
+                    icon: Ext.MessageBox.WARNING
+                });
+                break;
+            case 0:
+                Ext.MessageBox.show({
+                    title: 'Info',
+                    msg: '保存成功',
+                    buttons: Ext.MessageBox.OK,
+                    icon: Ext.MessageBox.INFO
+                });
+                break;
+            default:
+                console.log('code undefined['+ code + ']');
+                break;
+        }
     }
 });

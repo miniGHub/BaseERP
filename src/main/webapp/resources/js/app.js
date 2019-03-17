@@ -41,8 +41,8 @@ Ext.application({
         console.log("hasLogin:" + hasLogin);
 
         // force login view
-        hasLogin = null;
-        // hasLogin = true;
+        // hasLogin = null;
+        hasLogin = true;
 
         // This ternary operator determines the value of the TutorialLoggedIn key.
         // If TutorialLoggedIn isn't true, we display the login window,

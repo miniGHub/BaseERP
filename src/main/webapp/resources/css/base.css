@@ -86,3 +86,11 @@ body {
 .icon_exit {
     background-image: url('./images/icons/control_power.png');
 }
+
+.icon_accept {
+    background-image: url('./images/icons/accept.png');
+}
+
+.icon_cancel {
+    background-image: url('./images/icons/cancel.png');
+}

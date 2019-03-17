@@ -12,6 +12,8 @@ Ext.define('AppIndex.view.RoleManagerView',{
     title: '角色管理',
     width: window.innerWidth - 300,
     height: window.innerHeight,
+    closable:true,
+
     layout: {
         type:'border'
     },

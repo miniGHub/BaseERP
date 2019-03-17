@@ -4,7 +4,10 @@ Ext.define("AppIndex.view.AppWestSystem",{
 
     requires:[
         'AppIndex.view.RoleManagerView',
-        'AppIndex.view.DepartManagerView'
+        'AppIndex.view.DepartManagerView',
+        'AppIndex.view.UserManagerView',
+        'AppIndex.view.ProductDicView',
+        'AppIndex.view.RepositoryDicView'
     ],
 
     title:'系统管理',
@@ -31,7 +34,21 @@ Ext.define("AppIndex.view.AppWestSystem",{
                     text: "系统权限",
                     children:[
                         {text:"角色管理", id: "app_role_manager_view", leaf: true},
-                        {text:"部门管理", id: "app_depart_manager_view", leaf: true}
+                        {text:"部门管理", id: "app_depart_manager_view", leaf: true},
+                        {text:"用户管理", id: "app_user_manager_view", leaf: true}
+                    ]
+                },
+                {
+                    text: "密码管理",
+                    children:[
+                        {text:"修改密码", id: "app_change_password_view", leaf: true}
+                    ]
+                },
+                {
+                    text: "字典管理",
+                    children:[
+                        {text:"商品字典", id: "app_product_dic_view", leaf: true},
+                        {text:"仓库字典", id: "app_repository_dic_view", leaf: true}
                     ]
                 }
             ]

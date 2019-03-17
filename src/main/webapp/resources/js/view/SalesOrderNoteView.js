@@ -12,11 +12,12 @@ Ext.define('AppIndex.view.SalesOrderNoteView',{
     title: '销售订单',
     width: window.innerWidth - 300,
     height: window.innerHeight,
+    closable:true,
+
     layout: {
         type:'border'
     },
 
-    closable:true,
 
     items:[
         {

@@ -5,8 +5,8 @@ Ext.define('AppIndex.controller.LoginController',{
     control:{},
     routes:{},
 
-    onClockLogin:function () {
-        console.log("onLoginClick!");
+    onClickLogin:function () {
+        console.log("onClickLogin!");
 
         // form data
         var form = this.getView().down('form');
@@ -14,7 +14,7 @@ Ext.define('AppIndex.controller.LoginController',{
         console.log('formData:' + Ext.encode(formData));
 
         var sendStore = Ext.create('AppIndex.store.SendStore');
-        sendStore.proxy.url += 'info/login';
+        sendStore.proxy.url += 'info/Login';
         sendStore.proxy.extraParams = formData;
 
         sendStore.load({
@@ -43,7 +43,7 @@ Ext.define('AppIndex.controller.LoginController',{
             }
         });
     },
-    onClockRefresh:function(){
+    onClickRefresh:function(){
         var form = this.getView().down('form');
         form.reset();
     },
@@ -104,7 +104,7 @@ Ext.define('AppIndex.controller.LoginController',{
         console.log('sendParam:' + Ext.encode(sendParam));
 
         var sendStore = Ext.create('AppIndex.store.SendStore');
-        sendStore.proxy.url += 'info/getUserInfo';
+        sendStore.proxy.url += 'info/GetUserInfo';
         sendStore.proxy.extraParams =  sendParam;
         // console.log(sendStore.proxy.url);
         sendStore.load({
@@ -117,8 +117,6 @@ Ext.define('AppIndex.controller.LoginController',{
                     console.log('getUserInfo failed!!!');
                     return;
                 }
-                console.log("xxx id:" + records[0].data.role_id);
-                console.log("xxx name" + records[0].data.role_name);
                 localStorage.setItem("UserId", records[0].data.id);
                 localStorage.setItem("UserName", records[0].data.name);
                 localStorage.setItem("RoleId", records[0].data.role_id);

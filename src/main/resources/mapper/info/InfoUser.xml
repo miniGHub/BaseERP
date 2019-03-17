@@ -12,4 +12,34 @@
         SELECT * FROM INFO_USER WHERE id = #{id};
     </select>
 
+    <select id="SelectAllUserInfo" resultType="com.mini.model.UserInfoPage">
+        select info_user.id, info_user.name, info_user.phone, info_user.role_id, info_user.depart_id,
+                (select role_name from dic_role where dic_role.role_id = info_user.role_id) as role_name,
+                (select depart_name from dic_depart where dic_depart.depart_id = info_user.depart_id) as depart_name
+            from info_user ORDER BY id;
+    </select>
+
+    <insert id="InsertUserInfo" parameterType="INFO_USER">
+        INSERT INTO INFO_USER
+          VALUES ( #{id}, #{password}, #{role_id}, #{name}, #{depart_id}, #{phone}, #{freeuse1}, #{freeuse2}, #{freeuse3} );
+    </insert>
+
+    <update id="UpdateUserInfo" parameterType="INFO_USER">
+        UPDATE INFO_USER SET role_id = #{role_id}, name = #{name}, depart_id = #{depart_id}, phone = #{phone},
+              freeuse1 = #{freeuse1}, freeuse2 = #{freeuse2}, freeuse3 = #{freeuse3}
+            WHERE id = #{id};
+    </update>
+    
+    <delete id="DeleteUserInfo" parameterType="java.util.List">
+        DELETE FROM INFO_USER
+          WHERE id IN
+          <foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+              #{id}
+          </foreach>
+    </delete>
+
+    <select id="CountUserInfo" parameterType="String" resultType="int">
+        SELECT count(1) FROM INFO_USER WHERE id = #{id};
+    </select>
+
 </mapper>
