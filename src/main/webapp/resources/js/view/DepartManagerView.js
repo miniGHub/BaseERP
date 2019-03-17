@@ -1,6 +1,7 @@
 Ext.define('AppIndex.view.DepartManagerView',{
     extend:'Ext.panel.Panel',
     xtype:'app_depart_manager_view',
+    itemId: 'app_depart_manager_view_item_id',
     controller:'depart_manager_view',
 
     requires:[
@@ -11,6 +12,8 @@ Ext.define('AppIndex.view.DepartManagerView',{
     title: '部门管理',
     width: window.innerWidth - 300,
     height: window.innerHeight,
+    closable:true,
+
     layout: {
         type:'border'
     },

@@ -3,11 +3,11 @@ Ext.define('AppIndex.view.DepartManagerViewGrid', {
     xtype: 'app_depart_manager_view_grid',
 
     requires: [
-        'AppIndex.store.DepartManagerStoreGrid'
+        'AppIndex.store.GetAllDepartStore'
     ],
 
     store:{
-        type:'depart_manager_store_grid'
+        type:'get_all_depart_store'
     },
     selModel: {
         selType: 'cellmodel'

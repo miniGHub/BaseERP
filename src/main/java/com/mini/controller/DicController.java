@@ -57,7 +57,6 @@ public class DicController {
     @RequestMapping(value = "/GetAllRole", method = {RequestMethod.POST})
     @ResponseBody
     public ArrayList<DIC_ROLE> GetAllRole() {
-        System.out.println("GetAllRole come in");
         return mDicService.GetAllRole();
     }
 

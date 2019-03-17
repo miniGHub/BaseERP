@@ -3,8 +3,6 @@ Ext.define("AppIndex.view.AppWestBasic",{
     xtype:'app_west_basic',
 
     requires:[
-        'AppIndex.view.ProductInfoView',
-        'AppIndex.view.RepositoryInfoView'
     ],
 
     title:'基本信息',
@@ -31,7 +29,9 @@ Ext.define("AppIndex.view.AppWestBasic",{
                     text: "数据维护",
                     children:[
                         {text:"商品信息", id: "app_product_info_view", leaf: true},
-                        {text:"仓库信息", id: "app_repository_info_view", leaf: true}
+                        {text:"仓库信息", id: "app_repository_info_view", leaf: true},
+                        {text:"客户信息", id: "app_client_info_view", leaf: true},
+                        {text:"供应商信息", id: "app_supplier_info_view", leaf: true}
                     ]
                 }
             ]

@@ -71,7 +71,7 @@ Ext.define('AppIndex.view.LoginView', {
                 text: '登录',
                 formBind: true,     // 按钮是否可用取决于form
                 listeners: {
-                    click: 'onClockLogin'
+                    click: 'onClickLogin'
                 }
             },
             {
@@ -79,7 +79,7 @@ Ext.define('AppIndex.view.LoginView', {
                 iconCls:'icon_refresh',
                 text: '重置',
                 listeners: {
-                    click: 'onClockRefresh'
+                    click: 'onClickRefresh'
                 }
 
             }

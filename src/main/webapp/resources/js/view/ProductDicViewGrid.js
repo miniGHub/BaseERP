@@ -1,13 +1,13 @@
-Ext.define('AppIndex.view.ProductInfoViewGrid', {
+Ext.define('AppIndex.view.ProductDicViewGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'app_product_info_view_grid',
+    xtype: 'app_product_dic_view_grid',
 
     requires: [
-        'AppIndex.store.ProductInfoStoreGrid'
+        'AppIndex.store.GetAllProductDicStore'
     ],
 
     store:{
-        type:'product_info_store_grid'
+        type:'get_all_product_dic_store'
     },
     selModel: {
         selType: 'cellmodel'
@@ -51,7 +51,7 @@ Ext.define('AppIndex.view.ProductInfoViewGrid', {
             sortable:false
         },
         {
-            text: '商品名称',
+            text: '商品分类名称',
             dataIndex: 'product_name',
             editor: 'textfield',
             width: 400,
@@ -65,7 +65,7 @@ Ext.define('AppIndex.view.ProductInfoViewGrid', {
         this.callParent(arguments);
 
         // hide product_type
-        var columns = this.getView().up('app_product_info_view_grid').getColumns();
+        var columns = this.getView().up('app_product_dic_view_grid').getColumns();
         columns[0].hidden = true;
         columns[0].hide();
     }

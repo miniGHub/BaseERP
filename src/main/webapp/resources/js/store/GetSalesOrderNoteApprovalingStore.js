@@ -2,7 +2,9 @@ Ext.define('AppIndex.store.GetSalesOrderNoteApprovalingStore',{
     extend: 'Ext.data.Store',
     alias: 'store.get_sales_order_note_approvaling_store',
 
-    fields: ['sales_order_note_id'],
+    fields: [
+        {name: 'sales_order_note_id', type: 'string'}
+    ],
     proxy: {
         type : 'ajax',
         actionMethods: {

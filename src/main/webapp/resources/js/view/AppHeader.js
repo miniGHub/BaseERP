@@ -1,4 +1,4 @@
-var AppHeaderTimer = null;
+var mAppHeaderTimer = null;
 Ext.define('AppIndex.view.AppHeader',{
     extend:'Ext.toolbar.Toolbar',
     xtype:'app_header',
@@ -54,24 +54,24 @@ Ext.define('AppIndex.view.AppHeader',{
         Ext.getCmp("app_header_user_name").setText("操作员：" + userName);
         Ext.getCmp("app_header_role_name").setText("角色：" + roleName);
 
-        AppHeaderTimer = {
+        mAppHeaderTimer = {
             run: function () {
                 var date = Ext.Date.format(new Date, 'Y-m-d H:i:s');
                 Ext.getCmp("app_header_time").setText("系统时间：" + date);
             },
             interval: 1000      // 1秒
-        }
+        };
 
         // start timer
-        Ext.TaskManager.start(AppHeaderTimer);
+        Ext.TaskManager.start(mAppHeaderTimer);
     },
     destroy:function(){
         console.log("header destroy");
         this.callParent(arguments);
 
         // stop timer
-        if (AppHeaderTimer != null) {
-            Ext.TaskManager.stop(AppHeaderTimer);
+        if (mAppHeaderTimer != null) {
+            Ext.TaskManager.stop(mAppHeaderTimer);
         }
     }
 });

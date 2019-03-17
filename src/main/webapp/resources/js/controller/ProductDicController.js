@@ -1,31 +1,31 @@
-Ext.define('AppIndex.controller.RepositoryInfoController',{
+Ext.define('AppIndex.controller.ProductDicController',{
     extend:'Ext.app.ViewController',
-    alias:'controller.repository_info_view',
+    alias:'controller.product_dic_view',
     requires:[],
     control:{},
     routes:{},
 
     onClickAdd : function () {
         console.log("onClickAdd");
-        var grid = this.getView().down('app_repository_info_view_grid');
+        var grid = this.getView().down('app_product_dic_view_grid');
         var store = grid.getStore();
         var max = 0;
         Ext.each(store.getRange(0, store.getCount()), function(record) {
-            if (max < parseInt(record.data['repository_type'])) {
-                max = record.data['repository_type'];
+            if (max < parseInt(record.data['product_type'])) {
+                max = record.data['product_type'];
             }
         });
         // new line id
         max += 1;
         var line = {
-            'repository_type' : max,
-            'repository_name' : ''
+            'product_type' : max,
+            'product_name' : ''
         };
         store.insert(max, line);
     },
     onClickDelete : function () {
         console.log("onClickDelete");
-        var grid = this.getView().down('app_repository_info_view_grid');
+        var grid = this.getView().down('app_product_dic_view_grid');
         var store = grid.getStore();
 
         Ext.Msg.confirm('系统提示','确定要删除？',function(btn){
@@ -39,14 +39,14 @@ Ext.define('AppIndex.controller.RepositoryInfoController',{
         console.log("onClickSave");
 
         // grid data
-        var store = this.getView().down('app_repository_info_view_grid').getStore();
+        var store = this.getView().down('app_product_dic_view_grid').getStore();
         var gridData = [];
         Ext.each(store.getRange(0, store.getCount()), function(record) {
             console.log('gridData:'+ Ext.encode(record.data));
             // delete value which key is 'id'
             delete record.data['id'];
             // continue
-            if (0 == record.data['repository_name'].length) {
+            if (0 == record.data['product_name'].length) {
                 return true;
             }
             gridData.push(record.data);
@@ -59,7 +59,7 @@ Ext.define('AppIndex.controller.RepositoryInfoController',{
         };
 
         var sendStore = Ext.create('AppIndex.store.SendStore');
-        sendStore.proxy.url += 'dic/SubmitRepositoryInfo';
+        sendStore.proxy.url += 'dic/SubmitProductInfo';
         sendStore.proxy.extraParams =  sendParam;
         // console.log(sendStore.proxy.url);
         sendStore.load({
@@ -83,7 +83,7 @@ Ext.define('AppIndex.controller.RepositoryInfoController',{
                     });
                 } else {
                     // transfer success
-                    this.roleManagerCallback(records, operation);
+                    this.productDicCallback(records, operation);
                 }
             }
         });
@@ -92,11 +92,11 @@ Ext.define('AppIndex.controller.RepositoryInfoController',{
         console.log("onClickRefresh");
 
         // grid data
-        var store = this.getView().down('app_repository_info_view_grid').getStore();
+        var store = this.getView().down('app_product_dic_view_grid').getStore();
         store.reload();
     },
-    roleManagerCallback: function (records, operation) {
-        console.log('repository info callback');
+    productDicCallback: function (records, operation) {
+        console.log('product dic callback');
 
     }
 });

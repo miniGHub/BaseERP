@@ -1,10 +1,10 @@
-Ext.define('AppIndex.store.RepositoryInfoStoreGrid', {
+Ext.define('AppIndex.store.GetAllDepartStore', {
     extend: 'Ext.data.ArrayStore',
-    alias: 'store.repository_info_store_grid',
+    alias: 'store.get_all_depart_store',
 
-    fields:[
-        {name: 'repository_id', type: 'int'},
-        {name: 'repository_name', type: 'string'}
+    fields: [
+        {name: 'depart_id', type: 'int'},
+        {name: 'depart_name', type: 'string'}
     ],
 
     proxy: {
@@ -18,11 +18,9 @@ Ext.define('AppIndex.store.RepositoryInfoStoreGrid', {
         reader : {
             type : 'json'
         },
-        url : 'http://localhost:8080/BasePSS/dic/GetAllRepository',
+        url : 'http://localhost:8080/BasePSS/dic/GetAllDepart',
         noCache:false,
         remoteSort: true
     },
-
-    //pageSize: 20,
     autoLoad: true,
 });

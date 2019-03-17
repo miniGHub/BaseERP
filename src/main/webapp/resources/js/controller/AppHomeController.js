@@ -5,8 +5,11 @@ var com={
     'app_storage_in_view':'app_west_business',
     'app_role_manager_view':'app_west_system',
     'app_depart_manager_view':'app_west_system',
+    'app_user_manager_view':'app_west_system',
+    'app_product_dic_view':'app_west_system',
+    'app_repository_dic_view':'app_west_system',
     'app_product_info_view':'app_west_basic',
-    'app_repository_info_view':'app_west_basic',
+    'app_repository_info_view':'app_west_basic'
 };
 Ext.define('AppIndex.controller.AppHomeController',{
     extend:'Ext.app.ViewController',
