@@ -1,15 +1,17 @@
-Ext.define('AppIndex.store.GetAllUserInfoStorePage', {
+Ext.define('AppIndex.store.GetAllProductInfoStorePage', {
     extend: 'Ext.data.ArrayStore',
-    alias: 'store.get_all_user_info_store_page',
+    alias: 'store.get_all_product_info_store_page',
 
     fields:[
-        {name: 'id', type: 'string'},
-        {name: 'name', type: 'string'},
-        {name: 'phone', type: 'string'},
-        {name: 'role_id', type: 'int'},
-        {name: 'role_name', type: 'string'},
-        {name: 'depart_id', type: 'int'},
-        {name: 'depart_name', type: 'string'}
+        {name: 'product_id', type: 'string'},
+        //Dic
+        {name: 'product_type', type: 'int'},
+        {name: 'product_name', type: 'string'},
+        //Info
+        {name: 'product_specific_name', type: 'string'},
+        {name: 'barcode', type: 'string'},
+        {name: 'state', type: 'string'},
+
     ],
 
     proxy: {
@@ -25,7 +27,7 @@ Ext.define('AppIndex.store.GetAllUserInfoStorePage', {
             rootProperty: 'items',
             totalProperty: 'total'
         },
-        url: 'http://localhost:8080/BasePSS/info/GetAllUserInfoPage',
+        url: 'http://localhost:8080/BasePSS/info/GetAllProductInfoPage',
         extraParams:{
             isReqDB: false
         },

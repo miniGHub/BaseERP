@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.info.IInfoSupplier">
+
+    <select id="SelectAllSupplier" resultType="INFO_SUPPLIER">
+        SELECT * FROM INFO_SUPPLIER ORDER BY supplier_id;
+    </select>
+
+    <select id="SelectSupplier" resultType="INFO_SUPPLIER" parameterType="int">
+        SELECT * FROM INFO_SUPPLIER WHERE supplier_id = #{supplierId};
+    </select>
+
+    <insert id="InsertSupplier" parameterType="java.util.List">
+        insert into INFO_SUPPLIER
+        values
+        <foreach collection="list" item="supplier" index="index" separator=",">
+            (
+            #{supplier.supplier_id}, #{supplier.supplier_name},#{supplier.manager},#{supplier.phone},
+            #{supplier.freeuse1}, #{supplier.freeuse2},#{supplier.freeuse3}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="DeleteSupplier">
+        delete from INFO_SUPPLIER;
+    </delete>
+</mapper>
