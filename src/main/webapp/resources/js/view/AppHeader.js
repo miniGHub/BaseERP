@@ -23,16 +23,26 @@ Ext.define('AppIndex.view.AppHeader',{
         {
             id:'app_header_time',
             xtype:'label'
-        },'  |  ',
+        },'  ',
+        {
+            xtype:'tbseparator'
+        },'  ',
         {
             id:'app_header_user_name',
-            xtype:'label'
-        },'  |  ',
+            xtype:'label',
+            text:'操作员：'+'XXX'
+        },'  ',
+        {
+            xtype:'tbseparator'
+        },'  ',
         {
             id:'app_header_role_name',
             xtype:'label',
             text:'角色：'+'XXX'
-        },'  |  ',
+        },'  ',
+        {
+            xtype:'tbseparator'
+        },'  ',
         {
             text:'注销',
             xtype:'button',

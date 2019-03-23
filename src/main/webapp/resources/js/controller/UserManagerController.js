@@ -42,25 +42,38 @@ Ext.define('AppIndex.controller.UserManagerController',{
         console.log("user manager onClickAdd");
 
         this.loadGrid();
-        var userManagerStore = mGridUserManager.getStore();
-        var max = 0;
-        Ext.each(userManagerStore.getRange(0, userManagerStore.getCount()), function(record) {
-            if (max < parseInt(record.data['id'])) {
-                max = record.data['id'];
+        Ext.create('AppIndex.store.GetNewIdStore').load({
+            scope:this,
+            callback: function (records, operation, success) {
+                console.log('load callback');
+
+                if (!success) {
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: '数据传输异常',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                } else if (records.length <= 0) {
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: '数据异常',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                } else {
+                    // transfer success
+                    var newId = records[0].data.id;
+                    this.closeWin();
+                    mWinUserManager = Ext.create({
+                        xtype: 'app_user_manager_view_window_add'
+                    });
+                    var winForm = mWinUserManager.down('form').getForm();
+                    winForm.findField('id').setValue(newId);
+                    mWinUserManager.show();
+                }
             }
         });
-
-        var addId = parseInt(max) + 1;
-        // 补'0'
-        addId = ('0000' + addId).slice(-4);
-
-        this.closeWin();
-        mWinUserManager = Ext.create({
-            xtype: 'app_user_manager_view_window_add'
-        });
-        var winForm = mWinUserManager.down('form').getForm();
-        winForm.findField('id').setValue(addId);
-        mWinUserManager.show();
     },
     onClickEdit : function () {
         console.log("onClickEdit");
@@ -110,7 +123,7 @@ Ext.define('AppIndex.controller.UserManagerController',{
         if (0 == record.length) {
             Ext.MessageBox.show({
                 title: 'INFO',
-                msg: '请选择数据进行删除',
+                msg: '请选择准备删除的用户',
                 buttons: Ext.MessageBox.OK,
                 icon: Ext.MessageBox.INFO
             });

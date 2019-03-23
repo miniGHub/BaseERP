@@ -7,7 +7,10 @@ Ext.define("AppIndex.view.AppWestSystem",{
         'AppIndex.view.DepartManagerView',
         'AppIndex.view.UserManagerView',
         'AppIndex.view.ProductDicView',
-        'AppIndex.view.RepositoryDicView'
+        'AppIndex.view.RepositoryDicView',
+        'AppIndex.view.PasswordChangeView',
+        'AppIndex.view.PasswordResetView'
+
     ],
 
     title:'系统管理',
@@ -41,7 +44,8 @@ Ext.define("AppIndex.view.AppWestSystem",{
                 {
                     text: "密码管理",
                     children:[
-                        {text:"修改密码", id: "app_change_password_view", leaf: true}
+                        {text:"修改密码", id: "app_password_change_view", leaf: true},
+                        {text:"重置密码", id: "app_password_reset_view", leaf: true}
                     ]
                 },
                 {

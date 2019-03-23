@@ -8,6 +8,8 @@ var com={
     'app_user_manager_view':'app_west_system',
     'app_product_dic_view':'app_west_system',
     'app_repository_dic_view':'app_west_system',
+    'app_password_change_view':'app_west_system',
+    'app_password_reset_view':'app_west_system',
     'app_product_info_view':'app_west_basic',
     'app_repository_info_view':'app_west_basic'
 };

@@ -9,7 +9,12 @@ public enum UserCode {
     UpdateSuccess(5),
     UpdateError(6),
     DeleteSuccess(7),
-    DeleteError(8);
+    DeleteError(8),
+    PasswordExist(9),
+    ChangePasswordSuccess(10),
+    ChangePasswordError(11),
+    ResetPasswordSuccess(12),
+    ResetPasswordError(13);
 
     private int code;
 
