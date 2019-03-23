@@ -4,9 +4,11 @@ import com.mini.common.Constant;
 import com.mini.model.UserCode;
 import com.mini.model.dic.DIC_ROLE;
 import com.mini.model.info.INFO_USER;
+import com.mini.model.request.ReqChangePassword;
 import com.mini.model.request.ReqUserInfo;
 import com.mini.model.response.RespUserInfoPage;
 import com.mini.model.UserInfoPage;
+import com.mini.model.response.RespUserPasswordPage;
 import com.mini.model.response.ResponseCode;
 import com.mini.service.IDicService;
 import com.mini.service.IInfoService;
@@ -92,6 +94,17 @@ public class InfoController {
         return respUserInfoPage;
     }
 
+    @RequestMapping(value = "/GetNewId", method = {RequestMethod.POST})
+    @ResponseBody
+    public INFO_USER GetNewId() {
+        System.out.println("GetNewId entry");
+
+        INFO_USER userInfo = new INFO_USER();
+        userInfo.setId(mInfoService.GetNewId());
+
+        return userInfo;
+    }
+
     @RequestMapping(value = "/AddUserInfo", method = {RequestMethod.POST})
     @ResponseBody
     public ResponseCode AddUserInfo(@RequestBody INFO_USER reqInfoUser) {
@@ -153,6 +166,65 @@ public class InfoController {
 
         UserCode userCode;
         userCode = mInfoService.DeleteUserInfo(listId);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/ChangePassword", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode ChangePassword(@RequestBody ReqChangePassword reqChangePassword) {
+        System.out.println("ChangePassword id:" + reqChangePassword.getId());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.UpdatePassword(reqChangePassword.getId(), reqChangePassword.getOld_password(), reqChangePassword.getNew_password());
+
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/GetAllUserPasswordPage", method = {RequestMethod.GET})
+    @ResponseBody
+    public RespUserPasswordPage GetAllUserPasswordPage(@RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "0") int start,
+                                                   @RequestParam(defaultValue = "0") int limit,
+                                                   @RequestParam(defaultValue = "false") boolean isReqDB) {
+        System.out.println("GetAllUserPasswordPage entry");
+        System.out.println("GetAllUserPasswordPage page:" + page + ",start:" + start + ",limit:" + limit + ",isReqDB" + isReqDB);
+
+        RespUserPasswordPage respUserPasswordPage = new RespUserPasswordPage();
+
+        if (isReqDB) {
+            mInfoService.GetAllUserPassword();
+        }
+
+        respUserPasswordPage.setItems(mInfoService.GetAllUserPasswordPage(page, start, limit));
+        respUserPasswordPage.setTotal(mInfoService.GetAllUserPasswordSize());
+
+        return respUserPasswordPage;
+    }
+
+    @RequestMapping(value = "/ResetPassword", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode ResetPassword(@RequestBody ReqUserInfo reqArrayUserInfo) {
+        System.out.println("ResetPassword size:" + reqArrayUserInfo.getGrid().size());
+
+        ResponseCode code = new ResponseCode();
+
+        if (0 == reqArrayUserInfo.getGrid().size()) {
+            code.setCode(Constant.DATA_ERROR);
+            return code;
+        }
+
+        ArrayList<String> listId = new ArrayList<String>();
+        for (int i = 0; i < reqArrayUserInfo.getGrid().size(); i++) {
+            listId.add(i, reqArrayUserInfo.getGrid().get(i).getId());
+        }
+
+        UserCode userCode;
+        userCode = mInfoService.ResetPassword(listId);
         code.setCode(userCode.getCode());
 
         return code;

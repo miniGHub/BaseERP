@@ -3,6 +3,7 @@ package com.mini.service.impl;
 import com.mini.common.Constant;
 import com.mini.dao.info.IInfoUser;
 import com.mini.model.UserCode;
+import com.mini.model.UserPasswordPage;
 import com.mini.model.info.INFO_USER;
 import com.mini.model.UserInfoPage;
 import com.mini.service.IInfoService;
@@ -18,25 +19,26 @@ public class InfoServiceImpl implements IInfoService {
     private IInfoUser mInfoUser;
 
     private ArrayList<UserInfoPage> mArrayUserInfo = new ArrayList<>();
+    private ArrayList<UserPasswordPage> mArrayUserPassword = new ArrayList<>();
 
     @Override
     public UserCode Login(String id, String password) {
-        UserCode ret;
-
         System.out.println("id " + id + ",password" + password);
+
+        UserCode userCode;
         INFO_USER infoUser = mInfoUser.SelectUserInfo(id);
-        System.out.println("infoUser" + infoUser);
+
         if (null == infoUser) {
-            ret = UserCode.NotExist;
+            userCode = UserCode.NotExist;
         } else {
             if (infoUser.getPassword().equals(password)) {
-                ret = UserCode.Exist;
+                userCode = UserCode.Exist;
             } else {
-                ret = UserCode.PasswordError;
+                userCode = UserCode.PasswordError;
             }
         }
 
-        return  ret;
+        return  userCode;
     }
 
     @Override
@@ -70,6 +72,19 @@ public class InfoServiceImpl implements IInfoService {
     @Override
     public int GetAllUserInfoSize() {
         return mArrayUserInfo.size();
+    }
+
+    @Override
+    public String GetNewId() {
+        String newId = mInfoUser.SelectMaxId();
+
+        if (null == newId) {
+            newId = Constant.DEFAULT_ID;
+        } else {
+            newId = String.format("%04d", Integer.parseInt(newId) + 1);
+        }
+
+        return newId;
     }
 
     @Override
@@ -114,5 +129,103 @@ public class InfoServiceImpl implements IInfoService {
         mInfoUser.DeleteUserInfo(listId);
 
         return ret;
+    }
+
+    @Override
+    public UserCode UpdatePassword(String id, String oldPassword, String newPassword) {
+        UserCode userCode = UserCode.ChangePasswordSuccess;
+
+        int cnt = mInfoUser.CountUserInfo(id);
+        if (0 == cnt) {
+            userCode = UserCode.NotExist;
+            return userCode;
+        }
+
+        INFO_USER userInfo = mInfoUser.SelectUserInfo(id);
+        if (!userInfo.getPassword().equals(oldPassword)) {
+            userCode = UserCode.PasswordError;
+            return userCode;
+        }
+
+        if (userInfo.getPassword().equals(newPassword)) {
+            userCode = UserCode.PasswordExist;
+            return userCode;
+        }
+
+        int line = mInfoUser.UpdatePassword(id, newPassword);
+        if (1 == line) {
+            userCode = UserCode.ChangePasswordSuccess;
+        } else {
+            System.out.println("UpdatePassword error! line:" + line);
+            userCode = UserCode.ChangePasswordError;
+        }
+
+        return userCode;
+    }
+
+    @Override
+    public ArrayList<UserPasswordPage> GetAllUserPassword() {
+        // clear array list
+        mArrayUserPassword.clear();
+        mArrayUserPassword = mInfoUser.SelectAllUserPassword();
+        for (int i = 0; i < mArrayUserPassword.size(); i++) {
+            if (mArrayUserPassword.get(i).getPassword().equals(Constant.DEFAULT_PASSWORD)) {
+                mArrayUserPassword.get(i).setPassword_state(Constant.RESET_PASSWORD_DONE);
+            } else {
+                mArrayUserPassword.get(i).setPassword_state(Constant.RESET_PASSWORD_NONE);
+            }
+        }
+        return mArrayUserPassword;
+    }
+
+    @Override
+    public ArrayList<UserPasswordPage> GetAllUserPasswordPage(int page, int start, int limit) {
+        ArrayList<UserPasswordPage> arrayUserPassword = new ArrayList<>();
+
+        if (mArrayUserPassword.size() == 0) {
+            mArrayUserPassword = mInfoUser.SelectAllUserPassword();
+            for (int i = 0; i < mArrayUserPassword.size(); i++) {
+                if (mArrayUserPassword.get(i).getPassword().equals(Constant.DEFAULT_PASSWORD)) {
+                    mArrayUserPassword.get(i).setPassword_state(Constant.RESET_PASSWORD_DONE);
+                } else {
+                    mArrayUserPassword.get(i).setPassword_state(Constant.RESET_PASSWORD_NONE);
+                }
+            }
+        }
+
+        for(int index = start, cnt = 0; index < mArrayUserPassword.size() && cnt < limit; index++, cnt++) {
+            arrayUserPassword.add(mArrayUserPassword.get(index));
+        }
+
+        return arrayUserPassword;
+    }
+
+    @Override
+    public int GetAllUserPasswordSize() {
+        return mArrayUserPassword.size();
+    }
+
+    @Override
+    public UserCode ResetPassword(ArrayList<String> listId) {
+        UserCode userCode = UserCode.ResetPasswordError;
+
+        for (int i = 0; i < listId.size(); i++) {
+            String id = listId.get(i);
+
+            int cnt = mInfoUser.CountUserInfo(id);
+            if (0 == cnt) {
+                System.out.println("id[" + id + "] No Exists!");
+                continue;
+            }
+
+            int line = mInfoUser.UpdatePassword(id, Constant.DEFAULT_PASSWORD);
+            if (1 == line) {
+                userCode = UserCode.ResetPasswordSuccess;
+            } else {
+                System.out.println("id[" + id + "] UpdatePassword error! line:" + line);
+            }
+        }
+
+        return userCode;
     }
 }

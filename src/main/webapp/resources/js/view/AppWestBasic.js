@@ -33,6 +33,11 @@ Ext.define("AppIndex.view.AppWestBasic",{
                         {text:"客户信息", id: "app_client_info_view", leaf: true},
                         {text:"供应商信息", id: "app_supplier_info_view", leaf: true}
                     ]
+                },
+                {
+                    text: "数据查询",
+                    children:[
+                    ]
                 }
             ]
         }

@@ -11,15 +11,15 @@ Ext.define('AppIndex.controller.DepartManagerController',{
         var store = grid.getStore();
         var max = 0;
         Ext.each(store.getRange(0, store.getCount()), function(record) {
-            if (max < parseInt(record.data['role_id'])) {
-                max = record.data['role_id'];
+            if (max < parseInt(record.data['depart_id'])) {
+                max = record.data['depart_id'];
             }
         });
         // new line id
         max += 1;
         var line = {
-            'role_id' : max,
-            'role_name' : ''
+            'depart_id' : max,
+            'depart_name' : ''
         };
         store.insert(max, line);
     },

@@ -4,7 +4,7 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.info.IInfoUser">
 
-    <select id="SelectAll" resultType="INFO_USER">
+    <select id="SelectAllUser" resultType="INFO_USER">
         SELECT * FROM INFO_USER;
     </select>
 
@@ -14,6 +14,13 @@
 
     <select id="SelectAllUserInfo" resultType="com.mini.model.UserInfoPage">
         select info_user.id, info_user.name, info_user.phone, info_user.role_id, info_user.depart_id,
+                (select role_name from dic_role where dic_role.role_id = info_user.role_id) as role_name,
+                (select depart_name from dic_depart where dic_depart.depart_id = info_user.depart_id) as depart_name
+            from info_user ORDER BY id;
+    </select>
+
+    <select id="SelectAllUserPassword" resultType="com.mini.model.UserPasswordPage">
+        select info_user.id, info_user.password, info_user.name, info_user.role_id, info_user.depart_id,
                 (select role_name from dic_role where dic_role.role_id = info_user.role_id) as role_name,
                 (select depart_name from dic_depart where dic_depart.depart_id = info_user.depart_id) as depart_name
             from info_user ORDER BY id;
@@ -42,4 +49,11 @@
         SELECT count(1) FROM INFO_USER WHERE id = #{id};
     </select>
 
+    <select id="SelectMaxId" resultType="String">
+        SELECT max(id) FROM info_user;
+    </select>
+
+    <update id="UpdatePassword">
+        UPDATE INFO_USER SET password = #{1} WHERE id = #{0};
+    </update>
 </mapper>
