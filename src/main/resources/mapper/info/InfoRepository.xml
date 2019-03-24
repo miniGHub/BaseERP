@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IInfoRepository接口方法提供sql语句配置 -->
+<mapper namespace="com.mini.dao.info.IInfoRepository">
+
+    <select id="SelectAll" resultType="com.mini.model.info.INFO_REPOSITORY">
+        SELECT * FROM INFO_REPOSITORY
+    </select>
+
+    <select id="SelectAllRepositoryInfo" resultType="com.mini.model.RepositoryInfoPage">
+        SELECT *,
+        (SELECT repository_name FROM DIC_REPOSITORY WHERE repository_type = INFO_REPOSITORY.repository_type) as repository_type_name
+        FROM INFO_REPOSITORY ORDER BY repository_id
+    </select>
+
+    <insert id="AddRepositoryInfo" parameterType="com.mini.model.info.INFO_REPOSITORY">
+        INSERT INTO INFO_REPOSITORY
+        VALUES(#{repository_id}, #{repository_type}, #{repository_name}, #{address}, #{manager}, #{phone}, #{freeuse1}, #{freeuse2}, #{freeuse3})
+    </insert>
+
+    <update id="UpdateRepositoryInfo" parameterType="com.mini.model.info.INFO_REPOSITORY">
+        UPDATE INFO_REPOSITORY SET repository_type=#{repository_type}, repository_name=#{repository_name}, address=#{address}, manager=#{manager}, phone=#{phone}, freeuse1=#{freeuse1}, freeuse2=#{freeuse2}, freeuse3=#{freeuse3}
+        WHERE repository_id=#{repository_id}
+    </update>
+
+    <delete id="DeleteRepositoryInfo" parameterType="java.util.List">
+        DELETE FROM INFO_REPOSITORY
+        WHERE repository_id IN
+        <foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="SelectRepositoryInfo" resultType="com.mini.model.info.INFO_REPOSITORY" parameterType="java.lang.String">
+        SELECT * FROM INFO_REPOSITORY WHERE repository_id=#{repository_id}
+    </select>
+
+</mapper>

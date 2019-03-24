@@ -1,6 +1,9 @@
 package com.mini.controller;
 
 import com.mini.common.Constant;
+import com.mini.model.RepositoryInfoPage;
+import com.mini.model.info.INFO_CLIENT;
+import com.mini.model.info.INFO_REPOSITORY;
 import com.mini.model.ProductInfoPage;
 import com.mini.model.UserCode;
 import com.mini.model.UserInfoPage;
@@ -9,14 +12,9 @@ import com.mini.model.dic.DIC_ROLE;
 import com.mini.model.info.INFO_PRODUCT;
 import com.mini.model.info.INFO_SUPPLIER;
 import com.mini.model.info.INFO_USER;
-import com.mini.model.request.ReqProductInfo;
-import com.mini.model.request.ReqSupplier;
-import com.mini.model.request.ReqUserInfo;
-import com.mini.model.response.RespProductInfoPage;
-import com.mini.model.response.RespUserInfoPage;
-import com.mini.model.request.ReqChangePassword;
-import com.mini.model.response.RespUserPasswordPage;
-import com.mini.model.response.ResponseCode;
+import com.mini.model.request.*;
+import com.mini.model.response.*;
+
 import com.mini.service.IDicService;
 import com.mini.service.IInfoService;
 import org.springframework.stereotype.Controller;
@@ -385,6 +383,129 @@ public class InfoController {
 
         UserCode userCode;
         userCode = mInfoService.ResetPassword(listId);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/GetAllRepositoryPage", method = {RequestMethod.GET})
+    @ResponseBody
+    public RespInfoPage<RepositoryInfoPage> GetAllRepositoryPage(@RequestParam(defaultValue = "0") int page,
+                                                                 @RequestParam(defaultValue = "0") int start,
+                                                                 @RequestParam(defaultValue = "0") int limit,
+                                                                 @RequestParam(defaultValue = "false") boolean isReqDB) {
+        System.out.println("GetAllRepositoryPage entry");
+        System.out.println("GetAllRepositoryPage page:" + page + ",start:" + start + ",limit:" + limit + ",isReqDB:" + isReqDB);
+
+        RespInfoPage<RepositoryInfoPage> respUserInfoPage = new RespInfoPage<>();
+
+        if (isReqDB) {
+            mInfoService.GetAllRepository();
+        }
+
+        respUserInfoPage.setItems(mInfoService.GetAllRepositoryPage(page, start, limit));
+        respUserInfoPage.setTotal(mInfoService.GetAllRepositorySize());
+
+        return respUserInfoPage;
+    }
+
+    @RequestMapping(value = "/AddRepositoryInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode AddRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
+        System.out.println(repositoryInfo.toString());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.AddRepositoryInfo(repositoryInfo);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/UpdateRepositoryInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode UpdateRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
+        System.out.println(repositoryInfo.toString());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.UpdateRepositoryInfo(repositoryInfo);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/DeleteRepositoryInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode DeleteRepositoryInfo(@RequestBody ReqStringList reqStringList) {
+        System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.DeleteRepositoryInfo(reqStringList.getGrid());
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/GetAllClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ArrayList<INFO_CLIENT> GetAllClientInfo() {
+        System.out.println("GetAllClientInfo entry");
+        ArrayList<INFO_CLIENT> ret = mInfoService.GetAllClientInfo();
+        System.out.println("size: " + ret.size());
+        return ret;
+    }
+
+    @RequestMapping(value = "/SaveClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode SaveClientInfo(@RequestBody ReqGrid<INFO_CLIENT> clientInfoList) {
+        System.out.println("SaveClientInfo() size: "+clientInfoList.getGrid().size());
+        for (INFO_CLIENT client: clientInfoList.getGrid()) {
+            System.out.println("SaveClientInfo(): client_name " + client.getClient_name());
+        }
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.SaveClientInfo(clientInfoList.getGrid());
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/AddClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode AddClientInfo(@RequestBody INFO_CLIENT clientInfo) {
+        System.out.println(clientInfo.toString());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.AddClientInfo(clientInfo);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/UpdateClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode UpdateClientInfo(@RequestBody INFO_CLIENT clientInfo) {
+        System.out.println(clientInfo.toString());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.UpdateClientInfo(clientInfo);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/DeleteClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode DeleteClientInfo(@RequestBody ReqStringList reqStringList) {
+        System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.DeleteClientInfo(reqStringList.getGrid());
         code.setCode(userCode.getCode());
 
         return code;

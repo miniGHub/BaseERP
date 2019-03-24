@@ -1,12 +1,7 @@
 package com.mini.service;
 
-import com.mini.model.ProductInfoPage;
-import com.mini.model.UserCode;
-import com.mini.model.UserInfoPage;
-import com.mini.model.info.INFO_PRODUCT;
-import com.mini.model.info.INFO_SUPPLIER;
-import com.mini.model.info.INFO_USER;
-import com.mini.model.UserPasswordPage;
+import com.mini.model.*;
+import com.mini.model.info.*;
 
 import java.util.ArrayList;
 
@@ -37,4 +32,16 @@ public interface IInfoService {
     UserCode AddProductInfo(INFO_PRODUCT productInfo);
     UserCode UpdateProductInfo(INFO_PRODUCT productInfo);
     UserCode DeleteProductInfo(ArrayList<String> listId);
+	ArrayList<RepositoryInfoPage> GetAllRepository();
+    ArrayList<RepositoryInfoPage> GetAllRepositoryPage(int page, int start, int limit);
+    int GetAllRepositorySize();
+    UserCode AddRepositoryInfo(INFO_REPOSITORY repositoryInfo);
+    UserCode UpdateRepositoryInfo(INFO_REPOSITORY repositoryInfo);
+    UserCode DeleteRepositoryInfo(ArrayList<String> idList);
+    RepositoryInfoPage GetRepositoryInfo(String repository_id);
+    ArrayList<INFO_CLIENT> GetAllClientInfo();
+    UserCode AddClientInfo(INFO_CLIENT clientInfo);
+    UserCode SaveClientInfo(ArrayList<INFO_CLIENT> clientInfoList);
+    UserCode UpdateClientInfo(INFO_CLIENT clientInfo);
+    UserCode DeleteClientInfo(ArrayList<String> idList);
 }

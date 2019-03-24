@@ -4,7 +4,9 @@ Ext.define("AppIndex.view.AppWestBasic",{
 
     requires:[
         'AppIndex.view.SupplierManagerView',
-        'AppIndex.view.ProductInfoManagerView'
+        'AppIndex.view.ProductInfoManagerView',
+	'AppIndex.view.ClientInfoView',
+        'AppIndex.view.RepositoryInfoView'
     ],
 
     title:'基本信息',

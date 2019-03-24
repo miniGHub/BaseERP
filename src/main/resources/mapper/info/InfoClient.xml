@@ -8,6 +8,38 @@
         SELECT * FROM INFO_CLIENT
     </select>
 
+    <insert id="AddClientInfo" parameterType="com.mini.model.info.INFO_CLIENT">
+        INSERT INTO INFO_CLIENT
+        VALUES(#{client_id}, #{client_name}, #{manager}, #{phone}, #{freeuse1}, #{freeuse2}, #{freeuse3})
+    </insert>
+
+    <update id="UpdateClientInfo" parameterType="com.mini.model.info.INFO_CLIENT">
+        UPDATE INFO_CLIENT SET client_name=#{client_name}, manager=#{manager}, phone=#{phone}, freeuse1=#{freeuse1}, freeuse2=#{freeuse2}, freeuse3=#{freeuse3}
+        WHERE client_id=#{client_id}
+    </update>
+
+    <delete id="DeleteClientInfo" parameterType="java.util.List">
+        DELETE FROM INFO_CLIENT
+        WHERE client_id IN
+        <foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="DeleteAll">
+        DELETE from INFO_CLIENT
+    </delete>
+
+    <insert id="SaveClientInfoList" parameterType="java.util.List">
+        INSERT INTO INFO_CLIENT
+        VALUES
+        <foreach collection="list" item="client" index="index" separator=",">
+            (
+            #{client.client_id}, #{client.client_name}, #{client.manager}, #{client.freeuse1}, #{client.freeuse2}, #{client.freeuse3}
+            )
+        </foreach>
+    </insert>
+
     <select id="SelectClientInfo" resultType="INFO_CLIENT" parameterType="String">
         SELECT * FROM INFO_CLIENT WHERE client_id = #{clientId}
     </select>
