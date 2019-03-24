@@ -35,7 +35,7 @@
         VALUES
         <foreach collection="list" item="client" index="index" separator=",">
             (
-            #{client.client_id}, #{client.client_name}, #{client.manager}, #{client.freeuse1}, #{client.freeuse2}, #{client.freeuse3}
+            #{client.client_id}, #{client.client_name}, #{client.manager}, #{client.phone}, #{client.freeuse1}, #{client.freeuse2}, #{client.freeuse3}
             )
         </foreach>
     </insert>
