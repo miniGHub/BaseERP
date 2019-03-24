@@ -1,6 +1,7 @@
 Ext.define('AppIndex.view.SalesNoteView',{
     extend:'Ext.panel.Panel',
     xtype:'app_sales_note_view',
+    itemId: 'app_sales_note_view_item_id',
     controller:'sales_note_view',
     requires:[
         'AppIndex.controller.SalesNoteController',
@@ -15,6 +16,7 @@ Ext.define('AppIndex.view.SalesNoteView',{
     layout: {
         type:'border'
     },
+    closable:true,
 
     items:[
         {

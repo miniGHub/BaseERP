@@ -11,7 +11,9 @@ var com={
     'app_password_change_view':'app_west_system',
     'app_password_reset_view':'app_west_system',
     'app_product_info_view':'app_west_basic',
-    'app_repository_info_view':'app_west_basic'
+    'app_repository_info_view':'app_west_basic',
+    'app_supplier_manager_view':'app_west_basic',
+    'app_product_info_manager_view':'app_west_basic'
 };
 Ext.define('AppIndex.controller.AppHomeController',{
     extend:'Ext.app.ViewController',

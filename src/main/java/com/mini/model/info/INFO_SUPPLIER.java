@@ -3,7 +3,7 @@ package com.mini.model.info;
 import java.util.Date;
 
 public class INFO_SUPPLIER {
-    private String supplier_id;
+    private int supplier_id;
     private String supplier_name;
     private String manager;
     private String phone;
@@ -11,11 +11,11 @@ public class INFO_SUPPLIER {
     private String freeuse2;
     private Date freeuse3;
 
-    public String getSupplier_id() {
+    public int getSupplier_id() {
         return supplier_id;
     }
 
-    public void setSupplier_id(String supplier_id) {
+    public void setSupplier_id(int supplier_id) {
         this.supplier_id = supplier_id;
     }
 
