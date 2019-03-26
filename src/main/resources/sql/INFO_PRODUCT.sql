@@ -1,7 +1,7 @@
 CREATE TABLE `INFO_PRODUCT` (
   `product_id` varchar(10) NOT NULL COMMENT '商品编号',
   `product_type` int COMMENT '商品分类',
-  `product_specific_name` varchar(255) COMMENT '商品名称',
+  `product_name` varchar(255) COMMENT '商品名称',
   `barcode` varchar(50) COMMENT '条码',
   `state` int COMMENT '状态',
   `freeuse1` int COMMENT '备用1',

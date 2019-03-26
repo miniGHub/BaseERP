@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface IInfoSupplier {
     ArrayList<INFO_SUPPLIER> SelectAllSupplier();
-    INFO_SUPPLIER SelectSupplier(int supplierId);
+    INFO_SUPPLIER SelectSupplier(String supplierId);
     void InsertSupplier(ArrayList<INFO_SUPPLIER> supplier);
     void DeleteSupplier();
 }

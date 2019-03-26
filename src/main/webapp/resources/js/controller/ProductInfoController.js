@@ -1,18 +1,18 @@
 var mWinProductInfoManager = null;
 var mGridProductInfoManager = null;
-Ext.define('AppIndex.controller.ProductInfoManagerController',{
+Ext.define('AppIndex.controller.ProductInfoController',{
     extend:'Ext.app.ViewController',
-    alias:'controller.product_info_manager_view',
+    alias:'controller.product_info_view',
     requires:[
-        'AppIndex.view.ProductInfoManagerViewWindowAdd',
-        'AppIndex.view.ProductInfoManagerViewWindowEdit'
+        'AppIndex.view.ProductInfoViewWindowAdd',
+        'AppIndex.view.ProductInfoViewWindowEdit'
     ],
     control:{},
     routes:{},
 
     // private methods
     loadGrid:function(){
-        mGridProductInfoManager = this.getView().down('app_product_info_manager_view_grid');
+        mGridProductInfoManager = this.getView().down('app_product_info_view_grid');
     },
     closeWin: function (){
         if (mWinProductInfoManager) {
@@ -39,28 +39,41 @@ Ext.define('AppIndex.controller.ProductInfoManagerController',{
     },
     // event methods
     onClickAdd : function () {
-        console.log("product info manager onClickAdd");
+        console.log("info product onClickAdd");
 
         this.loadGrid();
-        var productManagerStore = mGridProductInfoManager.getStore();
-        var max = 0;
-        Ext.each(productManagerStore.getRange(0, productManagerStore.getCount()), function(record) {
-            if (max < parseInt(record.data['product_id'])) {
-                max = record.data['product_id'];
+        Ext.create('AppIndex.store.GetNewProductInfoIdStore').load({
+            scope:this,
+            callback: function (records, operation, success) {
+                console.log('load callback');
+
+                if (!success) {
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: '数据传输异常',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                } else if (records.length <= 0) {
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: '数据异常',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.ERROR
+                    });
+                } else {
+                    // transfer success
+                    var newId = records[0].data.product_id;
+                    this.closeWin();
+                    mWinProductInfoManager = Ext.create({
+                        xtype: 'app_product_info_view_window_add'
+                    });
+                    var winForm = mWinProductInfoManager.down('form').getForm();
+                    winForm.findField('product_id').setValue(newId);
+                    mWinProductInfoManager.show();
+                }
             }
         });
-
-        var addId = parseInt(max) + 1;
-        // 补'0'
-        addId = ('000' + addId).slice(-3);
-
-        this.closeWin();
-        mWinProductInfoManager = Ext.create({
-            xtype: 'app_product_info_manager_view_window_add'
-        });
-        var winForm = mWinProductInfoManager.down('form').getForm();
-        winForm.findField('product_id').setValue(addId);
-        mWinProductInfoManager.show();
     },
     onClickEdit : function () {
         console.log("onClickEdit");
@@ -90,13 +103,13 @@ Ext.define('AppIndex.controller.ProductInfoManagerController',{
 
         this.closeWin();
         mWinProductInfoManager = Ext.create({
-            xtype: 'app_product_info_manager_view_window_edit'
+            xtype: 'app_product_info_view_window_edit'
         });
 
         var winForm = mWinProductInfoManager.down('form').getForm();
         winForm.findField('product_id').setValue(record[0].data['product_id']);
-        winForm.findField('product_name').setValue(record[0].data['product_type']);
-        winForm.findField('product_specific_name').setValue(record[0].data['product_specific_name']);
+        winForm.findField('product_dic_name').setValue(record[0].data['product_type']);
+        winForm.findField('product_name').setValue(record[0].data['product_name']);
         winForm.findField('barcode').setValue(record[0].data['barcode']);
         winForm.findField('state').setValue(record[0].data['state']);
         mWinProductInfoManager.show();
@@ -133,8 +146,8 @@ Ext.define('AppIndex.controller.ProductInfoManagerController',{
 
         var sendParam= {
             product_id: winFormData['product_id'],
-            product_type: winFormData['product_name'],
-            product_specific_name: winFormData['product_specific_name'],
+            product_type: winFormData['product_dic_name'],
+            product_name: winFormData['product_name'],
             barcode: winFormData['barcode'],
             state: winFormData['state']
         };
@@ -149,22 +162,7 @@ Ext.define('AppIndex.controller.ProductInfoManagerController',{
             scope: this,
             callback: function (records, operation, success) {
                 console.log('load callback');
-
-                if (!success) {
-                    Ext.MessageBox.show({
-                        title: 'Error',
-                        msg: '数据传输异常',
-                        buttons: Ext.MessageBox.OK,
-                        icon: Ext.MessageBox.ERROR
-                    });
-                } else if (records.length <= 0) {
-                    Ext.MessageBox.show({
-                        title: 'Error',
-                        msg: '数据异常',
-                        buttons: Ext.MessageBox.OK,
-                        icon: Ext.MessageBox.ERROR
-                    });
-                } else {
+                if (COMMON_FUNC.StoreCallbackDialog(records, success)) {
                     // transfer success
                     this.addSaveCallback(records, operation);
                 }
@@ -186,8 +184,8 @@ Ext.define('AppIndex.controller.ProductInfoManagerController',{
 
         var sendParam= {
             product_id: winFormData['product_id'],
-            product_type: winFormData['product_name'],
-            product_specific_name: winFormData['product_specific_name'],
+            product_type: winFormData['product_dic_name'],
+            product_name: winFormData['product_name'],
             barcode: winFormData['barcode'],
             state: winFormData['state']
         };
@@ -202,22 +200,7 @@ Ext.define('AppIndex.controller.ProductInfoManagerController',{
             scope: this,
             callback: function (records, operation, success) {
                 console.log('load callback');
-
-                if (!success) {
-                    Ext.MessageBox.show({
-                        title: 'Error',
-                        msg: '数据传输异常',
-                        buttons: Ext.MessageBox.OK,
-                        icon: Ext.MessageBox.ERROR
-                    });
-                } else if (records.length <= 0) {
-                    Ext.MessageBox.show({
-                        title: 'Error',
-                        msg: '数据异常',
-                        buttons: Ext.MessageBox.OK,
-                        icon: Ext.MessageBox.ERROR
-                    });
-                } else {
+                if (COMMON_FUNC.StoreCallbackDialog(records, success)) {
                     // transfer success
                     this.editSaveCallback(records, operation);
                 }
@@ -256,22 +239,7 @@ Ext.define('AppIndex.controller.ProductInfoManagerController',{
                 scope: this,
                 callback: function (records, operation, success) {
                     console.log('load callback');
-
-                    if (!success) {
-                        Ext.MessageBox.show({
-                            title: 'Error',
-                            msg: '数据传输异常',
-                            buttons: Ext.MessageBox.OK,
-                            icon: Ext.MessageBox.ERROR
-                        });
-                    } else if (records.length <= 0) {
-                        Ext.MessageBox.show({
-                            title: 'Error',
-                            msg: '数据异常',
-                            buttons: Ext.MessageBox.OK,
-                            icon: Ext.MessageBox.ERROR
-                        });
-                    } else {
+                    if (COMMON_FUNC.StoreCallbackDialog(records, success)) {
                         // transfer success
                         this.deleteSaveCallback(records, operation);
                     }

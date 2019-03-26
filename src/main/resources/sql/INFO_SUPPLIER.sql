@@ -1,5 +1,5 @@
 CREATE TABLE `INFO_SUPPLIER` (
-  `supplier_id` int NOT NULL COMMENT '供应商编号',
+  `supplier_id` varchar(10) NOT NULL COMMENT '供应商编号',
   `supplier_name` varchar(255) NOT NULL COMMENT '供应商名称',
   `manager` varchar(100) NOT NULL COMMENT '负责人',
   `phone` varchar(50) NOT NULL COMMENT '电话',

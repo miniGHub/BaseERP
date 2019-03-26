@@ -1,6 +1,6 @@
-Ext.define('AppIndex.view.ProductInfoManagerViewGrid', {
+Ext.define('AppIndex.view.ProductInfoViewGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'app_product_info_manager_view_grid',
+    xtype: 'app_product_info_view_grid',
 
     requires: [
         'AppIndex.store.GetAllProductInfoStorePage'
@@ -43,7 +43,7 @@ Ext.define('AppIndex.view.ProductInfoManagerViewGrid', {
         },
         {
             text: '商品分类',
-            dataIndex: 'product_name',
+            dataIndex: 'product_dic_name',
             editor: 'textfield',
             width: 200,
             align: 'center',
@@ -52,7 +52,7 @@ Ext.define('AppIndex.view.ProductInfoManagerViewGrid', {
         },
         {
             text: '商品名称',
-            dataIndex: 'product_specific_name',
+            dataIndex: 'product_name',
             editor: 'textfield',
             width: 200,
             align: 'center',
@@ -91,7 +91,7 @@ Ext.define('AppIndex.view.ProductInfoManagerViewGrid', {
         console.log("onRender ");
         this.callParent(arguments);
 
-        var grid = this.getView().up('app_product_info_manager_view_grid');
+        var grid = this.getView().up('app_product_info_view_grid');
 
         // hide refresh button
         var length = grid.dockedItems.keys.length;

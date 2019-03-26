@@ -1,13 +1,13 @@
-Ext.define('AppIndex.controller.SupplierManagerController',{
+Ext.define('AppIndex.controller.SupplierInfoController',{
     extend:'Ext.app.ViewController',
-    alias:'controller.supplier_manager_view',
+    alias:'controller.supplier_info_view',
     requires:[],
     control:{},
     routes:{},
 
     onClickAdd : function () {
         console.log("onClickAdd");
-        var grid = this.getView().down('app_supplier_manager_view_grid');
+        var grid = this.getView().down('app_supplier_info_view_grid');
         var store = grid.getStore();
         var max = 0;
         Ext.each(store.getRange(0, store.getCount()), function(record) {
@@ -27,7 +27,7 @@ Ext.define('AppIndex.controller.SupplierManagerController',{
     },
     onClickDelete : function () {
         console.log("onClickDelete");
-        var grid = this.getView().down('app_supplier_manager_view_grid');
+        var grid = this.getView().down('app_supplier_info_view_grid');
         var store = grid.getStore();
 
         Ext.Msg.confirm('系统提示','确定要删除？',function(btn){
@@ -41,7 +41,7 @@ Ext.define('AppIndex.controller.SupplierManagerController',{
         console.log("onClickSave");
 
         // grid data
-        var store = this.getView().down('app_supplier_manager_view_grid').getStore();
+        var store = this.getView().down('app_supplier_info_view_grid').getStore();
         var gridData = [];
         Ext.each(store.getRange(0, store.getCount()), function(record) {
             console.log('gridData:'+ Ext.encode(record.data));
@@ -70,22 +70,7 @@ Ext.define('AppIndex.controller.SupplierManagerController',{
             scope:this,
             callback: function (records, operation, success) {
                 console.log('load callback');
-
-                if (!success) {
-                    Ext.MessageBox.show({
-                        title: 'Error',
-                        msg: '数据传输异常',
-                        buttons: Ext.MessageBox.OK,
-                        icon: Ext.MessageBox.ERROR
-                    });
-                } else if (records.length <= 0) {
-                    Ext.MessageBox.show({
-                        title: 'Error',
-                        msg: '数据异常',
-                        buttons: Ext.MessageBox.OK,
-                        icon: Ext.MessageBox.ERROR
-                    });
-                } else {
+                if (COMMON_FUNC.StoreCallbackDialog(records, success)) {
                     // transfer success
                     this.supplierManagerCallback(records, operation);
                 }
@@ -96,7 +81,7 @@ Ext.define('AppIndex.controller.SupplierManagerController',{
         console.log("onClickRefresh");
 
         // refresh grid data
-        var store = this.getView().down('app_supplier_manager_view_grid').getStore();
+        var store = this.getView().down('app_supplier_info_view_grid').getStore();
 
         store.reload();
 
