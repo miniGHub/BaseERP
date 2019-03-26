@@ -6,9 +6,9 @@ Ext.define('AppIndex.store.GetAllProductInfoStorePage', {
         {name: 'product_id', type: 'string'},
         //Dic
         {name: 'product_type', type: 'int'},
-        {name: 'product_name', type: 'string'},
+        {name: 'product_dic_name', type: 'string'},
         //Info
-        {name: 'product_specific_name', type: 'string'},
+        {name: 'product_name', type: 'string'},
         {name: 'barcode', type: 'string'},
         {name: 'state', type: 'string'},
 
@@ -35,6 +35,6 @@ Ext.define('AppIndex.store.GetAllProductInfoStorePage', {
         remoteSort: true
     },
 
-    pageSize: 3,
+    pageSize: COMMON_DATA.PageSize,
     autoLoad: true
 });

@@ -17,7 +17,7 @@
         values
         <foreach collection="list" item="product" index="index" separator=",">
             (
-            #{product.product_type}, #{product.product_name}, #{product.freeuse1}, #{product.freeuse2}
+            #{product.product_type}, #{product.product_dic_name}, #{product.freeuse1}, #{product.freeuse2}
             )
         </foreach>
     </insert>

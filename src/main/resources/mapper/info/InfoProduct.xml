@@ -13,24 +13,24 @@
     </select>
 
     <select id="SelectAllProductInfo" resultType="com.mini.model.ProductInfoPage">
-        select info_product.product_id, info_product.product_type, info_product.product_specific_name, info_product.barcode, info_product.state,
-                (select product_name from dic_product where dic_product.product_type = info_product.product_type) as product_name from info_product ORDER BY product_id;
+        select info_product.product_id, info_product.product_type, info_product.product_name, info_product.barcode, info_product.state,
+                (select product_dic_name from dic_product where dic_product.product_type = info_product.product_type) as product_dic_name from info_product ORDER BY product_id;
     </select>
 
     <insert id="InsertProductInfo" parameterType="INFO_PRODUCT">
         INSERT INTO INFO_PRODUCT
-          VALUES ( #{product_id}, #{product_type}, #{product_specific_name}, #{barcode}, #{state}, #{freeuse1}, #{freeuse2}, #{freeuse3} );
+          VALUES ( #{product_id}, #{product_type}, #{product_name}, #{barcode}, #{state}, #{freeuse1}, #{freeuse2}, #{freeuse3} );
     </insert>
 
     <update id="UpdateProductInfo" parameterType="INFO_PRODUCT">
-        UPDATE INFO_PRODUCT SET product_id = #{product_id}, product_type = #{product_type}, product_specific_name = #{product_specific_name},
+        UPDATE INFO_PRODUCT SET product_id = #{product_id}, product_type = #{product_type}, product_name = #{product_name},
          barcode = #{barcode},state = #{state},freeuse1 = #{freeuse1}, freeuse2 = #{freeuse2}, freeuse3 = #{freeuse3}
             WHERE product_id = #{product_id};
     </update>
 
     <delete id="DeleteProductInfo" parameterType="java.util.List">
         DELETE FROM INFO_PRODUCT
-        WHERE id IN
+        WHERE product_id IN
         <foreach collection="list" item="product_id" index="index" open="(" separator="," close=")">
             #{product_id}
         </foreach>
@@ -38,6 +38,10 @@
 
     <select id="CountProductInfo" parameterType="String" resultType="int">
         SELECT count(1) FROM INFO_PRODUCT WHERE product_id = #{product_id};
+    </select>
+
+    <select id="SelectMaxId" resultType="String">
+        SELECT max(product_id) FROM INFO_PRODUCT;
     </select>
 
 </mapper>

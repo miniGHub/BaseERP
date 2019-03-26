@@ -1,6 +1,7 @@
 package com.mini.controller;
 
 import com.mini.common.Constant;
+import com.mini.model.ProductCode;
 import com.mini.model.RepositoryInfoPage;
 import com.mini.model.info.INFO_CLIENT;
 import com.mini.model.info.INFO_REPOSITORY;
@@ -203,6 +204,16 @@ public class InfoController {
         return mInfoService.GetSupplier(reqInfoSupplier.getSupplier_id());
     }
 
+    @RequestMapping(value = "/GetNewProductInfoId", method = {RequestMethod.POST})
+    @ResponseBody
+    public INFO_PRODUCT GetNewProductInfoId() {
+        System.out.println("GetNewProductInfoId entry");
+
+        INFO_PRODUCT productInfo = new INFO_PRODUCT();
+        productInfo.setProduct_id(mInfoService.GetNewProductInfoId());
+
+        return productInfo;
+    }
     @RequestMapping(value = "/GetAllSupplier", method = {RequestMethod.POST})
     @ResponseBody
     public ArrayList<INFO_SUPPLIER> GetAllSupplier() {
@@ -222,12 +233,12 @@ public class InfoController {
         infoProduct = mInfoService.GetProductInfo(reqInfoProduct.getProduct_id());
         if (infoProduct != null) {
             productInfoPage.setProduct_id(infoProduct.getProduct_id());
-            productInfoPage.setProduct_specific_name(infoProduct.getProduct_specific_namename());
+            productInfoPage.setProduct_name(infoProduct.getProduct_name());
 
             dicProduct = mDicService.GetProduct(infoProduct.getProduct_type());
             if (dicProduct != null) {
                 productInfoPage.setProduct_type(dicProduct.getProduct_type());
-                productInfoPage.setProduct_name(dicProduct.getProduct_name());
+                productInfoPage.setProduct_dic_name(dicProduct.getProduct_dic_name());
             } else {
                 System.out.println("GetProductInfo dicProduct is null!!!");
             }
@@ -264,8 +275,8 @@ public class InfoController {
     public ResponseCode AddProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
         System.out.println("AddProductInfo product_id=" + reqInfoProduct.getProduct_id()
                 + ", product_type=" + reqInfoProduct.getProduct_type()
-                + ",product_specific_name=" + reqInfoProduct.getProduct_specific_namename()
-                + ",product_barcode" + reqInfoProduct.getBarcode()
+                + ",product_name=" + reqInfoProduct.getProduct_name()
+                + ",product_barcode=" + reqInfoProduct.getBarcode()
                 + ",product_state=" + reqInfoProduct.getState());
 
         ResponseCode code = new ResponseCode();
@@ -275,9 +286,9 @@ public class InfoController {
             return code;
         }
 
-        UserCode userCode;
-        userCode = mInfoService.AddProductInfo(reqInfoProduct);
-        code.setCode(userCode.getCode());
+        ProductCode productCode;
+        productCode = mInfoService.AddProductInfo(reqInfoProduct);
+        code.setCode(productCode.getCode());
 
         return code;
     }
@@ -287,8 +298,8 @@ public class InfoController {
     public ResponseCode UpdateProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
         System.out.println("UpdateProductInfo product_id=" + reqInfoProduct.getProduct_id()
                 + ", product_type=" + reqInfoProduct.getProduct_type()
-                + ",product_specific_name=" + reqInfoProduct.getProduct_specific_namename()
-                + ",product_barcode" + reqInfoProduct.getBarcode()
+                + ",product_name=" + reqInfoProduct.getProduct_name()
+                + ",product_barcode=" + reqInfoProduct.getBarcode()
                 + ",product_state=" + reqInfoProduct.getState());
 
         ResponseCode code = new ResponseCode();
@@ -298,9 +309,9 @@ public class InfoController {
             return code;
         }
 
-        UserCode userCode;
-        userCode = mInfoService.UpdateProductInfo(reqInfoProduct);
-        code.setCode(userCode.getCode());
+        ProductCode productCode;
+        productCode = mInfoService.UpdateProductInfo(reqInfoProduct);
+        code.setCode(productCode.getCode());
 
         return code;
     }
@@ -322,9 +333,9 @@ public class InfoController {
             listId.add(i, reqArrayProductInfo.getGrid().get(i).getProduct_id());
         }
 
-        UserCode userCode;
-        userCode = mInfoService.DeleteProductInfo(listId);
-        code.setCode(userCode.getCode());
+        ProductCode productCode;
+        productCode = mInfoService.DeleteProductInfo(listId);
+        code.setCode(productCode.getCode());
 
         return code;
     }

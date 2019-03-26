@@ -146,7 +146,7 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public INFO_SUPPLIER GetSupplier(int supplier_id) {
+    public INFO_SUPPLIER GetSupplier(String supplier_id) {
         return mInfoSupplier.SelectSupplier(supplier_id);
     }
 
@@ -190,15 +190,27 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public UserCode AddProductInfo(INFO_PRODUCT productInfo) {
-        UserCode ret = UserCode.AddSuccess;
+    public String GetNewProductInfoId() {
+        String newId = mInfoProduct.SelectMaxId();
+
+        if (null == newId) {
+            newId = Constant.DEFAULT_ID;
+        } else {
+            newId = String.format("%03d", Integer.parseInt(newId) + 1);
+        }
+
+        return newId;
+    }
+    @Override
+    public ProductCode AddProductInfo(INFO_PRODUCT productInfo) {
+        ProductCode ret = ProductCode.AddSuccess;
         int cnt = 0;
 
         cnt = mInfoProduct.CountProductInfo(productInfo.getProduct_id());
         if (1 == cnt) {
-            ret = UserCode.Exist;
+            ret = ProductCode.Exist;
         } else if (cnt > 1 ) {
-            ret = UserCode.AddError;
+            ret = ProductCode.AddError;
         } else {
             mInfoProduct.InsertProductInfo(productInfo);
         }
@@ -207,15 +219,15 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public UserCode UpdateProductInfo(INFO_PRODUCT productInfo) {
-        UserCode ret = UserCode.UpdateSuccess;
+    public ProductCode UpdateProductInfo(INFO_PRODUCT productInfo) {
+        ProductCode ret = ProductCode.UpdateSuccess;
         int cnt = 0;
 
         cnt = mInfoProduct.CountProductInfo(productInfo.getProduct_id());
         if (0 == cnt) {
-            ret = UserCode.NotExist;
+            ret = ProductCode.NotExist;
         } else if (cnt > 1){
-            ret = UserCode.UpdateError;
+            ret = ProductCode.UpdateError;
         } else {
             mInfoProduct.UpdateProductInfo(productInfo);
         }
@@ -224,8 +236,8 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public UserCode DeleteProductInfo(ArrayList<String> listId) {
-        UserCode ret = UserCode.DeleteSuccess;
+    public ProductCode DeleteProductInfo(ArrayList<String> listId) {
+        ProductCode ret = ProductCode.DeleteSuccess;
 
         mInfoProduct.DeleteProductInfo(listId);
 

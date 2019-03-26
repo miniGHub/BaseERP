@@ -1,6 +1,6 @@
-Ext.define('AppIndex.view.SupplierManagerViewGrid', {
+Ext.define('AppIndex.view.SupplierInfoViewGrid', {
     extend: 'Ext.grid.Panel',
-    xtype: 'app_supplier_manager_view_grid',
+    xtype: 'app_supplier_info_view_grid',
 
     requires: [
         'AppIndex.store.GetAllSupplierStore'
@@ -91,7 +91,7 @@ Ext.define('AppIndex.view.SupplierManagerViewGrid', {
         console.log("onRender ");
         this.callParent(arguments);
 
-        var grid = this.getView().up('app_supplier_manager_view_grid');
+        var grid = this.getView().up('app_supplier_info_view_grid');
 
         // hide role_id
         var columns = grid.getColumns();

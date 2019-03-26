@@ -13,4 +13,5 @@ public interface IInfoProduct {
     void UpdateProductInfo(INFO_PRODUCT productInfo);
     void DeleteProductInfo(ArrayList<String> listId);
     int CountProductInfo(String id);
+    String SelectMaxId();
 }
