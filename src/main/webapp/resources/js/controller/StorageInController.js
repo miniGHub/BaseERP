@@ -9,9 +9,9 @@ Ext.define('AppIndex.controller.StorageInController',{
 
     StorageInSubmit: function() {
         // grid data
-        var store = this.getView().down('app_storage_in_view_grid').getStore();
+        var grid = this.getView().down('app_storage_in_view_grid').getStore();
         var gridData = [];
-        Ext.each(store.getRange(0, store.getCount()), function(record) {
+        Ext.each(grid.getRange(0, grid.getCount()), function(record) {
             // delete value which key is 'id'
             delete record.data['id'];
             gridData.push(record.data);
@@ -20,7 +20,7 @@ Ext.define('AppIndex.controller.StorageInController',{
         var sendParam ={
             grid: gridData
         };
-        console.log("storage amount：" + store.getCount());
+        console.log("storage amount：" + grid.getCount());
         var sendStore = Ext.create('AppIndex.store.SendStore');
         sendStore.proxy.url += 'kc/SubmitStorageIn';
         sendStore.proxy.extraParams = sendParam;
@@ -34,6 +34,7 @@ Ext.define('AppIndex.controller.StorageInController',{
                 }
                 if (success) {
                     Ext.Msg.alert('入库单', '提交成功');
+                    grid.removeAll();
                 }
             }
         });
@@ -42,9 +43,8 @@ Ext.define('AppIndex.controller.StorageInController',{
     StorageInPrint: function() {
 
     },
-    StorageInLoad: function() {
-        var form = this.getView().down('app_storage_in_view_form').getForm().getValues();
-        var id = form['purchase_note_id'];
+    StorageInLoad: function(combo, record, index) {
+        var id = combo.getValue();
         console.log("purchase note id：" + id);
         var getStore = Ext.create('AppIndex.store.GetStore');
         getStore.proxy.url += "kc/LoadFromPurchaseNote";

@@ -3,7 +3,7 @@ package com.mini.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.model.cg.CG001;
 import com.mini.model.cg.CG002;
-import com.mini.model.request.ReqPurchaseNote;
+import com.mini.model.request.ReqFormGrid;
 import com.mini.model.response.RespPurchaseNoteId;
 import com.mini.model.response.ResponseCode;
 import com.mini.model.xs.XS001;
@@ -46,12 +46,10 @@ public class CgController {
     public void LoadBaseFromSalesOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String purchase_note_id = generatePurchaseNoteId();
         String id = request.getParameter("Sales_order_note_id");
         System.out.println("LoadBaseFromSalesOrder(): " + id);
         XS001 xs001 = mXsService.GetSalesOrderNote(id);
         CG001 cg001 = new CG001();
-        cg001.setPurchase_note_id(purchase_note_id);
         cg001.setEntry_date(new Date());
         cg001.setSales_order_note_id(xs001.getSales_order_note_id());
         cg001.setRepository_id(xs001.getRepository_id());
@@ -68,7 +66,6 @@ public class CgController {
     public void LoadDetailFromSalesOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String purchase_note_id = generatePurchaseNoteId();
         String id = request.getParameter("Sales_order_note_id");
         System.out.println("LoadDetailFromSalesOrder(): " + id);
         XS001 xs001 = mXsService.GetSalesOrderNote(id);
@@ -79,7 +76,6 @@ public class CgController {
             CG002[] cg002s = new CG002[xs002s.length];
             for (int i=0;i<xs002s.length;i++) {
                 cg002s[i] = new CG002();
-                cg002s[i].setPurchase_note_id(purchase_note_id);
                 cg002s[i].setProduct_id(xs002s[i].getProduct_id());
                 cg002s[i].setAmount(xs002s[i].getAmount());
                 cg002s[i].setUnit_price(xs002s[i].getUnit_price());
@@ -96,13 +92,27 @@ public class CgController {
 
     @RequestMapping(value = "/SubmitPurchaseNote", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitPurchaseNote(@RequestBody ReqPurchaseNote purchaseOrderNote) {
+    public ResponseCode SubmitPurchaseNote(@RequestBody ReqFormGrid<CG001, CG002> purchaseOrderNote) {
         CG001 cg001 = purchaseOrderNote.getForm();
         ArrayList<CG002> cg002s = purchaseOrderNote.getGrid();
-        System.out.println("SubmitPurchaseNote(): saving");
         ResponseCode code = new ResponseCode();
         cg001.setNote_status(0);
-        if (mCgService.savePurchaseNote(cg001, cg002s)) {
+        boolean ret;
+        String purchase_note_id = cg001.getPurchase_note_id();
+        if (purchase_note_id == null || purchase_note_id.equals("")) {
+            purchase_note_id = generatePurchaseNoteId();
+            cg001.setPurchase_note_id(purchase_note_id);
+            for (CG002 one:cg002s) {
+                one.setPurchase_note_id(purchase_note_id);
+            }
+            System.out.println("SubmitPurchaseNote(): to save");
+            ret = mCgService.savePurchaseNote(cg001, cg002s);
+        }
+        else {
+            System.out.println("SubmitPurchaseNote(): to update");
+            ret = mCgService.updatePurchaseNote(cg001, cg002s);
+        }
+        if (ret) {
             String sales_order_note_id = cg001.getSales_order_note_id();
             HashMap<String, Object> param = new HashMap<>();
             param.put("sales_order_note_id", sales_order_note_id);
@@ -122,16 +132,16 @@ public class CgController {
 
     @RequestMapping(value = "/UpdatePurchaseNote", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode UpdatePurchaseNote(@RequestBody ReqPurchaseNote purchaseOrderNote) {
+    public ResponseCode UpdatePurchaseNote(@RequestBody ReqFormGrid<CG001, CG002> purchaseOrderNote) {
         CG001 cg001 = purchaseOrderNote.getForm();
         ArrayList<CG002> cg002s = purchaseOrderNote.getGrid();
-        System.out.println("SubmitPurchaseNote(): save cg001");
+        System.out.println("UpdatePurchaseNote(): save cg001");
         ResponseCode code = new ResponseCode();
         if (mCgService.updatePurchaseNote(cg001, cg002s)) {
             code.setCode(1);
         }
         else {
-            System.out.println("SubmitPurchaseNote(): CG001 insert failed ");
+            System.out.println("UpdatePurchaseNote(): CG001 insert failed ");
             code.setCode(0);
         }
         return code;
