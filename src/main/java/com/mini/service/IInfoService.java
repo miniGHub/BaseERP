@@ -22,16 +22,17 @@ public interface IInfoService {
 	
     UserCode ResetPassword(ArrayList<String> listId);
     boolean SaveSupplier(ArrayList<INFO_SUPPLIER> supplier);
-    INFO_SUPPLIER GetSupplier(int supplier_id);
+    INFO_SUPPLIER GetSupplier(String supplier_id);
     ArrayList<INFO_SUPPLIER> GetAllSupplier();
 
+    String GetNewProductInfoId();
     INFO_PRODUCT GetProductInfo(String product_id);
     ArrayList<ProductInfoPage> GetAllProductInfo();
     ArrayList<ProductInfoPage> GetAllProductInfoPage(int page, int start, int limit);
     int GetAllProductInfoSize();
-    UserCode AddProductInfo(INFO_PRODUCT productInfo);
-    UserCode UpdateProductInfo(INFO_PRODUCT productInfo);
-    UserCode DeleteProductInfo(ArrayList<String> listId);
+    ProductCode AddProductInfo(INFO_PRODUCT productInfo);
+    ProductCode UpdateProductInfo(INFO_PRODUCT productInfo);
+    ProductCode DeleteProductInfo(ArrayList<String> listId);
 	ArrayList<RepositoryInfoPage> GetAllRepository();
     ArrayList<RepositoryInfoPage> GetAllRepositoryPage(int page, int start, int limit);
     int GetAllRepositorySize();

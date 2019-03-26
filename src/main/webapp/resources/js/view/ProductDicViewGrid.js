@@ -52,7 +52,7 @@ Ext.define('AppIndex.view.ProductDicViewGrid', {
         },
         {
             text: '商品分类名称',
-            dataIndex: 'product_name',
+            dataIndex: 'product_dic_name',
             editor: 'textfield',
             width: 400,
             align: 'center',

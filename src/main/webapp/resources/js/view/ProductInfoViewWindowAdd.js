@@ -1,7 +1,7 @@
-Ext.define('AppIndex.view.ProductInfoManagerViewWindowAdd',{
+Ext.define('AppIndex.view.ProductInfoViewWindowAdd',{
     extend:'Ext.window.Window',
-    xtype:'app_product_info_manager_view_window_add',
-    controller: 'product_info_manager_view',
+    xtype:'app_product_info_view_window_add',
+    controller: 'product_info_view',
 
     title: '新增商品',
     width:380,
@@ -40,9 +40,9 @@ Ext.define('AppIndex.view.ProductInfoManagerViewWindowAdd',{
             },,
             {
                 xtype: 'combo',
-                name: 'product_name',
+                name: 'product_dic_name',
                 fieldLabel: '商品分类',
-                displayField: 'product_name',
+                displayField: 'product_dic_name',
                 valueField : 'product_type',
                 forceSelection : true,
                 triggerAction : 'all',
@@ -55,7 +55,7 @@ Ext.define('AppIndex.view.ProductInfoManagerViewWindowAdd',{
             },
             {
                 xtype:'textfield',
-                name: 'product_specific_name',
+                name: 'product_name',
                 fieldLabel: '商品名称',
                 allowBlank: true,
                 maxLength:50,

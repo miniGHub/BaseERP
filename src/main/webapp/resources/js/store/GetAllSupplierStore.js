@@ -3,8 +3,9 @@ Ext.define('AppIndex.store.GetAllSupplierStore', {
     alias: 'store.get_all_supplier_store',
 
 
+
     fields: [
-        {name: 'supplier_id', type: 'int'},
+        {name: 'supplier_id', type: 'string'},
         {name: 'supplier_name', type: 'string'},
         {name: 'manager', type: 'string'},
         {name: 'phone', type: 'string'}

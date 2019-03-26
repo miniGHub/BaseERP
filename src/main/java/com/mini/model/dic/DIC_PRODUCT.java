@@ -2,7 +2,7 @@ package com.mini.model.dic;
 
 public class DIC_PRODUCT {
     private int product_type;
-    private String product_name;
+    private String product_dic_name;
     private int freeuse1;
     private String freeuse2;
 
@@ -14,12 +14,12 @@ public class DIC_PRODUCT {
         this.product_type = product_type;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProduct_dic_name() {
+        return product_dic_name;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProduct_dic_name(String product_dic_name) {
+        this.product_dic_name = product_dic_name;
     }
 
     public int getFreeuse1() {
