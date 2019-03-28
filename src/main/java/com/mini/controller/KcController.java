@@ -1,9 +1,10 @@
 package com.mini.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mini.model.cg.CG001;
 import com.mini.model.cg.CG002;
 import com.mini.model.kc.KC002;
-import com.mini.model.request.ReqStorageIn;
+import com.mini.model.request.ReqGrid;
 import com.mini.model.response.ResponseCode;
 import com.mini.service.ICgService;
 import com.mini.service.IKcService;
@@ -57,7 +58,7 @@ public class KcController {
 
     @RequestMapping(value = "/SubmitStorageIn", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitStorageIn(@RequestBody ReqStorageIn reqParam) {
+    public ResponseCode SubmitStorageIn(@RequestBody ReqGrid<KC002> reqParam) {
         System.out.println("SubmitStorageIn(): saving " + reqParam.getGrid().size());
         ResponseCode code = new ResponseCode();
         code.setCode(0);

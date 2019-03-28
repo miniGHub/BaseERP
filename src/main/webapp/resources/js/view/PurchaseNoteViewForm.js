@@ -1,7 +1,6 @@
 Ext.define('AppIndex.view.PurchaseNoteViewForm',{
     extend: 'Ext.form.Panel',
     xtype:'app_purchase_note_view_form',
-
     requires: [
         'AppIndex.store.GetSalesOrderNoteApprovalingStore'
     ],
@@ -18,7 +17,18 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
         labelAlign:'right',
         labelWidth:70
     },
-
+    tbar: [
+        {
+            text:'提交',
+            iconCls: 'icon_add',
+            handler: 'PurchaseNoteSubmit'
+        },'-',
+        {
+            text:'打印',
+            iconCls:'icon_printer',
+            handler: 'PurchaseNotePrint'
+        }
+    ],
     items:[
         {
             fieldLabel: '录单日期',
@@ -50,7 +60,10 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
             },
             queryMode : 'local',
 //            anchor : '100%',
-            allowBlank: true
+            allowBlank: true,
+            listeners : {
+                select: 'PurchaseNoteLoad'
+            }
         },
         {
             fieldLabel: '供应商',

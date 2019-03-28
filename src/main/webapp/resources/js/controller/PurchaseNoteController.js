@@ -14,9 +14,9 @@ Ext.define('AppIndex.controller.PurchaseNoteController',{
         // console.log('formData:' + Ext.encode(formData));
 
         // grid data
-        var store = this.getView().down('app_purchase_note_view_grid').getStore();
+        var grid = this.getView().down('app_purchase_note_view_grid').getStore();
         var gridData = [];
-        Ext.each(store.getRange(0, store.getCount()), function(record) {
+        Ext.each(grid.getRange(0, grid.getCount()), function(record) {
             // delete value which key is 'id'
             delete record.data['id'];
             gridData.push(record.data);
@@ -43,6 +43,8 @@ Ext.define('AppIndex.controller.PurchaseNoteController',{
                 console.log(success);
                 if (success) {
                     Ext.Msg.alert('进货单', '提交成功');
+                    form.reset();
+                    grid.removeAll();
                 }
             }
         });
@@ -115,9 +117,8 @@ Ext.define('AppIndex.controller.PurchaseNoteController',{
         $("#printframe").html(page).print();
         $("#printframe").html('');
     },
-    PurchaseNoteLoad: function() {
-        var form = this.getView().down('app_purchase_note_view_form').getForm().getValues();
-        var id = form['sales_order_note_id'];
+    PurchaseNoteLoad: function(combo, record, index) {
+        var id = combo.getValue();
         console.log("sale order id：" + id);
         var getStore = Ext.create('AppIndex.store.GetStore');
         getStore.proxy.url += "cg/LoadBaseFromSalesOrder";
@@ -130,6 +131,8 @@ Ext.define('AppIndex.controller.PurchaseNoteController',{
                     console.log("get base：");
                     console.log(records);
                     if (records.length > 0) {
+                        var userId = localStorage.getItem("UserId");
+                        records[0].set("operator_id", userId);
                         this.getView().down('app_purchase_note_view_form').loadRecord(records[0]);
                     }
                 }

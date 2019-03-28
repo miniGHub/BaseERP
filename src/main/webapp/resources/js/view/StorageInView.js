@@ -4,7 +4,6 @@ Ext.define('AppIndex.view.StorageInView',{
     itemId: 'app_storage_in_view_item_id',
     controller:'storage_in_view',
     requires:['AppIndex.controller.StorageInController',
-        'AppIndex.view.StorageInViewToolbar',
         'AppIndex.view.StorageInViewForm',
         'AppIndex.view.StorageInViewGrid'
     ],
@@ -18,10 +17,6 @@ Ext.define('AppIndex.view.StorageInView',{
     closable:true,
 
     items:[
-        {
-            region:'north',
-            xtype:'app_storage_in_view_toolbar'
-        },
         {
             region:'north',
             xtype:'app_storage_in_view_form'

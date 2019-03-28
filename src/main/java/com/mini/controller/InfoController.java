@@ -1,15 +1,21 @@
 package com.mini.controller;
 
 import com.mini.common.Constant;
+import com.mini.model.ProductCode;
+import com.mini.model.RepositoryInfoPage;
+import com.mini.model.info.INFO_CLIENT;
+import com.mini.model.info.INFO_REPOSITORY;
+import com.mini.model.ProductInfoPage;
 import com.mini.model.UserCode;
-import com.mini.model.dic.DIC_ROLE;
-import com.mini.model.info.INFO_USER;
-import com.mini.model.request.ReqChangePassword;
-import com.mini.model.request.ReqUserInfo;
-import com.mini.model.response.RespUserInfoPage;
 import com.mini.model.UserInfoPage;
-import com.mini.model.response.RespUserPasswordPage;
-import com.mini.model.response.ResponseCode;
+import com.mini.model.dic.DIC_PRODUCT;
+import com.mini.model.dic.DIC_ROLE;
+import com.mini.model.info.INFO_PRODUCT;
+import com.mini.model.info.INFO_SUPPLIER;
+import com.mini.model.info.INFO_USER;
+import com.mini.model.request.*;
+import com.mini.model.response.*;
+
 import com.mini.service.IDicService;
 import com.mini.service.IInfoService;
 import org.springframework.stereotype.Controller;
@@ -171,6 +177,169 @@ public class InfoController {
         return code;
     }
 
+    @RequestMapping(value = "/SubmitSupplierManager", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode SubmitSupplierManager(@RequestBody ReqSupplier reqInfoSupplier){
+        System.out.println("SubmitSupplierManager size:" + reqInfoSupplier.getGrid().size());
+
+        ResponseCode code = new ResponseCode();
+        if (reqInfoSupplier.getGrid().size() == 0) {
+            code.setCode(Constant.DATA_ERROR);
+            return code;
+        }
+
+        if (mInfoService.SaveSupplier(reqInfoSupplier.getGrid())) {
+            code.setCode(Constant.REQUEST_SUCCESS);
+        } else {
+            code.setCode(Constant.REQUEST_FAIL);
+        }
+
+        return code;
+    }
+
+    @RequestMapping(value = "/GetSupplier", method = {RequestMethod.POST})
+    @ResponseBody
+    public INFO_SUPPLIER GetSupplier(@RequestBody INFO_SUPPLIER reqInfoSupplier) {
+        System.out.println("GetSupplier supplier_id:" + reqInfoSupplier.getSupplier_id());
+        return mInfoService.GetSupplier(reqInfoSupplier.getSupplier_id());
+    }
+
+    @RequestMapping(value = "/GetNewProductInfoId", method = {RequestMethod.POST})
+    @ResponseBody
+    public INFO_PRODUCT GetNewProductInfoId() {
+        System.out.println("GetNewProductInfoId entry");
+
+        INFO_PRODUCT productInfo = new INFO_PRODUCT();
+        productInfo.setProduct_id(mInfoService.GetNewProductInfoId());
+
+        return productInfo;
+    }
+    @RequestMapping(value = "/GetAllSupplier", method = {RequestMethod.POST})
+    @ResponseBody
+    public ArrayList<INFO_SUPPLIER> GetAllSupplier() {
+        System.out.println("GetAllSupplier come in");
+        return mInfoService.GetAllSupplier();
+    }
+
+    @RequestMapping(value = "/GetProductInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ProductInfoPage GetProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
+        System.out.println("GetProductInfo id:" + reqInfoProduct.getProduct_id());
+
+        ProductInfoPage productInfoPage = new ProductInfoPage();
+        INFO_PRODUCT infoProduct;
+        DIC_PRODUCT dicProduct;
+
+        infoProduct = mInfoService.GetProductInfo(reqInfoProduct.getProduct_id());
+        if (infoProduct != null) {
+            productInfoPage.setProduct_id(infoProduct.getProduct_id());
+            productInfoPage.setProduct_name(infoProduct.getProduct_name());
+
+            dicProduct = mDicService.GetProduct(infoProduct.getProduct_type());
+            if (dicProduct != null) {
+                productInfoPage.setProduct_type(dicProduct.getProduct_type());
+                productInfoPage.setProduct_dic_name(dicProduct.getProduct_dic_name());
+            } else {
+                System.out.println("GetProductInfo dicProduct is null!!!");
+            }
+        } else {
+            System.out.println("GetProductInfo infoProduct is null!!!");
+        }
+
+        return productInfoPage;
+    }
+
+    @RequestMapping(value = "/GetAllProductInfoPage", method = {RequestMethod.GET})
+    @ResponseBody
+    public RespProductInfoPage GetAllProductInfoPage(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "0") int start,
+                                               @RequestParam(defaultValue = "0") int limit,
+                                               @RequestParam(defaultValue = "false") boolean isReqDB) {
+        System.out.println("GetAllProductInfoPage entry");
+        System.out.println("GetAllProductInfoPage page:" + page + ",start:" + start + ",limit:" + limit + ",isReqDB" + isReqDB);
+
+        RespProductInfoPage respProductInfoPage = new RespProductInfoPage();
+
+        if (isReqDB) {
+            mInfoService.GetAllProductInfo();
+        }
+
+        respProductInfoPage.setItems(mInfoService.GetAllProductInfoPage(page, start, limit));
+        respProductInfoPage.setTotal(mInfoService.GetAllProductInfoSize());
+
+        return respProductInfoPage;
+    }
+
+    @RequestMapping(value = "/AddProductInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode AddProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
+        System.out.println("AddProductInfo product_id=" + reqInfoProduct.getProduct_id()
+                + ", product_type=" + reqInfoProduct.getProduct_type()
+                + ",product_name=" + reqInfoProduct.getProduct_name()
+                + ",product_barcode=" + reqInfoProduct.getBarcode()
+                + ",product_state=" + reqInfoProduct.getState());
+
+        ResponseCode code = new ResponseCode();
+
+        if (null == reqInfoProduct.getProduct_id()) {
+            code.setCode(Constant.DATA_ERROR);
+            return code;
+        }
+
+        ProductCode productCode;
+        productCode = mInfoService.AddProductInfo(reqInfoProduct);
+        code.setCode(productCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/UpdateProductInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode UpdateProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
+        System.out.println("UpdateProductInfo product_id=" + reqInfoProduct.getProduct_id()
+                + ", product_type=" + reqInfoProduct.getProduct_type()
+                + ",product_name=" + reqInfoProduct.getProduct_name()
+                + ",product_barcode=" + reqInfoProduct.getBarcode()
+                + ",product_state=" + reqInfoProduct.getState());
+
+        ResponseCode code = new ResponseCode();
+
+        if (null == reqInfoProduct.getProduct_id()) {
+            code.setCode(Constant.DATA_ERROR);
+            return code;
+        }
+
+        ProductCode productCode;
+        productCode = mInfoService.UpdateProductInfo(reqInfoProduct);
+        code.setCode(productCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/DeleteProductInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode DeleteProductInfo(@RequestBody ReqProductInfo reqArrayProductInfo) {
+        System.out.println("DeleteProductInfo size=" + reqArrayProductInfo.getGrid().size());
+
+        ResponseCode code = new ResponseCode();
+
+        if (0 == reqArrayProductInfo.getGrid().size()) {
+            code.setCode(Constant.DATA_ERROR);
+            return code;
+        }
+
+        ArrayList<String> listId = new ArrayList<String>();
+        for (int i = 0; i < reqArrayProductInfo.getGrid().size(); i++) {
+            listId.add(i, reqArrayProductInfo.getGrid().get(i).getProduct_id());
+        }
+
+        ProductCode productCode;
+        productCode = mInfoService.DeleteProductInfo(listId);
+        code.setCode(productCode.getCode());
+
+        return code;
+    }
+
     @RequestMapping(value = "/ChangePassword", method = {RequestMethod.POST})
     @ResponseBody
     public ResponseCode ChangePassword(@RequestBody ReqChangePassword reqChangePassword) {
@@ -225,6 +394,129 @@ public class InfoController {
 
         UserCode userCode;
         userCode = mInfoService.ResetPassword(listId);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/GetAllRepositoryPage", method = {RequestMethod.GET})
+    @ResponseBody
+    public RespInfoPage<RepositoryInfoPage> GetAllRepositoryPage(@RequestParam(defaultValue = "0") int page,
+                                                                 @RequestParam(defaultValue = "0") int start,
+                                                                 @RequestParam(defaultValue = "0") int limit,
+                                                                 @RequestParam(defaultValue = "false") boolean isReqDB) {
+        System.out.println("GetAllRepositoryPage entry");
+        System.out.println("GetAllRepositoryPage page:" + page + ",start:" + start + ",limit:" + limit + ",isReqDB:" + isReqDB);
+
+        RespInfoPage<RepositoryInfoPage> respUserInfoPage = new RespInfoPage<>();
+
+        if (isReqDB) {
+            mInfoService.GetAllRepository();
+        }
+
+        respUserInfoPage.setItems(mInfoService.GetAllRepositoryPage(page, start, limit));
+        respUserInfoPage.setTotal(mInfoService.GetAllRepositorySize());
+
+        return respUserInfoPage;
+    }
+
+    @RequestMapping(value = "/AddRepositoryInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode AddRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
+        System.out.println(repositoryInfo.toString());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.AddRepositoryInfo(repositoryInfo);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/UpdateRepositoryInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode UpdateRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
+        System.out.println(repositoryInfo.toString());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.UpdateRepositoryInfo(repositoryInfo);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/DeleteRepositoryInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode DeleteRepositoryInfo(@RequestBody ReqStringList reqStringList) {
+        System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.DeleteRepositoryInfo(reqStringList.getGrid());
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/GetAllClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ArrayList<INFO_CLIENT> GetAllClientInfo() {
+        System.out.println("GetAllClientInfo entry");
+        ArrayList<INFO_CLIENT> ret = mInfoService.GetAllClientInfo();
+        System.out.println("size: " + ret.size());
+        return ret;
+    }
+
+    @RequestMapping(value = "/SaveClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode SaveClientInfo(@RequestBody ReqGrid<INFO_CLIENT> clientInfoList) {
+        System.out.println("SaveClientInfo() size: "+clientInfoList.getGrid().size());
+        for (INFO_CLIENT client: clientInfoList.getGrid()) {
+            System.out.println("SaveClientInfo(): client_name " + client.getClient_name());
+        }
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.SaveClientInfo(clientInfoList.getGrid());
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/AddClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode AddClientInfo(@RequestBody INFO_CLIENT clientInfo) {
+        System.out.println(clientInfo.toString());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.AddClientInfo(clientInfo);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/UpdateClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode UpdateClientInfo(@RequestBody INFO_CLIENT clientInfo) {
+        System.out.println(clientInfo.toString());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.UpdateClientInfo(clientInfo);
+        code.setCode(userCode.getCode());
+
+        return code;
+    }
+
+    @RequestMapping(value = "/DeleteClientInfo", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseCode DeleteClientInfo(@RequestBody ReqStringList reqStringList) {
+        System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
+
+        ResponseCode code = new ResponseCode();
+        UserCode userCode;
+        userCode = mInfoService.DeleteClientInfo(reqStringList.getGrid());
         code.setCode(userCode.getCode());
 
         return code;

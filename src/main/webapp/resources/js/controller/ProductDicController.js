@@ -19,7 +19,7 @@ Ext.define('AppIndex.controller.ProductDicController',{
         max += 1;
         var line = {
             'product_type' : max,
-            'product_name' : ''
+            'product_dic_name' : ''
         };
         store.insert(max, line);
     },
@@ -46,7 +46,7 @@ Ext.define('AppIndex.controller.ProductDicController',{
             // delete value which key is 'id'
             delete record.data['id'];
             // continue
-            if (0 == record.data['product_name'].length) {
+            if (0 == record.data['product_dic_name'].length) {
                 return true;
             }
             gridData.push(record.data);

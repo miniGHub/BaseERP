@@ -4,7 +4,7 @@ Ext.define('AppIndex.store.GetAllProductDicStore', {
 
     fields:[
         {name: 'product_type', type: 'int'},
-        {name: 'product_name', type: 'string'}
+        {name: 'product_dic_name', type: 'string'}
     ],
 
     proxy: {

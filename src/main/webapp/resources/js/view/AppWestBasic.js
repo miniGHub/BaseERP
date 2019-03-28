@@ -3,6 +3,10 @@ Ext.define("AppIndex.view.AppWestBasic",{
     xtype:'app_west_basic',
 
     requires:[
+        'AppIndex.view.SupplierInfoView',
+        'AppIndex.view.ProductInfoView'
+	'AppIndex.view.ClientInfoView',
+        'AppIndex.view.RepositoryInfoView'
     ],
 
     title:'基本信息',
