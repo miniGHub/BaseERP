@@ -1,7 +1,9 @@
 Ext.define('AppIndex.controller.SalesOrderNoteController',{
     extend:'Ext.app.ViewController',
     alias:'controller.sales_order_note_view',
-    requires:['AppIndex.store.SendStore'],
+    requires:[
+        'AppIndex.store.SendStore'
+    ],
     control:{},
     routes:{},
 
@@ -61,5 +63,17 @@ Ext.define('AppIndex.controller.SalesOrderNoteController',{
                 }
             }
         });
+    },
+    onClickAddDetail: function() {
+        console.log("onClickDeleteDetail");
+
+    },
+    onClickEditDetail: function() {
+        console.log("onClickEditDetail");
+
+    },
+    onClickDeleteDetail: function() {
+        console.log("onClickDeleteDetail");
+
     }
 });

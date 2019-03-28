@@ -4,7 +4,6 @@ Ext.define('AppIndex.view.SalesOrderNoteView',{
     itemId: 'app_sales_order_note_view_item_id',                        // for tab panel
     controller:'sales_order_note_view',
     requires:['AppIndex.controller.SalesOrderNoteController',
-        'AppIndex.view.SalesOrderNoteViewToolbar',
         'AppIndex.view.SalesOrderNoteViewForm',
         'AppIndex.view.SalesOrderNoteViewGrid'
     ],
@@ -18,12 +17,7 @@ Ext.define('AppIndex.view.SalesOrderNoteView',{
         type:'border'
     },
 
-
     items:[
-        {
-            region:'north',
-            xtype:'app_sales_order_note_view_toolbar'
-        },
         {
             region:'north',
             xtype:'app_sales_order_note_view_form'

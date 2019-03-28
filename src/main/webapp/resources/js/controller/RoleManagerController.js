@@ -27,13 +27,8 @@ Ext.define('AppIndex.controller.RoleManagerController',{
         console.log("onClickDelete");
         var grid = this.getView().down('app_role_manager_view_grid');
         var store = grid.getStore();
-
-        Ext.Msg.confirm('系统提示','确定要删除？',function(btn){
-            if(btn=='yes'){
-                var record = grid.getSelectionModel().getSelection()[0];
-                store.remove(record);
-            }
-        });
+        var record = grid.getSelectionModel().getSelection()[0];
+        store.remove(record);
     },
     onClickSave : function () {
         console.log("onClickSave");
