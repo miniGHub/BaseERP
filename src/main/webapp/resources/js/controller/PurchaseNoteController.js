@@ -117,9 +117,8 @@ Ext.define('AppIndex.controller.PurchaseNoteController',{
         $("#printframe").html(page).print();
         $("#printframe").html('');
     },
-    PurchaseNoteLoad: function() {
-        var form = this.getView().down('app_purchase_note_view_form').getForm().getValues();
-        var id = form['sales_order_note_id'];
+    PurchaseNoteLoad: function(combo, record, index) {
+        var id = combo.getValue();
         console.log("sale order id：" + id);
         var getStore = Ext.create('AppIndex.store.GetStore');
         getStore.proxy.url += "cg/LoadBaseFromSalesOrder";

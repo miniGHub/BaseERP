@@ -1,7 +1,6 @@
 Ext.define('AppIndex.view.StorageInViewForm', {
     extend: 'Ext.form.Panel',
     xtype: 'app_storage_in_view_form',
-
     requires: [
         'AppIndex.store.GetPurchaseNoteInApproval'
     ],
@@ -18,6 +17,18 @@ Ext.define('AppIndex.view.StorageInViewForm', {
         labelAlign: 'right',
         labelWidth: 70
     },
+    tbar: [
+        {
+            text:'入库',
+            iconCls:'icon_add',
+            handler: 'StorageInSubmit'
+        }, '-',
+        {
+            text:'打印',
+            iconCls:'icon_printer',
+            handler: 'StorageInPrint'
+        }
+    ],
     items:[
         {
             xtype: 'combo',
@@ -33,6 +44,9 @@ Ext.define('AppIndex.view.StorageInViewForm', {
             matchFieldWidth:false,
             store: {
                 type:'get_purchase_note_in_approval'
+            },
+            listeners: {
+                select: 'StorageInLoad'
             },
             queryMode : 'local',
             allowBlank: true
