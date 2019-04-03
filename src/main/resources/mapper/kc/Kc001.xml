@@ -4,7 +4,7 @@
 <!-- 设置为IKC001Dao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.kc.IKc001">
 
-    <select id="selectKC001" resultType="com.mini.model.kc.KC001" parameterType="Map">
+    <select id="selectKC001" resultType="com.mini.model.db.kc.KC001" parameterType="Map">
         SELECT * FROM KC001
         <where>
             <if test="product_id != null">
@@ -37,12 +37,12 @@
         </where>
     </delete>
 
-    <insert id="insertKC001" parameterType="com.mini.model.kc.KC001" flushCache="true">
+    <insert id="insertKC001" parameterType="com.mini.model.db.kc.KC001" flushCache="true">
         INSERT INTO KC001 (product_id, repository_id, amount, freeuse1, freeuse2, freeuse3)
         VALUES (#{product_id}, #{repository_id}, #{amount}, #{freeuse1}, #{freeuse2}, #{freeuse3})
     </insert>
 
-    <update id="updateKC001" parameterType="com.mini.model.kc.KC001" flushCache="true">
+    <update id="updateKC001" parameterType="com.mini.model.db.kc.KC001" flushCache="true">
         UPDATE KC001
         <set>
             <if test="amount != null">
@@ -61,7 +61,7 @@
         WHERE product_id = #{product_id} and repository_id = #{repository_id}
     </update>
 
-    <update id="addKC001Amount" parameterType="com.mini.model.kc.KC002">
+    <update id="addKC001Amount" parameterType="com.mini.model.db.kc.KC002">
         UPDATE KC001 SET amount = amount + #{amount} WHERE product_id = #{product_id} and repository_id = #{repository_id}
     </update>
 </mapper>

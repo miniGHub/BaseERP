@@ -4,7 +4,7 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.xs.IXs003">
 
-    <insert id="InsertSalesNoteDetail" parameterType="com.mini.model.xs.XS003">
+    <insert id="InsertSalesNoteDetail" parameterType="com.mini.model.db.xs.XS003">
         insert into XS003
         values
         (

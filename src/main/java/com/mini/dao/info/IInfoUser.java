@@ -1,8 +1,8 @@
 package com.mini.dao.info;
 
-import com.mini.model.UserInfoPage;
-import com.mini.model.UserPasswordPage;
-import com.mini.model.info.INFO_USER;
+import com.mini.model.page.UserInfoPage;
+import com.mini.model.page.UserPasswordPage;
+import com.mini.model.db.info.INFO_USER;
 
 import java.util.ArrayList;
 

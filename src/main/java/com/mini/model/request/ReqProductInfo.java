@@ -1,6 +1,6 @@
 package com.mini.model.request;
 
-import com.mini.model.info.INFO_PRODUCT;
+import com.mini.model.db.info.INFO_PRODUCT;
 
 import java.util.ArrayList;
 

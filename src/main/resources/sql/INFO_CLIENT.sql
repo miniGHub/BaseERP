@@ -5,8 +5,8 @@ CREATE TABLE `INFO_CLIENT` (
   phone varchar (50) COMMENT '联系电话',
   freeuse1 int COMMENT '备用1',
   freeuse2 varchar(255) COMMENT '备用2',
-  freeuse3 date COMMENT '备用3'
-  PRIMARY KEY (client_id),
+  freeuse3 date COMMENT '备用3',
+  PRIMARY KEY (client_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `INFO_CLIENT` VALUES
 ('001', '华润万家', '张经理', '11223344556', 0, '', ''),

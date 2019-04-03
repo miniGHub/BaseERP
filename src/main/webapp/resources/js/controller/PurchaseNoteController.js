@@ -1,7 +1,7 @@
 Ext.define('AppIndex.controller.PurchaseNoteController',{
     extend:'Ext.app.ViewController',
     alias:'controller.purchase_note_view',
-    requires:['AppIndex.store.SendStore',
+    requires:['AppIndex.store.common.SendStore',
         'AppIndex.store.GetStore'
     ],
     control:{},
@@ -30,7 +30,7 @@ Ext.define('AppIndex.controller.PurchaseNoteController',{
         };
         console.log('sendParam:' + Ext.encode(sendParam));
 
-        var sendStore = Ext.create('AppIndex.store.SendStore');
+        var sendStore = Ext.create('AppIndex.store.common.SendStore');
         sendStore.proxy.url += 'cg/SubmitPurchaseNote';
         sendStore.proxy.extraParams =  sendParam;
         // sendStore.proxy.extraParams = test;

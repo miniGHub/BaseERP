@@ -2,8 +2,13 @@ package com.mini.service.impl;
 
 import com.mini.common.Constant;
 import com.mini.dao.info.*;
-import com.mini.model.*;
-import com.mini.model.info.*;
+import com.mini.model.code.ProductCode;
+import com.mini.model.code.UserCode;
+import com.mini.model.db.info.*;
+import com.mini.model.page.ProductInfoPage;
+import com.mini.model.page.RepositoryInfoPage;
+import com.mini.model.page.UserInfoPage;
+import com.mini.model.page.UserPasswordPage;
 import com.mini.service.IInfoService;
 import org.springframework.stereotype.Service;
 
@@ -82,7 +87,7 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public String GetNewId() {
+    public String GetUserInfoNewId() {
         String newId = mInfoUser.SelectMaxId();
 
         if (null == newId) {
@@ -190,7 +195,7 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public String GetNewProductInfoId() {
+    public String GetProductInfoNewId() {
         String newId = mInfoProduct.SelectMaxId();
 
         if (null == newId) {

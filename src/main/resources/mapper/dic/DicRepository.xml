@@ -17,7 +17,7 @@
         values
         <foreach collection="list" item="repository" index="index" separator=",">
             (
-            #{repository.repository_type}, #{repository.repository_name}, #{repository.freeuse1}, #{repository.freeuse2}
+            #{repository.repository_type}, #{repository.repository_type_name}, #{repository.freeuse1}, #{repository.freeuse2}
             )
         </foreach>
     </insert>

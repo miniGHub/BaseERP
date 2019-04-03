@@ -1,10 +1,9 @@
 package com.mini.service;
 
-import com.mini.model.kc.KC001;
-import com.mini.model.kc.KC002;
+import com.mini.model.db.kc.KC001;
+import com.mini.model.db.kc.KC002;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public interface IKcService {

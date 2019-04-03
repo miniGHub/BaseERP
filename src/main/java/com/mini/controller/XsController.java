@@ -1,14 +1,14 @@
 package com.mini.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mini.model.db.xs.XS001;
+import com.mini.model.db.xs.XS002;
+import com.mini.model.db.xs.XS003;
+import com.mini.model.db.xs.XS004;
+import com.mini.model.request.ReqFormGrid;
 import com.mini.model.request.ReqSalesNote;
-import com.mini.model.request.ReqSalesOrderNote;
 import com.mini.model.response.RespSalesOrderNote;
-import com.mini.model.response.ResponseCode;
-import com.mini.model.xs.XS001;
-import com.mini.model.xs.XS002;
-import com.mini.model.xs.XS003;
-import com.mini.model.xs.XS004;
+import com.mini.model.response.RespCode;
 import com.mini.service.ICgService;
 import com.mini.service.IXsService;
 import org.springframework.stereotype.Controller;
@@ -64,7 +64,7 @@ public class XsController {
 
     @RequestMapping(value = "/SubmitSalesNote", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitSalesNote(@RequestBody ReqSalesNote salesNote){
+    public RespCode SubmitSalesNote(@RequestBody ReqSalesNote salesNote){
         System.out.println("SubmitSalesNote");
         System.out.println("entry_date:" + salesNote.getForm().getEntry_date()
                 + ",Sales_order_note_id:" + salesNote.getForm().getSales_order_note_id()
@@ -102,7 +102,7 @@ public class XsController {
 
         mXsService.SaveSalesNote(salesNote);
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         code.setCode(1);
 
         return code;
@@ -110,7 +110,7 @@ public class XsController {
 
     @RequestMapping(value = "/SubmitSalesOrderNote", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitSalesOrderNote(@RequestBody ReqSalesOrderNote reqSalesOrderNote){
+    public RespCode SubmitSalesOrderNote(@RequestBody ReqFormGrid<XS001, XS002> reqSalesOrderNote){
         System.out.println("SubmitSalesOrderNote");
         System.out.println("entry_date:" + reqSalesOrderNote.getForm().getEntry_date()
                 + ",Sales_order_note_id:" + reqSalesOrderNote.getForm().getSales_order_note_id()
@@ -142,7 +142,7 @@ public class XsController {
 
         mXsService.SaveSalesOrderNote(reqSalesOrderNote);
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         code.setCode(1);
 
         return code;

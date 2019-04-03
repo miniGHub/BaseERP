@@ -1,6 +1,6 @@
 package com.mini.model.response;
 
-import com.mini.model.ProductInfoPage;
+import com.mini.model.page.ProductInfoPage;
 
 import java.util.ArrayList;
 

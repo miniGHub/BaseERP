@@ -42,7 +42,7 @@
         <!-- 注入数据库连接池 -->
         <property name="dataSource" ref="dataSource"/>
         <!-- 扫描model包 使用别名 -->
-        <property name="typeAliasesPackage" value="com.mini.model.xs;com.mini.model.cg;com.mini.model.kc;com.mini.model.info;com.mini.model.dic"/>
+        <property name="typeAliasesPackage" value="com.mini.model.db.xs;com.mini.model.db.cg;com.mini.model.db.kc;com.mini.model.db.info;com.mini.model.db.dic"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
         <property name="mapperLocations">
             <list>
