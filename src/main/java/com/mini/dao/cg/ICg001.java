@@ -13,5 +13,5 @@ public interface ICg001 {
     int updateCG001(CG001 one);
     int countPurchaseNoteIdLike(String purchase_note_id_like);
     ArrayList<String> SelectPurchaseNoteInApproval();
-    int updatePurchaseNoteStatus(HashMap<String, Object> param);
+    int updatePurchaseNoteStatus(String purchase_note_id, int note_status);
 }

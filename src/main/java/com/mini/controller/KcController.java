@@ -63,28 +63,24 @@ public class KcController {
         ResponseCode code = new ResponseCode();
         code.setCode(0);
         if (mKcService.saveStorageIn(reqParam.getGrid())) {
-            HashMap<String, Object> param = new HashMap<>();
             KC002 kc002 = reqParam.getGrid().get(0);
             String purchase_note_id = kc002.getPurchase_note_id();
             String sales_return_note_id = kc002.getSales_return_note_id();
             String sales_exchange_note_id = kc002.getSales_exchange_note_id();
             String purchase_exchange_note_id = kc002.getPurchase_exchange_note_id();
-            param.put("note_status", 1);
             boolean ret = false;
             if (purchase_note_id != null) {
-                param.put("purchase_note_id", purchase_note_id);
-                ret = mCgService.updatePurchaseNoteStatus(param);
+                ret = mCgService.updatePurchaseNoteStatus(purchase_note_id, 1);
             }
             else if (sales_return_note_id != null) {
-                param.put("sales_return_note_id", sales_return_note_id);
+
             }
             else if (sales_exchange_note_id != null) {
-                param.put("sales_exchange_note_id", sales_exchange_note_id);
+
             }
             else if (purchase_exchange_note_id != null) {
-                param.put("purchase_exchange_note_id", purchase_exchange_note_id);
+
             }
-            System.out.println("SubmitStorageIn(): update note_status param: "+param.toString());
             if (ret) {
                 code.setCode(1);
             }

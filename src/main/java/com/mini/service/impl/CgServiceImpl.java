@@ -67,7 +67,7 @@ public class CgServiceImpl implements ICgService {
     }
 
     @Override
-    public boolean updatePurchaseNoteStatus(HashMap<String, Object> param) {
-        return (this.CG001Dao.updatePurchaseNoteStatus(param) == 1);
+    public boolean updatePurchaseNoteStatus(String purchase_note_id, int note_status) {
+        return (this.CG001Dao.updatePurchaseNoteStatus(purchase_note_id, note_status) == 1);
     }
 }
