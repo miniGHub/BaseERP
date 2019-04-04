@@ -1,8 +1,8 @@
 Ext.define('AppIndex.controller.PurchaseNoteController',{
     extend:'Ext.app.ViewController',
     alias:'controller.purchase_note_view',
-    requires:['AppIndex.store.common.SendStore',
-        'AppIndex.store.GetStore'
+    requires:[
+        'AppIndex.store.common.SendStore'
     ],
     control:{},
     routes:{},
@@ -120,11 +120,14 @@ Ext.define('AppIndex.controller.PurchaseNoteController',{
     PurchaseNoteLoad: function(combo, record, index) {
         var id = combo.getValue();
         console.log("sale order id：" + id);
-        var getStore = Ext.create('AppIndex.store.GetStore');
-        getStore.proxy.url += "cg/LoadBaseFromSalesOrder";
-        getStore.proxy.extraParams = {'Sales_order_note_id': id}; // "JH-2018-12-23-0001"
-        console.log(getStore.proxy.url);
-        getStore.load({
+        var sendParam = {
+            id: id
+        };
+        var sendStore = Ext.create('AppIndex.store.common.SendStore');
+        sendStore.proxy.url += "cg/LoadBaseFromSalesOrder";
+        sendStore.proxy.extraParams =  sendParam;
+        console.log(sendStore.proxy.url);
+        sendStore.load({
             scope:this,
             callback: function (records, operation, success) {
                 if (success) {
@@ -142,11 +145,11 @@ Ext.define('AppIndex.controller.PurchaseNoteController',{
             }
         });
 
-        var getStore2 = Ext.create('AppIndex.store.GetStore');
-        getStore2.proxy.url += "cg/LoadDetailFromSalesOrder";
-        getStore2.proxy.extraParams = {'Sales_order_note_id': id};
-        console.log(getStore2.proxy.url);
-        getStore2.load({
+        var sendStore2 = Ext.create('AppIndex.store.common.SendStore');
+        sendStore2.proxy.url += "cg/LoadDetailFromSalesOrder";
+        sendStore2.proxy.extraParams = sendParam;
+        console.log(sendStore2.proxy.url);
+        sendStore2.load({
             scope:this,
             callback: function (records, operation, success) {
                 if (success) {

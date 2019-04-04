@@ -1,9 +1,9 @@
 package com.mini.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.model.db.cg.CG002;
 import com.mini.model.db.kc.KC002;
 import com.mini.model.request.ReqGrid;
+import com.mini.model.request.ReqId;
 import com.mini.model.response.RespCode;
 import com.mini.service.ICgService;
 import com.mini.service.IKcService;
@@ -14,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 @Controller
 @RequestMapping("/kc")
@@ -30,29 +26,26 @@ public class KcController {
     @Resource
     private IKcService mKcService;
 
-    @RequestMapping("/LoadFromPurchaseNote")
-    public void LoadFromPurchaseNote(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("purchase_note_id");
+    @RequestMapping(value = "/LoadFromPurchaseNote", method = {RequestMethod.POST})
+    @ResponseBody
+    public ArrayList<KC002> LoadFromPurchaseNote(@RequestBody ReqId reqId) {
+        String id = reqId.getId();
         System.out.println("LoadFromPurchaseNote(): " + id);
         ArrayList<CG002> cg002s = mCgService.getPurchaseNoteDetail(id);
         System.out.println("LoadFromPurchaseNote(): find " + cg002s.size());
-        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<KC002> kc002s = new ArrayList<>();
         if (cg002s.size()>0) {
-            KC002[] kc002s = new KC002[cg002s.size()];
-            for (int i=0; i<cg002s.size(); i++) {
-                CG002 cg002 = cg002s.get(i);
-                kc002s[i] = new KC002();
-                kc002s[i].setPurchase_note_id(id);
-                kc002s[i].setProduct_id(cg002.getProduct_id());
-                kc002s[i].setRepository_id(cg002.getRepository_id());
-                kc002s[i].setIn_date(new Date());
-                kc002s[i].setAmount(cg002.getAmount());
+            for (CG002 cg002 : cg002s) {
+                KC002 kc002 = new KC002();
+                kc002.setPurchase_note_id(id);
+                kc002.setProduct_id(cg002.getProduct_id());
+                kc002.setRepository_id(cg002.getRepository_id());
+                kc002.setIn_date(new Date());
+                kc002.setAmount(cg002.getAmount());
+                kc002s.add(kc002);
             }
-            response.getWriter().write(mapper.writeValueAsString(kc002s));
         }
-        response.getWriter().close();
+        return kc002s;
     }
 
     @RequestMapping(value = "/SubmitStorageIn", method = {RequestMethod.POST})

@@ -1,8 +1,8 @@
 Ext.define('AppIndex.controller.StorageInController',{
     extend:'Ext.app.ViewController',
     alias:'controller.storage_in_view',
-    requires:['AppIndex.store.common.SendStore',
-        'AppIndex.store.GetStore'
+    requires:[
+        'AppIndex.store.common.SendStore'
     ],
     control:{},
     routes:{},
@@ -46,9 +46,9 @@ Ext.define('AppIndex.controller.StorageInController',{
     StorageInLoad: function(combo, record, index) {
         var id = combo.getValue();
         console.log("purchase note id：" + id);
-        var getStore = Ext.create('AppIndex.store.GetStore');
+        var getStore = Ext.create('AppIndex.store.common.SendStore');
         getStore.proxy.url += "kc/LoadFromPurchaseNote";
-        getStore.proxy.extraParams = {'purchase_note_id': id};
+        getStore.proxy.extraParams = {id: id};
         console.log(getStore.proxy.url);
         getStore.load({
             scope:this,

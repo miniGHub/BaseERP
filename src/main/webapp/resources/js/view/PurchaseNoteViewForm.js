@@ -3,7 +3,7 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
     xtype:'app_purchase_note_view_form',
     requires: [
         'AppIndex.store.GetSalesOrderNoteApprovalingStore',
-        'AppIndex.store.GetAllSupplierStore'
+        'AppIndex.store.info.GetAllSupplierInfoStore'
     ],
 
     border:false,
@@ -78,7 +78,7 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
             selectOnFocus : true,
             matchFieldWidth:false,
             store: {
-                type:'get_all_supplier_store'
+                type:'get_all_supplier_info_store'
             },
             queryMode : 'remote',
             allowBlank: true
