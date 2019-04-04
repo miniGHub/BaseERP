@@ -446,7 +446,7 @@ public class InfoController {
 
     @RequestMapping(value = "/DeleteRepositoryInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public RespCode DeleteRepositoryInfo(@RequestBody ReqStringList reqStringList) {
+    public RespCode DeleteRepositoryInfo(@RequestBody ReqGrid<String> reqStringList) {
         System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
 
         RespCode code = new RespCode();
@@ -509,7 +509,7 @@ public class InfoController {
 
     @RequestMapping(value = "/DeleteClientInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public RespCode DeleteClientInfo(@RequestBody ReqStringList reqStringList) {
+    public RespCode DeleteClientInfo(@RequestBody ReqGrid<String> reqStringList) {
         System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
 
         RespCode code = new RespCode();
