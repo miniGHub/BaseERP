@@ -1,4 +1,4 @@
-grid导出excel 导入excel(poi)
+grid导出excel 导入excel
 打印功能(done)
 “购买单位” 做成下拉框 模糊查询方式
 model输入文本框数值验证

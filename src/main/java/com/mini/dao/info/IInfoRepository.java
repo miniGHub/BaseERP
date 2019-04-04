@@ -1,7 +1,7 @@
 package com.mini.dao.info;
 
-import com.mini.model.RepositoryInfoPage;
-import com.mini.model.info.INFO_REPOSITORY;
+import com.mini.model.page.RepositoryInfoPage;
+import com.mini.model.db.info.INFO_REPOSITORY;
 
 import java.util.ArrayList;
 

@@ -1,15 +1,12 @@
 package com.mini.controller;
 
 import com.mini.common.Constant;
-import com.mini.model.dic.DIC_DEPART;
-import com.mini.model.dic.DIC_PRODUCT;
-import com.mini.model.dic.DIC_REPOSITORY;
-import com.mini.model.dic.DIC_ROLE;
-import com.mini.model.request.ReqDepart;
-import com.mini.model.request.ReqProduct;
-import com.mini.model.request.ReqRepository;
-import com.mini.model.request.ReqRole;
-import com.mini.model.response.ResponseCode;
+import com.mini.model.db.dic.DIC_DEPART;
+import com.mini.model.db.dic.DIC_PRODUCT;
+import com.mini.model.db.dic.DIC_REPOSITORY;
+import com.mini.model.db.dic.DIC_ROLE;
+import com.mini.model.request.*;
+import com.mini.model.response.RespCode;
 import com.mini.service.IDicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,10 +26,10 @@ public class DicController {
 
     @RequestMapping(value = "/SubmitRoleManager", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitRoleManager(@RequestBody ReqRole reqDicRole){
+    public RespCode SubmitRoleManager(@RequestBody ReqGrid<DIC_ROLE> reqDicRole){
         System.out.println("SubmitRoleManager size:" + reqDicRole.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         if (reqDicRole.getGrid().size() == 0) {
             code.setCode(Constant.DATA_ERROR);
             return code;
@@ -62,10 +59,10 @@ public class DicController {
 
     @RequestMapping(value = "/SubmitDepartManager", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitDepartManager(@RequestBody ReqDepart reqDicDepart){
+    public RespCode SubmitDepartManager(@RequestBody ReqGrid<DIC_DEPART> reqDicDepart){
         System.out.println("SubmitDepartManager size:" + reqDicDepart.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         if (reqDicDepart.getGrid().size() == 0) {
             code.setCode(Constant.DATA_ERROR);
             return code;
@@ -96,10 +93,10 @@ public class DicController {
 
     @RequestMapping(value = "/SubmitProductInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitProductInfo(@RequestBody ReqProduct reqDicProduct){
+    public RespCode SubmitProductInfo(@RequestBody ReqGrid<DIC_PRODUCT> reqDicProduct){
         System.out.println("SubmitProductInfo size:" + reqDicProduct.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         if (reqDicProduct.getGrid().size() == 0) {
             code.setCode(Constant.DATA_ERROR);
             return code;
@@ -130,10 +127,10 @@ public class DicController {
 
     @RequestMapping(value = "/SubmitRepositoryInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitRepositoryInfo(@RequestBody ReqRepository reqDicRepository){
+    public RespCode SubmitRepositoryInfo(@RequestBody ReqGrid<DIC_REPOSITORY> reqDicRepository){
         System.out.println("SubmitRepositoryInfo size:" + reqDicRepository.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         if (reqDicRepository.getGrid().size() == 0) {
             code.setCode(Constant.DATA_ERROR);
             return code;

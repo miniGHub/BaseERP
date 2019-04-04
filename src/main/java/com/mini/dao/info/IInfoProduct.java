@@ -1,13 +1,12 @@
 package com.mini.dao.info;
 
-import com.mini.model.ProductInfoPage;
-import com.mini.model.info.INFO_PRODUCT;
+import com.mini.model.page.ProductInfoPage;
+import com.mini.model.db.info.INFO_PRODUCT;
 
 import java.util.ArrayList;
 
 public interface IInfoProduct {
-    public INFO_PRODUCT SelectAll();
-    public INFO_PRODUCT SelectProductInfo(String productId);
+    INFO_PRODUCT SelectProductInfo(String productId);
     ArrayList<ProductInfoPage> SelectAllProductInfo();
     void InsertProductInfo(INFO_PRODUCT productInfo);
     void UpdateProductInfo(INFO_PRODUCT productInfo);

@@ -10,8 +10,8 @@ Ext.application({
     ],
 
     views: [
-        'AppIndex.view.LoginView',
-        'AppIndex.view.AppHome',
+        'AppIndex.view.base.LoginView',
+        'AppIndex.view.base.AppHome',
     ],
 
     listen: {
@@ -48,10 +48,10 @@ Ext.application({
         // If TutorialLoggedIn isn't true, we display the login window,
         // otherwise, we display the main view
         if (hasLogin) {
-            this.setMainView("AppIndex.view.AppHome");
+            this.setMainView("AppIndex.view.base.AppHome");
         }
         else {
-            //this.setMainView("AppIndex.view.LoginView");
+            //this.setMainView("AppIndex.view.base.LoginView");
             Ext.create({
                 xtype: 'app_login_view'
             });

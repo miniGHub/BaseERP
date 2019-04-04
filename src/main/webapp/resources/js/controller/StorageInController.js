@@ -1,7 +1,7 @@
 Ext.define('AppIndex.controller.StorageInController',{
     extend:'Ext.app.ViewController',
     alias:'controller.storage_in_view',
-    requires:['AppIndex.store.SendStore',
+    requires:['AppIndex.store.common.SendStore',
         'AppIndex.store.GetStore'
     ],
     control:{},
@@ -21,7 +21,7 @@ Ext.define('AppIndex.controller.StorageInController',{
             grid: gridData
         };
         console.log("storage amount：" + grid.getCount());
-        var sendStore = Ext.create('AppIndex.store.SendStore');
+        var sendStore = Ext.create('AppIndex.store.common.SendStore');
         sendStore.proxy.url += 'kc/SubmitStorageIn';
         sendStore.proxy.extraParams = sendParam;
         // sendStore.proxy.extraParams = test;

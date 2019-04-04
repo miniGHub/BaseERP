@@ -1,9 +1,9 @@
 package com.mini.service;
 
-import com.mini.model.dic.DIC_DEPART;
-import com.mini.model.dic.DIC_PRODUCT;
-import com.mini.model.dic.DIC_REPOSITORY;
-import com.mini.model.dic.DIC_ROLE;
+import com.mini.model.db.dic.DIC_DEPART;
+import com.mini.model.db.dic.DIC_PRODUCT;
+import com.mini.model.db.dic.DIC_REPOSITORY;
+import com.mini.model.db.dic.DIC_ROLE;
 
 import java.util.ArrayList;
 

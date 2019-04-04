@@ -8,12 +8,12 @@
         SELECT * FROM INFO_CLIENT
     </select>
 
-    <insert id="AddClientInfo" parameterType="com.mini.model.info.INFO_CLIENT">
+    <insert id="AddClientInfo" parameterType="com.mini.model.db.info.INFO_CLIENT">
         INSERT INTO INFO_CLIENT
         VALUES(#{client_id}, #{client_name}, #{manager}, #{phone}, #{freeuse1}, #{freeuse2}, #{freeuse3})
     </insert>
 
-    <update id="UpdateClientInfo" parameterType="com.mini.model.info.INFO_CLIENT">
+    <update id="UpdateClientInfo" parameterType="com.mini.model.db.info.INFO_CLIENT">
         UPDATE INFO_CLIENT SET client_name=#{client_name}, manager=#{manager}, phone=#{phone}, freeuse1=#{freeuse1}, freeuse2=#{freeuse2}, freeuse3=#{freeuse3}
         WHERE client_id=#{client_id}
     </update>

@@ -4,7 +4,7 @@
 <!-- 设置为IKC002Dao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.kc.IKc002">
 
-    <select id="selectKC002" resultType="com.mini.model.kc.KC002" parameterType="Map">
+    <select id="selectKC002" resultType="com.mini.model.db.kc.KC002" parameterType="Map">
         SELECT * FROM KC002
         <where>
             <if test="product_id != null">
@@ -82,14 +82,14 @@
         </where>
     </delete>
 
-    <insert id="insertKC002" parameterType="com.mini.model.kc.KC002" flushCache="true">
+    <insert id="insertKC002" parameterType="com.mini.model.db.kc.KC002" flushCache="true">
         INSERT INTO KC002 (product_id, repository_id, in_date, amount, purchase_note_id, sales_return_note_id, sales_exchange_note_id, purchase_exchange_note_id, freeuse1, freeuse2, freeuse3) VALUES
         <foreach item="item" collection="list" separator=",">
             (#{item.product_id}, #{item.repository_id}, #{item.in_date}, #{item.amount}, #{item.purchase_note_id}, #{item.sales_return_note_id}, #{item.sales_exchange_note_id}, #{item.purchase_exchange_note_id}, #{item.freeuse1}, #{item.freeuse2}, #{item.freeuse3})
         </foreach>
     </insert>
 
-    <update id="updateKC002" parameterType="com.mini.model.kc.KC002" flushCache="true">
+    <update id="updateKC002" parameterType="com.mini.model.db.kc.KC002" flushCache="true">
         UPDATE KC002
         <set>
             <if test="repository_id != null">

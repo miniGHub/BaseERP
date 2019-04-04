@@ -1,6 +1,6 @@
 package com.mini.dao.xs;
 
-import com.mini.model.xs.XS001;
+import com.mini.model.db.xs.XS001;
 
 import java.util.ArrayList;
 import java.util.HashMap;

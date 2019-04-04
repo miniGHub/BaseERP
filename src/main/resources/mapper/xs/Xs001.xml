@@ -4,7 +4,7 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.xs.IXs001">
 
-    <select id="SelectSalesOrderNoteDetail" resultType="com.mini.model.xs.XS001" parameterType="String">
+    <select id="SelectSalesOrderNoteDetail" resultType="com.mini.model.db.xs.XS001" parameterType="String">
         select * from XS001 where sales_order_note_id = #{salesOrderNoteId};
     </select>
 
@@ -12,7 +12,7 @@
         select sales_order_note_id from XS001 where note_status = 0;
     </select>
 
-    <insert id="InsertSalesOrderNoteDetail" parameterType="com.mini.model.xs.XS001">
+    <insert id="InsertSalesOrderNoteDetail" parameterType="com.mini.model.db.xs.XS001">
         insert into XS001
         values
         (

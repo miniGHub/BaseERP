@@ -1,13 +1,13 @@
 package com.mini.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mini.model.cg.CG001;
-import com.mini.model.cg.CG002;
+import com.mini.model.db.cg.CG001;
+import com.mini.model.db.cg.CG002;
 import com.mini.model.request.ReqFormGrid;
 import com.mini.model.response.RespPurchaseNoteId;
-import com.mini.model.response.ResponseCode;
-import com.mini.model.xs.XS001;
-import com.mini.model.xs.XS002;
+import com.mini.model.response.RespCode;
+import com.mini.model.db.xs.XS001;
+import com.mini.model.db.xs.XS002;
 import com.mini.service.ICgService;
 import com.mini.service.IXsService;
 import org.springframework.stereotype.Controller;
@@ -92,10 +92,10 @@ public class CgController {
 
     @RequestMapping(value = "/SubmitPurchaseNote", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitPurchaseNote(@RequestBody ReqFormGrid<CG001, CG002> purchaseOrderNote) {
+    public RespCode SubmitPurchaseNote(@RequestBody ReqFormGrid<CG001, CG002> purchaseOrderNote) {
         CG001 cg001 = purchaseOrderNote.getForm();
         ArrayList<CG002> cg002s = purchaseOrderNote.getGrid();
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         cg001.setNote_status(0);
         boolean ret;
         String purchase_note_id = cg001.getPurchase_note_id();
@@ -132,11 +132,11 @@ public class CgController {
 
     @RequestMapping(value = "/UpdatePurchaseNote", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode UpdatePurchaseNote(@RequestBody ReqFormGrid<CG001, CG002> purchaseOrderNote) {
+    public RespCode UpdatePurchaseNote(@RequestBody ReqFormGrid<CG001, CG002> purchaseOrderNote) {
         CG001 cg001 = purchaseOrderNote.getForm();
         ArrayList<CG002> cg002s = purchaseOrderNote.getGrid();
         System.out.println("UpdatePurchaseNote(): save cg001");
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         if (mCgService.updatePurchaseNote(cg001, cg002s)) {
             code.setCode(1);
         }

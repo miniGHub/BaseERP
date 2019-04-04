@@ -1,7 +1,7 @@
 package com.mini.model.request;
 
-import com.mini.model.xs.XS003;
-import com.mini.model.xs.XS004;
+import com.mini.model.db.xs.XS003;
+import com.mini.model.db.xs.XS004;
 
 import java.util.ArrayList;
 

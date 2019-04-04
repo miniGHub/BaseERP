@@ -4,10 +4,10 @@ import com.mini.dao.dic.IDicDepart;
 import com.mini.dao.dic.IDicProduct;
 import com.mini.dao.dic.IDicRepository;
 import com.mini.dao.dic.IDicRole;
-import com.mini.model.dic.DIC_DEPART;
-import com.mini.model.dic.DIC_PRODUCT;
-import com.mini.model.dic.DIC_REPOSITORY;
-import com.mini.model.dic.DIC_ROLE;
+import com.mini.model.db.dic.DIC_DEPART;
+import com.mini.model.db.dic.DIC_PRODUCT;
+import com.mini.model.db.dic.DIC_REPOSITORY;
+import com.mini.model.db.dic.DIC_ROLE;
 import com.mini.service.IDicService;
 import org.springframework.stereotype.Service;
 

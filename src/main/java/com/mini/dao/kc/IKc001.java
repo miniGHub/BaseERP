@@ -1,7 +1,7 @@
 package com.mini.dao.kc;
 
-import com.mini.model.kc.KC001;
-import com.mini.model.kc.KC002;
+import com.mini.model.db.kc.KC001;
+import com.mini.model.db.kc.KC002;
 
 import java.util.Map;
 

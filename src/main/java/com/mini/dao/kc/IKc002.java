@@ -1,6 +1,6 @@
 package com.mini.dao.kc;
 
-import com.mini.model.kc.KC002;
+import com.mini.model.db.kc.KC002;
 
 import java.util.List;
 import java.util.Map;

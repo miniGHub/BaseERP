@@ -6,3 +6,10 @@ Extjs当view需要访问后台时，创建对应的controller
 后台 
 	Controller层处理Request和Response类。
 	Dao层尽量接口名称尽量不要有“表名”。写业务名称。
+
+
+=====mybatis总结=====
+单个参数#{name}
+多个参数#{1} #{2} #{3}
+model类 info_user
+ArrayList<INFO_USER>

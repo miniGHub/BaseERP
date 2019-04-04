@@ -4,10 +4,10 @@ import com.mini.dao.xs.IXs001;
 import com.mini.dao.xs.IXs002;
 import com.mini.dao.xs.IXs003;
 import com.mini.dao.xs.IXs004;
+import com.mini.model.db.xs.XS001;
+import com.mini.model.db.xs.XS002;
+import com.mini.model.request.ReqFormGrid;
 import com.mini.model.request.ReqSalesNote;
-import com.mini.model.request.ReqSalesOrderNote;
-import com.mini.model.xs.XS001;
-import com.mini.model.xs.XS002;
 import com.mini.service.IXsService;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,7 @@ public class XsServiceImpl implements IXsService {
     }
 
     @Override
-    public boolean SaveSalesOrderNote(ReqSalesOrderNote reqSalesOrderNote) {
+    public boolean SaveSalesOrderNote(ReqFormGrid<XS001, XS002> reqSalesOrderNote) {
         mXs001.InsertSalesOrderNoteDetail(reqSalesOrderNote.getForm());
         if (reqSalesOrderNote.getGrid().size() != 0) {
             for(int i = 0; i < reqSalesOrderNote.getGrid().size(); i++) {
@@ -53,7 +53,7 @@ public class XsServiceImpl implements IXsService {
             }
             mXs002.InsertSalesOrderNoteProductDetail(reqSalesOrderNote.getGrid());
         } else {
-            System.out.println("ReqSalesOrderNote Grid is null!");
+            System.out.println("SaveSalesOrderNote Grid is null!");
         }
         return true;
     }
