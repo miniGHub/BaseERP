@@ -1,21 +1,19 @@
 package com.mini.controller;
 
 import com.mini.common.Constant;
-import com.mini.model.ProductCode;
-import com.mini.model.RepositoryInfoPage;
-import com.mini.model.info.INFO_CLIENT;
-import com.mini.model.info.INFO_REPOSITORY;
-import com.mini.model.ProductInfoPage;
-import com.mini.model.UserCode;
-import com.mini.model.UserInfoPage;
-import com.mini.model.dic.DIC_PRODUCT;
-import com.mini.model.dic.DIC_ROLE;
-import com.mini.model.info.INFO_PRODUCT;
-import com.mini.model.info.INFO_SUPPLIER;
-import com.mini.model.info.INFO_USER;
+import com.mini.model.page.ProductInfoPage;
+import com.mini.model.page.RepositoryInfoPage;
+import com.mini.model.page.UserInfoPage;
+import com.mini.model.page.UserPasswordPage;
+import com.mini.model.code.ProductCode;
+import com.mini.model.code.UserCode;
+import com.mini.model.db.dic.DIC_PRODUCT;
+import com.mini.model.db.dic.DIC_ROLE;
+import com.mini.model.db.info.*;
 import com.mini.model.request.*;
-import com.mini.model.response.*;
-
+import com.mini.model.response.RespCode;
+import com.mini.model.response.RespPage;
+import com.mini.model.response.RespProductInfoPage;
 import com.mini.service.IDicService;
 import com.mini.service.IInfoService;
 import org.springframework.stereotype.Controller;
@@ -36,10 +34,10 @@ public class InfoController {
 
     @RequestMapping(value = "/Login", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode Login(@RequestBody INFO_USER reqInfoUser){
+    public RespCode Login(@RequestBody INFO_USER reqInfoUser){
         System.out.println("Login id:" + reqInfoUser.getId() + ",password:" + reqInfoUser.getPassword());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
 
         if (null == reqInfoUser.getId() || null == reqInfoUser.getPassword()) {
             code.setCode(Constant.DATA_ERROR);
@@ -81,14 +79,14 @@ public class InfoController {
 
     @RequestMapping(value = "/GetAllUserInfoPage", method = {RequestMethod.GET})
     @ResponseBody
-    public RespUserInfoPage GetAllUserInfoPage(@RequestParam(defaultValue = "0") int page,
-                                               @RequestParam(defaultValue = "0") int start,
-                                               @RequestParam(defaultValue = "0") int limit,
-                                               @RequestParam(defaultValue = "false") boolean isReqDB) {
+    public RespPage<UserInfoPage> GetAllUserInfoPage(@RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "0") int start,
+                                                     @RequestParam(defaultValue = "0") int limit,
+                                                     @RequestParam(defaultValue = "false") boolean isReqDB) {
         System.out.println("GetAllUserInfoPage entry");
         System.out.println("GetAllUserInfoPage page:" + page + ",start:" + start + ",limit:" + limit + ",isReqDB" + isReqDB);
 
-        RespUserInfoPage respUserInfoPage = new RespUserInfoPage();
+        RespPage<UserInfoPage> respUserInfoPage = new RespPage();
 
         if (isReqDB) {
             mInfoService.GetAllUserInfo();
@@ -100,25 +98,25 @@ public class InfoController {
         return respUserInfoPage;
     }
 
-    @RequestMapping(value = "/GetNewId", method = {RequestMethod.POST})
+    @RequestMapping(value = "/GetUserInfoNewId", method = {RequestMethod.POST})
     @ResponseBody
-    public INFO_USER GetNewId() {
-        System.out.println("GetNewId entry");
+    public INFO_USER GetUserInfoNewId() {
+        System.out.println("GetUserInfoNewId entry");
 
         INFO_USER userInfo = new INFO_USER();
-        userInfo.setId(mInfoService.GetNewId());
+        userInfo.setId(mInfoService.GetUserInfoNewId());
 
         return userInfo;
     }
 
     @RequestMapping(value = "/AddUserInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode AddUserInfo(@RequestBody INFO_USER reqInfoUser) {
+    public RespCode AddUserInfo(@RequestBody INFO_USER reqInfoUser) {
         System.out.println("AddUserInfo id=" + reqInfoUser.getId() + ", name=" + reqInfoUser.getName()
                             + ",phone=" + reqInfoUser.getPhone() + ",role_id" + reqInfoUser.getRole_id()
                             + ",depart_id=" + reqInfoUser.getDepart_id());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
 
         if (null == reqInfoUser.getId()) {
             code.setCode(Constant.DATA_ERROR);
@@ -134,12 +132,12 @@ public class InfoController {
 
     @RequestMapping(value = "/UpdateUserInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode UpdateUserInfo(@RequestBody INFO_USER reqInfoUser) {
+    public RespCode UpdateUserInfo(@RequestBody INFO_USER reqInfoUser) {
         System.out.println("UpdateUserInfo id=" + reqInfoUser.getId() + ", name=" + reqInfoUser.getName()
                 + ",phone=" + reqInfoUser.getPhone() + ",role_id" + reqInfoUser.getRole_id()
                 + ",depart_id=" + reqInfoUser.getDepart_id());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
 
         if (null == reqInfoUser.getId()) {
             code.setCode(Constant.DATA_ERROR);
@@ -155,10 +153,10 @@ public class InfoController {
 
     @RequestMapping(value = "/DeleteUserInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode DeleteUserInfo(@RequestBody ReqUserInfo reqArrayUserInfo) {
+    public RespCode DeleteUserInfo(@RequestBody ReqGrid<INFO_USER> reqArrayUserInfo) {
         System.out.println("DeleteUserInfo size=" + reqArrayUserInfo.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
 
         if (0 == reqArrayUserInfo.getGrid().size()) {
             code.setCode(Constant.DATA_ERROR);
@@ -179,10 +177,10 @@ public class InfoController {
 
     @RequestMapping(value = "/SubmitSupplierManager", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitSupplierManager(@RequestBody ReqSupplier reqInfoSupplier){
+    public RespCode SubmitSupplierManager(@RequestBody ReqSupplier reqInfoSupplier){
         System.out.println("SubmitSupplierManager size:" + reqInfoSupplier.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         if (reqInfoSupplier.getGrid().size() == 0) {
             code.setCode(Constant.DATA_ERROR);
             return code;
@@ -204,13 +202,13 @@ public class InfoController {
         return mInfoService.GetSupplier(reqInfoSupplier.getSupplier_id());
     }
 
-    @RequestMapping(value = "/GetNewProductInfoId", method = {RequestMethod.POST})
+    @RequestMapping(value = "/GetProductInfoNewId", method = {RequestMethod.POST})
     @ResponseBody
-    public INFO_PRODUCT GetNewProductInfoId() {
-        System.out.println("GetNewProductInfoId entry");
+    public INFO_PRODUCT GetProductInfoNewId() {
+        System.out.println("GetProductInfoNewId entry");
 
         INFO_PRODUCT productInfo = new INFO_PRODUCT();
-        productInfo.setProduct_id(mInfoService.GetNewProductInfoId());
+        productInfo.setProduct_id(mInfoService.GetProductInfoNewId());
 
         return productInfo;
     }
@@ -238,7 +236,7 @@ public class InfoController {
             dicProduct = mDicService.GetProduct(infoProduct.getProduct_type());
             if (dicProduct != null) {
                 productInfoPage.setProduct_type(dicProduct.getProduct_type());
-                productInfoPage.setProduct_dic_name(dicProduct.getProduct_dic_name());
+                productInfoPage.setProduct_type_name(dicProduct.getProduct_type_name());
             } else {
                 System.out.println("GetProductInfo dicProduct is null!!!");
             }
@@ -272,14 +270,14 @@ public class InfoController {
 
     @RequestMapping(value = "/AddProductInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode AddProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
+    public RespCode AddProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
         System.out.println("AddProductInfo product_id=" + reqInfoProduct.getProduct_id()
-                + ", product_type=" + reqInfoProduct.getProduct_type()
+                + ",product_type=" + reqInfoProduct.getProduct_type()
                 + ",product_name=" + reqInfoProduct.getProduct_name()
                 + ",product_barcode=" + reqInfoProduct.getBarcode()
                 + ",product_state=" + reqInfoProduct.getState());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
 
         if (null == reqInfoProduct.getProduct_id()) {
             code.setCode(Constant.DATA_ERROR);
@@ -295,14 +293,14 @@ public class InfoController {
 
     @RequestMapping(value = "/UpdateProductInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode UpdateProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
+    public RespCode UpdateProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
         System.out.println("UpdateProductInfo product_id=" + reqInfoProduct.getProduct_id()
-                + ", product_type=" + reqInfoProduct.getProduct_type()
+                + ",product_type=" + reqInfoProduct.getProduct_type()
                 + ",product_name=" + reqInfoProduct.getProduct_name()
                 + ",product_barcode=" + reqInfoProduct.getBarcode()
                 + ",product_state=" + reqInfoProduct.getState());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
 
         if (null == reqInfoProduct.getProduct_id()) {
             code.setCode(Constant.DATA_ERROR);
@@ -318,10 +316,10 @@ public class InfoController {
 
     @RequestMapping(value = "/DeleteProductInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode DeleteProductInfo(@RequestBody ReqProductInfo reqArrayProductInfo) {
+    public RespCode DeleteProductInfo(@RequestBody ReqProductInfo reqArrayProductInfo) {
         System.out.println("DeleteProductInfo size=" + reqArrayProductInfo.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
 
         if (0 == reqArrayProductInfo.getGrid().size()) {
             code.setCode(Constant.DATA_ERROR);
@@ -342,10 +340,10 @@ public class InfoController {
 
     @RequestMapping(value = "/ChangePassword", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode ChangePassword(@RequestBody ReqChangePassword reqChangePassword) {
+    public RespCode ChangePassword(@RequestBody ReqChangePassword reqChangePassword) {
         System.out.println("ChangePassword id:" + reqChangePassword.getId());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         UserCode userCode;
         userCode = mInfoService.UpdatePassword(reqChangePassword.getId(), reqChangePassword.getOld_password(), reqChangePassword.getNew_password());
 
@@ -356,14 +354,14 @@ public class InfoController {
 
     @RequestMapping(value = "/GetAllUserPasswordPage", method = {RequestMethod.GET})
     @ResponseBody
-    public RespUserPasswordPage GetAllUserPasswordPage(@RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(defaultValue = "0") int start,
-                                                   @RequestParam(defaultValue = "0") int limit,
-                                                   @RequestParam(defaultValue = "false") boolean isReqDB) {
+    public RespPage<UserPasswordPage> GetAllUserPasswordPage(@RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "0") int start,
+                                                             @RequestParam(defaultValue = "0") int limit,
+                                                             @RequestParam(defaultValue = "false") boolean isReqDB) {
         System.out.println("GetAllUserPasswordPage entry");
         System.out.println("GetAllUserPasswordPage page:" + page + ",start:" + start + ",limit:" + limit + ",isReqDB" + isReqDB);
 
-        RespUserPasswordPage respUserPasswordPage = new RespUserPasswordPage();
+        RespPage<UserPasswordPage> respUserPasswordPage = new RespPage<>();
 
         if (isReqDB) {
             mInfoService.GetAllUserPassword();
@@ -377,10 +375,10 @@ public class InfoController {
 
     @RequestMapping(value = "/ResetPassword", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode ResetPassword(@RequestBody ReqUserInfo reqArrayUserInfo) {
+    public RespCode ResetPassword(@RequestBody ReqGrid<INFO_USER> reqArrayUserInfo) {
         System.out.println("ResetPassword size:" + reqArrayUserInfo.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
 
         if (0 == reqArrayUserInfo.getGrid().size()) {
             code.setCode(Constant.DATA_ERROR);
@@ -401,14 +399,14 @@ public class InfoController {
 
     @RequestMapping(value = "/GetAllRepositoryPage", method = {RequestMethod.GET})
     @ResponseBody
-    public RespInfoPage<RepositoryInfoPage> GetAllRepositoryPage(@RequestParam(defaultValue = "0") int page,
-                                                                 @RequestParam(defaultValue = "0") int start,
-                                                                 @RequestParam(defaultValue = "0") int limit,
-                                                                 @RequestParam(defaultValue = "false") boolean isReqDB) {
+    public RespPage<RepositoryInfoPage> GetAllRepositoryPage(@RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "0") int start,
+                                                             @RequestParam(defaultValue = "0") int limit,
+                                                             @RequestParam(defaultValue = "false") boolean isReqDB) {
         System.out.println("GetAllRepositoryPage entry");
         System.out.println("GetAllRepositoryPage page:" + page + ",start:" + start + ",limit:" + limit + ",isReqDB:" + isReqDB);
 
-        RespInfoPage<RepositoryInfoPage> respUserInfoPage = new RespInfoPage<>();
+        RespPage<RepositoryInfoPage> respUserInfoPage = new RespPage<>();
 
         if (isReqDB) {
             mInfoService.GetAllRepository();
@@ -422,10 +420,10 @@ public class InfoController {
 
     @RequestMapping(value = "/AddRepositoryInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode AddRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
+    public RespCode AddRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
         System.out.println(repositoryInfo.toString());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         UserCode userCode;
         userCode = mInfoService.AddRepositoryInfo(repositoryInfo);
         code.setCode(userCode.getCode());
@@ -435,10 +433,10 @@ public class InfoController {
 
     @RequestMapping(value = "/UpdateRepositoryInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode UpdateRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
+    public RespCode UpdateRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
         System.out.println(repositoryInfo.toString());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         UserCode userCode;
         userCode = mInfoService.UpdateRepositoryInfo(repositoryInfo);
         code.setCode(userCode.getCode());
@@ -448,10 +446,10 @@ public class InfoController {
 
     @RequestMapping(value = "/DeleteRepositoryInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode DeleteRepositoryInfo(@RequestBody ReqStringList reqStringList) {
+    public RespCode DeleteRepositoryInfo(@RequestBody ReqStringList reqStringList) {
         System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         UserCode userCode;
         userCode = mInfoService.DeleteRepositoryInfo(reqStringList.getGrid());
         code.setCode(userCode.getCode());
@@ -470,12 +468,12 @@ public class InfoController {
 
     @RequestMapping(value = "/SaveClientInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SaveClientInfo(@RequestBody ReqGrid<INFO_CLIENT> clientInfoList) {
+    public RespCode SaveClientInfo(@RequestBody ReqGrid<INFO_CLIENT> clientInfoList) {
         System.out.println("SaveClientInfo() size: "+clientInfoList.getGrid().size());
         for (INFO_CLIENT client: clientInfoList.getGrid()) {
             System.out.println("SaveClientInfo(): client_name " + client.getClient_name());
         }
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         UserCode userCode;
         userCode = mInfoService.SaveClientInfo(clientInfoList.getGrid());
         code.setCode(userCode.getCode());
@@ -485,10 +483,10 @@ public class InfoController {
 
     @RequestMapping(value = "/AddClientInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode AddClientInfo(@RequestBody INFO_CLIENT clientInfo) {
+    public RespCode AddClientInfo(@RequestBody INFO_CLIENT clientInfo) {
         System.out.println(clientInfo.toString());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         UserCode userCode;
         userCode = mInfoService.AddClientInfo(clientInfo);
         code.setCode(userCode.getCode());
@@ -498,10 +496,10 @@ public class InfoController {
 
     @RequestMapping(value = "/UpdateClientInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode UpdateClientInfo(@RequestBody INFO_CLIENT clientInfo) {
+    public RespCode UpdateClientInfo(@RequestBody INFO_CLIENT clientInfo) {
         System.out.println(clientInfo.toString());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         UserCode userCode;
         userCode = mInfoService.UpdateClientInfo(clientInfo);
         code.setCode(userCode.getCode());
@@ -511,10 +509,10 @@ public class InfoController {
 
     @RequestMapping(value = "/DeleteClientInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode DeleteClientInfo(@RequestBody ReqStringList reqStringList) {
+    public RespCode DeleteClientInfo(@RequestBody ReqStringList reqStringList) {
         System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
 
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         UserCode userCode;
         userCode = mInfoService.DeleteClientInfo(reqStringList.getGrid());
         code.setCode(userCode.getCode());

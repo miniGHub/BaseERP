@@ -1,6 +1,6 @@
 package com.mini.model.request;
 
-import com.mini.model.info.INFO_SUPPLIER;
+import com.mini.model.db.info.INFO_SUPPLIER;
 
 import java.util.ArrayList;
 

@@ -9,42 +9,20 @@ Ext.define('AppIndex.view.SalesOrderNoteViewGrid', {
     store:{
         type:'sales_order_note_store_grid'
     },
-    selModel: {
-        selType: 'cellmodel',
-        //mode: 'MULTI'
-    },
     stripeRows:true, //斑马线效果
-    tbar:[{
-        text:'添加一行',
-        handler:function(){
-            // console.log('add handler');
-            var store = this.up('app_sales_order_note_view_grid').getStore();
-            var line = Ext.create('AppIndex.model.SalesOrderNoteModelGrid');
-            store.insert(0, line);
+    selModel: {
+        selType: 'checkboxmodel'
+    },
+    tbar:[
+        {
+            text:'新增',
+            iconCls: 'icon_add',
+            handler: 'onClickAddDetail'
+        },'-',{
+            text:'删除',
+            iconCls: 'icon_delete',
+            handler: 'onClickDeleteDetail'
         }
-    },'-',{
-        text:'删除一行',
-        handler:function(){
-            var grid = this.up('app_sales_order_note_view_grid')
-            var store = grid.getStore();
-            // console.log('grid:' + grid);
-            Ext.Msg.confirm('系统提示','确定要删除？',function(btn){
-                if(btn=='yes'){
-                    var record = grid.getSelectionModel().getSelection()[0];
-                    store.remove(record);
-                }
-            });
-        }
-    }],
-    plugins:[
-        Ext.create('Ext.grid.plugin.CellEditing',{
-            id:'sales_order_note_cell_editing',
-            clicksToEdit:1,
-            destroy: function() {
-                console.log('sales order note destroy');
-                this.fireEvent('beforedestroy', this);
-            }
-        })
     ],
     columns: [
         { text: '批号',  dataIndex: 'batch_id', editor: 'textfield' },
@@ -62,5 +40,5 @@ Ext.define('AppIndex.view.SalesOrderNoteViewGrid', {
         { text: '条码', dataIndex: 'barcode', editor: 'textfield'},
         { text: '状态', dataIndex: 'state', editor: 'textfield'},
         { text: '备注', dataIndex: 'comment', editor: 'textfield'}
-    ],
+    ]
 });

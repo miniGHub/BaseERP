@@ -1,6 +1,6 @@
 package com.mini.dao.xs;
 
-import com.mini.model.xs.XS004;
+import com.mini.model.db.xs.XS004;
 
 import java.util.ArrayList;
 

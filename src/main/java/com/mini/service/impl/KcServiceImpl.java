@@ -2,14 +2,13 @@ package com.mini.service.impl;
 
 import com.mini.dao.kc.IKc001;
 import com.mini.dao.kc.IKc002;
-import com.mini.model.kc.KC001;
-import com.mini.model.kc.KC002;
+import com.mini.model.db.kc.KC001;
+import com.mini.model.db.kc.KC002;
 import com.mini.service.IKcService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Service("KcService")

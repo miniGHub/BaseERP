@@ -1,7 +1,9 @@
 Ext.define('AppIndex.controller.SalesOrderNoteController',{
     extend:'Ext.app.ViewController',
     alias:'controller.sales_order_note_view',
-    requires:['AppIndex.store.SendStore'],
+    requires:[
+        'AppIndex.store.common.SendStore'
+    ],
     control:{},
     routes:{},
 
@@ -30,7 +32,7 @@ Ext.define('AppIndex.controller.SalesOrderNoteController',{
         };
         console.log('sendParam:' + Ext.encode(sendParam));
 
-        var sendStore = Ext.create('AppIndex.store.SendStore');
+        var sendStore = Ext.create('AppIndex.store.common.SendStore');
         sendStore.proxy.url += 'xs/SubmitSalesOrderNote';
         sendStore.proxy.extraParams =  sendParam;
         // console.log(sendStore.proxy.url);
@@ -61,5 +63,17 @@ Ext.define('AppIndex.controller.SalesOrderNoteController',{
                 }
             }
         });
+    },
+    onClickAddDetail: function() {
+        console.log("onClickDeleteDetail");
+
+    },
+    onClickEditDetail: function() {
+        console.log("onClickEditDetail");
+
+    },
+    onClickDeleteDetail: function() {
+        console.log("onClickDeleteDetail");
+
     }
 });

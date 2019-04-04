@@ -1,6 +1,6 @@
 package com.mini.dao.dic;
 
-import com.mini.model.dic.DIC_PRODUCT;
+import com.mini.model.db.dic.DIC_PRODUCT;
 
 import java.util.ArrayList;
 

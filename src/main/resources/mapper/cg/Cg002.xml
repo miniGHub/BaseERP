@@ -4,7 +4,7 @@
 <!-- 设置为ICG002Dao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.cg.ICg002">
 
-    <select id="selectCG002" resultType="com.mini.model.cg.CG002" parameterType="java.lang.String">
+    <select id="selectCG002" resultType="com.mini.model.db.cg.CG002" parameterType="java.lang.String">
         SELECT * FROM CG002 WHERE purchase_note_id = #{purchase_note_id}
     </select>
 
@@ -12,14 +12,14 @@
         DELETE FROM CG002 WHERE purchase_note_id = #{purchase_note_id}
     </delete>
 
-    <insert id="insertCG002" parameterType="com.mini.model.cg.CG002" flushCache="true">
+    <insert id="insertCG002" parameterType="com.mini.model.db.cg.CG002" flushCache="true">
         INSERT INTO CG002 (purchase_note_id, product_id, repository_id, amount, unit_price, balance, invoice_balance, barcode, state, comment, freeuse1, freeuse2, freeuse3) VALUES
         <foreach item="item" collection="list" separator=",">
             (#{item.purchase_note_id}, #{item.product_id}, #{item.repository_id}, #{item.amount}, #{item.unit_price}, #{item.balance}, #{item.invoice_balance}, #{item.barcode}, #{item.state}, #{item.comment}, #{item.freeuse1}, #{item.freeuse2}, #{item.freeuse3})
         </foreach>
     </insert>
 
-    <update id="updateCG002" parameterType="com.mini.model.cg.CG002" flushCache="true">
+    <update id="updateCG002" parameterType="com.mini.model.db.cg.CG002" flushCache="true">
         UPDATE CG002
         <set>
             <if test="product_id != null">

@@ -2,8 +2,8 @@ package com.mini.service.impl;
 
 import com.mini.dao.cg.ICg001;
 import com.mini.dao.cg.ICg002;
-import com.mini.model.cg.CG001;
-import com.mini.model.cg.CG002;
+import com.mini.model.db.cg.CG001;
+import com.mini.model.db.cg.CG002;
 import com.mini.service.ICgService;
 import org.springframework.stereotype.Service;
 

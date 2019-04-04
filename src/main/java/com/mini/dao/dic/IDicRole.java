@@ -1,6 +1,6 @@
 package com.mini.dao.dic;
 
-import com.mini.model.dic.DIC_ROLE;
+import com.mini.model.db.dic.DIC_ROLE;
 
 import java.util.ArrayList;
 

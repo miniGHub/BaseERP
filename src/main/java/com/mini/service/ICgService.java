@@ -1,7 +1,7 @@
 package com.mini.service;
 
-import com.mini.model.cg.CG001;
-import com.mini.model.cg.CG002;
+import com.mini.model.db.cg.CG001;
+import com.mini.model.db.cg.CG002;
 
 import java.util.ArrayList;
 import java.util.HashMap;

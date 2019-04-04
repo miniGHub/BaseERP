@@ -4,7 +4,7 @@
 <!-- 设置为ICG001Dao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.cg.ICg001">
 
-    <select id="selectCG001" resultType="com.mini.model.cg.CG001" parameterType="Map">
+    <select id="selectCG001" resultType="com.mini.model.db.cg.CG001" parameterType="Map">
         SELECT * FROM CG001
         <where>
             <if test="purchase_note_id != null">
@@ -40,16 +40,16 @@
         </where>
     </select>
 
-    <delete id="deleteCG001" parameterType="com.mini.model.cg.CG001">
+    <delete id="deleteCG001" parameterType="com.mini.model.db.cg.CG001">
         DELETE FROM CG001 WHERE purchase_note_id = #{purchase_note_id}
     </delete>
 
-    <insert id="insertCG001" parameterType="com.mini.model.cg.CG001" flushCache="true">
+    <insert id="insertCG001" parameterType="com.mini.model.db.cg.CG001" flushCache="true">
         INSERT INTO CG001 (purchase_note_id, sales_order_note_id, supplier_id, repository_id, entry_date, pay_date, pay_id, pay_balance, contact_id, contact_pay_id, contact_pay_balance, discount_balance, operator_id, depart_id, note_status, remark, addition, freeuse1, freeuse2, freeuse3)
         VALUES (#{purchase_note_id}, #{sales_order_note_id}, #{supplier_id}, #{repository_id}, #{entry_date}, #{pay_date}, #{pay_id}, #{pay_balance}, #{contact_id}, #{contact_pay_id}, #{contact_pay_balance}, #{discount_balance}, #{operator_id}, #{depart_id}, #{note_status}, #{remark}, #{addition}, #{freeuse1}, #{freeuse2}, #{freeuse3})
     </insert>
 
-    <update id="updateCG001" parameterType="com.mini.model.cg.CG001" flushCache="true">
+    <update id="updateCG001" parameterType="com.mini.model.db.cg.CG001" flushCache="true">
         UPDATE CG001
         <set>
             <if test="sales_order_note_id != null">

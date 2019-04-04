@@ -1,6 +1,6 @@
 package com.mini.dao.cg;
 
-import com.mini.model.cg.CG001;
+import com.mini.model.db.cg.CG001;
 
 import java.util.ArrayList;
 import java.util.HashMap;

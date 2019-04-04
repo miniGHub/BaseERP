@@ -1,11 +1,10 @@
 package com.mini.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mini.model.cg.CG001;
-import com.mini.model.cg.CG002;
-import com.mini.model.kc.KC002;
+import com.mini.model.db.cg.CG002;
+import com.mini.model.db.kc.KC002;
 import com.mini.model.request.ReqGrid;
-import com.mini.model.response.ResponseCode;
+import com.mini.model.response.RespCode;
 import com.mini.service.ICgService;
 import com.mini.service.IKcService;
 import org.springframework.stereotype.Controller;
@@ -58,9 +57,9 @@ public class KcController {
 
     @RequestMapping(value = "/SubmitStorageIn", method = {RequestMethod.POST})
     @ResponseBody
-    public ResponseCode SubmitStorageIn(@RequestBody ReqGrid<KC002> reqParam) {
+    public RespCode SubmitStorageIn(@RequestBody ReqGrid<KC002> reqParam) {
         System.out.println("SubmitStorageIn(): saving " + reqParam.getGrid().size());
-        ResponseCode code = new ResponseCode();
+        RespCode code = new RespCode();
         code.setCode(0);
         if (mKcService.saveStorageIn(reqParam.getGrid())) {
             KC002 kc002 = reqParam.getGrid().get(0);

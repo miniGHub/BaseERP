@@ -1,6 +1,6 @@
 package com.mini.dao.info;
 
-import com.mini.model.info.INFO_CLIENT;
+import com.mini.model.db.info.INFO_CLIENT;
 
 import java.util.ArrayList;
 
