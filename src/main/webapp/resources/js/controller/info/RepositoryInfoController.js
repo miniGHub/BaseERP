@@ -42,24 +42,10 @@ Ext.define('AppIndex.controller.info.RepositoryInfoController',{
         console.log("product info manager onClickAdd");
 
         this.loadGrid();
-        var repositoryInfoStore = mGridRepositoryInfo.getStore();
-        var max = 0;
-        Ext.each(repositoryInfoStore.getRange(0, repositoryInfoStore.getCount()), function(record) {
-            if (max < parseInt(record.data['repository_id'])) {
-                max = record.data['repository_id'];
-            }
-        });
-
-        var addId = parseInt(max) + 1;
-        // 补'0'
-        addId = ('000' + addId).slice(-3);
-
         this.closeWin();
         mWinRepositoryInfo = Ext.create({
             xtype: 'app_repository_info_view_window_add'
         });
-        var winForm = mWinRepositoryInfo.down('form').getForm();
-        winForm.findField('repository_id').setValue(addId);
         mWinRepositoryInfo.show();
     },
     onClickEdit : function () {
@@ -252,111 +238,70 @@ Ext.define('AppIndex.controller.info.RepositoryInfoController',{
 
         var code = records[0].data.code;
         switch (code) {
-            case -1:
-                Ext.MessageBox.show({
-                    title: 'Error',
-                    msg: '数据异常',
-                    buttons: Ext.MessageBox.OK,
-                    icon: Ext.MessageBox.ERROR
-                });
-                break;
-            case 0:
+            case 1:
                 Ext.MessageBox.show({
                     title: 'Warning',
-                    msg: '新增仓库信息失败,仓库信息已经存在!',
+                    msg: '新增仓库信息失败!',
                     buttons: Ext.MessageBox.OK,
                     icon: Ext.MessageBox.WARNING
                 });
                 break;
-            case 3:
+            case 0:
                 Ext.MessageBox.show({
                     title: 'Info',
                     msg: '新增仓库信息成功!',
                     buttons: Ext.MessageBox.OK,
                     icon: Ext.MessageBox.INFO
                 });
-                this.refreshGridData(mGridRepositoryInfo.getStore().currentPage);
-                break;
-            case 4:
-                Ext.MessageBox.show({
-                    title: 'Warning',
-                    msg: '新增仓库信息失败,数据异常!',
-                    buttons: Ext.MessageBox.OK,
-                    icon: Ext.MessageBox.WARNING
-                });
                 break;
         }
+        this.refreshGridData(mGridRepositoryInfo.getStore().currentPage);
     },
     editSaveCallback: function (records, operation) {
-        console.log('edit save callback');
-
         var code = records[0].data.code;
+        console.log('edit save callback: '+code);
         switch (code) {
-            case -1:
-                Ext.MessageBox.show({
-                    title: 'Error',
-                    msg: '数据异常',
-                    buttons: Ext.MessageBox.OK,
-                    icon: Ext.MessageBox.ERROR
-                });
-                break;
-            case 1:
+            case 2:
                 Ext.MessageBox.show({
                     title: 'Warning',
-                    msg: '编辑仓库信息失败,仓库信息不存在!',
+                    msg: '编辑仓库信息失败!',
                     buttons: Ext.MessageBox.OK,
                     icon: Ext.MessageBox.WARNING
                 });
                 break;
-            case 5:
+            case 0:
                 Ext.MessageBox.show({
                     title: 'Info',
                     msg: '编辑仓库信息成功!',
                     buttons: Ext.MessageBox.OK,
                     icon: Ext.MessageBox.INFO
                 });
-                this.refreshGridData(mGridRepositoryInfo.getStore().currentPage);
-                break;
-            case 6:
-                Ext.MessageBox.show({
-                    title: 'Warning',
-                    msg: '编辑仓库信息失败,数据异常!',
-                    buttons: Ext.MessageBox.OK,
-                    icon: Ext.MessageBox.WARNING
-                });
                 break;
         }
+        this.refreshGridData(mGridRepositoryInfo.getStore().currentPage);
     },
     deleteSaveCallback: function (records, operation) {
         console.log('delete save callback');
 
         var code = records[0].data.code;
         switch (code) {
-            case -1:
-                Ext.MessageBox.show({
-                    title: 'Error',
-                    msg: '数据异常',
-                    buttons: Ext.MessageBox.OK,
-                    icon: Ext.MessageBox.ERROR
-                });
-                break;
-            case 7:
+            case 0:
                 Ext.MessageBox.show({
                     title: 'Info',
                     msg: '删除仓库信息成功!',
                     buttons: Ext.MessageBox.OK,
                     icon: Ext.MessageBox.INFO
                 });
-                this.refreshGridData(mGridRepositoryInfo.getStore().currentPage);
                 break;
-            case 8:
+            case 3:
                 Ext.MessageBox.show({
                     title: 'Warning',
-                    msg: '删除仓库信息失败,数据异常!',
+                    msg: '删除仓库信息失败!',
                     buttons: Ext.MessageBox.OK,
                     icon: Ext.MessageBox.WARNING
                 });
                 break;
         }
+        this.refreshGridData(mGridRepositoryInfo.getStore().currentPage);
     }
 });

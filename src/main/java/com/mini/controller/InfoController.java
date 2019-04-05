@@ -1,6 +1,7 @@
 package com.mini.controller;
 
 import com.mini.common.Constant;
+import com.mini.model.code.OperationResultCode;
 import com.mini.model.page.ProductInfoPage;
 import com.mini.model.page.RepositoryInfoPage;
 import com.mini.model.page.UserInfoPage;
@@ -421,12 +422,13 @@ public class InfoController {
     @RequestMapping(value = "/AddRepositoryInfo", method = {RequestMethod.POST})
     @ResponseBody
     public RespCode AddRepositoryInfo(@RequestBody INFO_REPOSITORY repositoryInfo) {
+        repositoryInfo.setRepository_id(mInfoService.GetNewRepositoryId());
         System.out.println(repositoryInfo.toString());
 
         RespCode code = new RespCode();
-        UserCode userCode;
-        userCode = mInfoService.AddRepositoryInfo(repositoryInfo);
-        code.setCode(userCode.getCode());
+        OperationResultCode opCode;
+        opCode = mInfoService.AddRepositoryInfo(repositoryInfo);
+        code.setCode(opCode.getCode());
 
         return code;
     }
@@ -437,9 +439,9 @@ public class InfoController {
         System.out.println(repositoryInfo.toString());
 
         RespCode code = new RespCode();
-        UserCode userCode;
-        userCode = mInfoService.UpdateRepositoryInfo(repositoryInfo);
-        code.setCode(userCode.getCode());
+        OperationResultCode opCode;
+        opCode = mInfoService.UpdateRepositoryInfo(repositoryInfo);
+        code.setCode(opCode.getCode());
 
         return code;
     }
@@ -450,9 +452,9 @@ public class InfoController {
         System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
 
         RespCode code = new RespCode();
-        UserCode userCode;
-        userCode = mInfoService.DeleteRepositoryInfo(reqStringList.getGrid());
-        code.setCode(userCode.getCode());
+        OperationResultCode opCode;
+        opCode = mInfoService.DeleteRepositoryInfo(reqStringList.getGrid());
+        code.setCode(opCode.getCode());
 
         return code;
     }
@@ -474,9 +476,13 @@ public class InfoController {
             System.out.println("SaveClientInfo(): client_name " + client.getClient_name());
         }
         RespCode code = new RespCode();
-        UserCode userCode;
-        userCode = mInfoService.SaveClientInfo(clientInfoList.getGrid());
-        code.setCode(userCode.getCode());
+        OperationResultCode opCode;
+        ArrayList<INFO_CLIENT> infoList = clientInfoList.getGrid();
+        for (int index=0; index<infoList.size(); index++) {
+            infoList.get(index).setClient_id(String.format("%03d", index));
+        }
+        opCode = mInfoService.SaveClientInfo(clientInfoList.getGrid());
+        code.setCode(opCode.getCode());
 
         return code;
     }
@@ -487,9 +493,9 @@ public class InfoController {
         System.out.println(clientInfo.toString());
 
         RespCode code = new RespCode();
-        UserCode userCode;
-        userCode = mInfoService.AddClientInfo(clientInfo);
-        code.setCode(userCode.getCode());
+        OperationResultCode opCode;
+        opCode = mInfoService.AddClientInfo(clientInfo);
+        code.setCode(opCode.getCode());
 
         return code;
     }
@@ -500,9 +506,9 @@ public class InfoController {
         System.out.println(clientInfo.toString());
 
         RespCode code = new RespCode();
-        UserCode userCode;
-        userCode = mInfoService.UpdateClientInfo(clientInfo);
-        code.setCode(userCode.getCode());
+        OperationResultCode opCode;
+        opCode = mInfoService.UpdateClientInfo(clientInfo);
+        code.setCode(opCode.getCode());
 
         return code;
     }
@@ -513,9 +519,9 @@ public class InfoController {
         System.out.println("DeleteRepositoryInfo size=" + reqStringList.getGrid().size());
 
         RespCode code = new RespCode();
-        UserCode userCode;
-        userCode = mInfoService.DeleteClientInfo(reqStringList.getGrid());
-        code.setCode(userCode.getCode());
+        OperationResultCode opCode;
+        opCode = mInfoService.DeleteClientInfo(reqStringList.getGrid());
+        code.setCode(opCode.getCode());
 
         return code;
     }

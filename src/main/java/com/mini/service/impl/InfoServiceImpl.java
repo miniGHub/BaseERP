@@ -3,6 +3,7 @@ package com.mini.service.impl;
 import com.mini.common.Constant;
 import com.mini.dao.info.*;
 import com.mini.model.code.ProductCode;
+import com.mini.model.code.OperationResultCode;
 import com.mini.model.code.UserCode;
 import com.mini.model.db.info.*;
 import com.mini.model.page.ProductInfoPage;
@@ -371,27 +372,27 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public UserCode AddRepositoryInfo(INFO_REPOSITORY repositoryInfo) {
+    public OperationResultCode AddRepositoryInfo(INFO_REPOSITORY repositoryInfo) {
         if (mInfoRepository.AddRepositoryInfo(repositoryInfo) == 0) {
-            return UserCode.AddError;
+            return OperationResultCode.AddFailed;
         }
-        return UserCode.AddSuccess;
+        return OperationResultCode.Success;
     }
 
     @Override
-    public UserCode UpdateRepositoryInfo(INFO_REPOSITORY repositoryInfo) {
+    public OperationResultCode UpdateRepositoryInfo(INFO_REPOSITORY repositoryInfo) {
         if (mInfoRepository.UpdateRepositoryInfo(repositoryInfo) == 0) {
-            return UserCode.UpdateError;
+            return OperationResultCode.UpdateFailed;
         }
-        return UserCode.UpdateSuccess;
+        return OperationResultCode.Success;
     }
 
     @Override
-    public UserCode DeleteRepositoryInfo(ArrayList<String> idList) {
+    public OperationResultCode DeleteRepositoryInfo(ArrayList<String> idList) {
         if (mInfoRepository.DeleteRepositoryInfo(idList) != idList.size()) {
-            return UserCode.DeleteError;
+            return OperationResultCode.DeleteFailed;
         }
-        return UserCode.DeleteSuccess;
+        return OperationResultCode.Success;
     }
 
     @Override
@@ -413,35 +414,46 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public UserCode SaveClientInfo(ArrayList<INFO_CLIENT> clientInfoList) {
+    public String GetNewRepositoryId() {
+        String maxId = mInfoRepository.GetMaxId();
+        if (maxId == null) {
+            return "000";
+        }
+        else {
+            return String.format("%03d", Integer.valueOf(maxId)+1);
+        }
+    }
+
+    @Override
+    public OperationResultCode SaveClientInfo(ArrayList<INFO_CLIENT> clientInfoList) {
         mInfoClient.DeleteAll();
         if (mInfoClient.SaveClientInfoList(clientInfoList) != clientInfoList.size()) {
-            return UserCode.UpdateError;
+            return OperationResultCode.SaveFailed;
         }
-        return UserCode.UpdateSuccess;
+        return OperationResultCode.Success;
     }
 
     @Override
-    public UserCode AddClientInfo(INFO_CLIENT clientInfo) {
+    public OperationResultCode AddClientInfo(INFO_CLIENT clientInfo) {
         if (mInfoClient.AddClientInfo(clientInfo) == 0) {
-            return UserCode.AddError;
+            return OperationResultCode.AddFailed;
         }
-        return UserCode.AddSuccess;
+        return OperationResultCode.Success;
     }
 
     @Override
-    public UserCode UpdateClientInfo(INFO_CLIENT clientInfo) {
+    public OperationResultCode UpdateClientInfo(INFO_CLIENT clientInfo) {
         if (mInfoClient.UpdateClientInfo(clientInfo) == 0) {
-            return UserCode.UpdateError;
+            return OperationResultCode.UpdateFailed;
         }
-        return UserCode.UpdateSuccess;
+        return OperationResultCode.Success;
     }
 
     @Override
-    public UserCode DeleteClientInfo(ArrayList<String> idList) {
+    public OperationResultCode DeleteClientInfo(ArrayList<String> idList) {
         if (mInfoClient.DeleteClientInfo(idList) == 0) {
-            return UserCode.DeleteError;
+            return OperationResultCode.DeleteFailed;
         }
-        return UserCode.DeleteSuccess;
+        return OperationResultCode.Success;
     }
 }

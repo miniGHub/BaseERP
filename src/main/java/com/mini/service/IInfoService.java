@@ -1,5 +1,6 @@
 package com.mini.service;
 
+import com.mini.model.code.OperationResultCode;
 import com.mini.model.code.ProductCode;
 import com.mini.model.code.UserCode;
 import com.mini.model.db.info.*;
@@ -41,13 +42,14 @@ public interface IInfoService {
 	ArrayList<RepositoryInfoPage> GetAllRepository();
     ArrayList<RepositoryInfoPage> GetAllRepositoryPage(int page, int start, int limit);
     int GetAllRepositorySize();
-    UserCode AddRepositoryInfo(INFO_REPOSITORY repositoryInfo);
-    UserCode UpdateRepositoryInfo(INFO_REPOSITORY repositoryInfo);
-    UserCode DeleteRepositoryInfo(ArrayList<String> idList);
+    OperationResultCode AddRepositoryInfo(INFO_REPOSITORY repositoryInfo);
+    OperationResultCode UpdateRepositoryInfo(INFO_REPOSITORY repositoryInfo);
+    OperationResultCode DeleteRepositoryInfo(ArrayList<String> idList);
     RepositoryInfoPage GetRepositoryInfo(String repository_id);
+    String GetNewRepositoryId();
     ArrayList<INFO_CLIENT> GetAllClientInfo();
-    UserCode AddClientInfo(INFO_CLIENT clientInfo);
-    UserCode SaveClientInfo(ArrayList<INFO_CLIENT> clientInfoList);
-    UserCode UpdateClientInfo(INFO_CLIENT clientInfo);
-    UserCode DeleteClientInfo(ArrayList<String> idList);
+    OperationResultCode AddClientInfo(INFO_CLIENT clientInfo);
+    OperationResultCode SaveClientInfo(ArrayList<INFO_CLIENT> clientInfoList);
+    OperationResultCode UpdateClientInfo(INFO_CLIENT clientInfo);
+    OperationResultCode DeleteClientInfo(ArrayList<String> idList);
 }
