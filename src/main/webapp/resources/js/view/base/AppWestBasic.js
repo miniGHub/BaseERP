@@ -1,11 +1,11 @@
-Ext.define("AppIndex.view.base.AppWestBasic",{
+﻿Ext.define("AppIndex.view.base.AppWestBasic",{
     extend:'Ext.tree.Panel',
     xtype:'app_west_basic',
 
     requires:[
         'AppIndex.view.info.SupplierInfoView',
         'AppIndex.view.info.ProductInfoView',
-	    'AppIndex.view.info.ClientInfoView',
+        'AppIndex.view.info.ClientInfoView',
         'AppIndex.view.info.RepositoryInfoView'
     ],
 

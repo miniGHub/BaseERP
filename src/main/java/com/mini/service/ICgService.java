@@ -15,5 +15,5 @@ public interface ICgService {
     CG001 getPurchaseNote(String purchase_note_id);
     ArrayList<CG002> getPurchaseNoteDetail(String purchase_note_id);
     ArrayList<String> GetPurchaseNoteInApproval();
-    boolean updatePurchaseNoteStatus(HashMap<String, Object> param);
+    boolean updatePurchaseNoteStatus(String purchase_note_id, int note_status);
 }

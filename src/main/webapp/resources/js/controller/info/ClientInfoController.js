@@ -43,12 +43,9 @@ Ext.define('AppIndex.controller.info.ClientInfoController',{
         // grid data
         var store = this.getView().down('app_client_info_view_grid').getStore();
         var gridData = [];
-        var client_id = 1;
         Ext.each(store.getRange(0, store.getCount()), function(record) {
             delete record.data['id'];
             console.log('gridData:'+ Ext.encode(record.data));
-            record.data['client_id'] = client_id;
-            client_id += 1;
             gridData.push(record.data);
         });
         // console.log('gridData:'+ Ext.encode(gridData));
@@ -91,7 +88,7 @@ Ext.define('AppIndex.controller.info.ClientInfoController',{
 
         var code = records[0].data.code;
         switch (code) {
-            case -1:
+            case 4:
                 Ext.MessageBox.show({
                     title: 'Warn',
                     msg: '保存失败',

@@ -36,4 +36,8 @@
         SELECT * FROM INFO_REPOSITORY WHERE repository_id=#{repository_id}
     </select>
 
+    <select id="GetMaxId" resultType="java.lang.String">
+        SELECT MAX(repository_id) FROM INFO_REPOSITORY
+    </select>
+
 </mapper>

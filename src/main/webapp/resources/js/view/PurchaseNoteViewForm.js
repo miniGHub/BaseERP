@@ -2,7 +2,8 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
     extend: 'Ext.form.Panel',
     xtype:'app_purchase_note_view_form',
     requires: [
-        'AppIndex.store.GetSalesOrderNoteApprovalingStore'
+        'AppIndex.store.GetSalesOrderNoteApprovalingStore',
+        'AppIndex.store.info.GetAllSupplierInfoStore'
     ],
 
     border:false,
@@ -58,17 +59,29 @@ Ext.define('AppIndex.view.PurchaseNoteViewForm',{
             store: {
                 type:'get_sales_order_note_approvaling_store'
             },
-            queryMode : 'local',
-//            anchor : '100%',
+            queryMode : 'remote',
             allowBlank: true,
             listeners : {
                 select: 'PurchaseNoteLoad'
             }
         },
         {
+            xtype: 'combo',
             fieldLabel: '供应商',
+            itemId: 'supplier_id',
+            displayFiled: 'supplier_name',
+            valueFiled: 'supplier_id',
             name: 'supplier_id',
-            allowBlank: false
+            editable: true,
+            forceSelection : true,
+            triggerAction : 'all',
+            selectOnFocus : true,
+            matchFieldWidth:false,
+            store: {
+                type:'get_all_supplier_info_store'
+            },
+            queryMode : 'remote',
+            allowBlank: true
         },
         {
             fieldLabel: '仓库编号',

@@ -1,9 +1,9 @@
 package com.mini.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mini.model.db.cg.CG001;
 import com.mini.model.db.cg.CG002;
 import com.mini.model.request.ReqFormGrid;
+import com.mini.model.request.ReqId;
 import com.mini.model.response.RespPurchaseNoteId;
 import com.mini.model.response.RespCode;
 import com.mini.model.db.xs.XS001;
@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,11 +39,10 @@ public class CgController {
         return String.format("%s%04d", id_prefix, amount+1);
     }
     
-    @RequestMapping("/LoadBaseFromSalesOrder")
-    public void LoadBaseFromSalesOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("Sales_order_note_id");
+    @RequestMapping(value = "/LoadBaseFromSalesOrder", method = {RequestMethod.POST})
+    @ResponseBody
+    public CG001 LoadBaseFromSalesOrder(@RequestBody ReqId reqId) {
+        String id = reqId.getId();
         System.out.println("LoadBaseFromSalesOrder(): " + id);
         XS001 xs001 = mXsService.GetSalesOrderNote(id);
         CG001 cg001 = new CG001();
@@ -57,37 +53,33 @@ public class CgController {
         cg001.setRemark(xs001.getRemark());
         cg001.setAddition(xs001.getAddition());
         cg001.setEntry_date(new Date());
-        ObjectMapper mapper = new ObjectMapper();
-        response.getWriter().write(mapper.writeValueAsString(cg001));
-        response.getWriter().close();
+        return cg001;
     }
 
-    @RequestMapping("/LoadDetailFromSalesOrder")
-    public void LoadDetailFromSalesOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("Sales_order_note_id");
+    @RequestMapping(value = "/LoadDetailFromSalesOrder", method = {RequestMethod.POST})
+    @ResponseBody
+    public ArrayList<CG002> LoadDetailFromSalesOrder(@RequestBody ReqId reqId) {
+        String id = reqId.getId();
         System.out.println("LoadDetailFromSalesOrder(): " + id);
         XS001 xs001 = mXsService.GetSalesOrderNote(id);
         XS002[] xs002s = mXsService.GetSalesOrderNoteProduct(id);
-        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<CG002> cg002s = new ArrayList<>();
         if (xs002s.length > 0) {
             System.out.println("LoadDetailFromSalesOrder(): amount = " + xs002s.length);
-            CG002[] cg002s = new CG002[xs002s.length];
-            for (int i=0;i<xs002s.length;i++) {
-                cg002s[i] = new CG002();
-                cg002s[i].setProduct_id(xs002s[i].getProduct_id());
-                cg002s[i].setAmount(xs002s[i].getAmount());
-                cg002s[i].setUnit_price(xs002s[i].getUnit_price());
-                cg002s[i].setBalance(xs002s[i].getBalance());
-                cg002s[i].setBarcode(xs002s[i].getBarcode());
-                cg002s[i].setState(xs002s[i].getState());
-                cg002s[i].setComment(xs002s[i].getComment());
-                cg002s[i].setRepository_id(xs001.getRepository_id());
+            for (XS002 xs002 : xs002s) {
+                CG002 cg002 = new CG002();
+                cg002.setProduct_id(xs002.getProduct_id());
+                cg002.setAmount(xs002.getAmount());
+                cg002.setUnit_price(xs002.getUnit_price());
+                cg002.setBalance(xs002.getBalance());
+                cg002.setBarcode(xs002.getBarcode());
+                cg002.setState(xs002.getState());
+                cg002.setComment(xs002.getComment());
+                cg002.setRepository_id(xs001.getRepository_id());
+                cg002s.add(cg002);
             }
-            response.getWriter().write(mapper.writeValueAsString(cg002s));
         }
-        response.getWriter().close();
+        return cg002s;
     }
 
     @RequestMapping(value = "/SubmitPurchaseNote", method = {RequestMethod.POST})

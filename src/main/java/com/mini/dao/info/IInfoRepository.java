@@ -12,4 +12,5 @@ public interface IInfoRepository {
     int UpdateRepositoryInfo(INFO_REPOSITORY repositoryInfo);
     int DeleteRepositoryInfo(ArrayList<String> idList);
     INFO_REPOSITORY SelectRepositoryInfo(String repository_id);
+    String GetMaxId();
 }

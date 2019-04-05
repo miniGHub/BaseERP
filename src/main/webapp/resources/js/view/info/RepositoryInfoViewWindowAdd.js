@@ -27,7 +27,7 @@ Ext.define('AppIndex.view.info.RepositoryInfoViewWindowAdd',{
             flex: 1
         },
         items:[
-            {
+            /*{
                 xtype:'textfield',
                 name: 'repository_id',
                 fieldLabel: '仓库编号',
@@ -37,7 +37,7 @@ Ext.define('AppIndex.view.info.RepositoryInfoViewWindowAdd',{
                 maxLength:3,
                 minLength:3,
                 regex:/^[0-9]+$/
-            },
+            },*/
             {
                 xtype: 'combo',
                 name: 'repository_type_name',

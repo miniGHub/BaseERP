@@ -109,7 +109,7 @@
         SELECT purchase_note_id from CG001 where note_status = 0;
     </select>
 
-    <update id="updatePurchaseNoteStatus" parameterType="Map">
-        update CG001 set note_status=#{note_status} where purchase_note_id = #{purchase_note_id}
+    <update id="updatePurchaseNoteStatus">
+        update CG001 set note_status=#{param2} where purchase_note_id = #{param1}
     </update>
 </mapper>
