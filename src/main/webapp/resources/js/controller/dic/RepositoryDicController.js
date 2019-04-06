@@ -86,6 +86,27 @@ Ext.define('AppIndex.controller.dic.RepositoryDicController',{
     },
     repositoryDicCallback: function (records, operation) {
         console.log('repository dic callback');
-
+        var code = records[0].data.code;
+        switch (code) {
+            case -1:
+                Ext.MessageBox.show({
+                    title: 'Warn',
+                    msg: '保存失败',
+                    buttons: Ext.MessageBox.OK,
+                    icon: Ext.MessageBox.WARNING
+                });
+                break;
+            case 0:
+                Ext.MessageBox.show({
+                    title: 'Info',
+                    msg: '保存成功',
+                    buttons: Ext.MessageBox.OK,
+                    icon: Ext.MessageBox.INFO
+                });
+                break;
+            default:
+                console.log('code undefined['+ code + ']');
+                break;
+        }
     }
 });

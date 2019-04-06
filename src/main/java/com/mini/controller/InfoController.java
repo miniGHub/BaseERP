@@ -2,19 +2,19 @@ package com.mini.controller;
 
 import com.mini.common.Constant;
 import com.mini.model.code.OperationResultCode;
+import com.mini.model.code.ProductCode;
+import com.mini.model.code.SupplierCode;
+import com.mini.model.code.UserCode;
+import com.mini.model.db.dic.DIC_ROLE;
+import com.mini.model.db.info.*;
 import com.mini.model.page.ProductInfoPage;
 import com.mini.model.page.RepositoryInfoPage;
 import com.mini.model.page.UserInfoPage;
 import com.mini.model.page.UserPasswordPage;
-import com.mini.model.code.ProductCode;
-import com.mini.model.code.UserCode;
-import com.mini.model.db.dic.DIC_PRODUCT;
-import com.mini.model.db.dic.DIC_ROLE;
-import com.mini.model.db.info.*;
-import com.mini.model.request.*;
+import com.mini.model.request.ReqChangePassword;
+import com.mini.model.request.ReqGrid;
 import com.mini.model.response.RespCode;
 import com.mini.model.response.RespPage;
-import com.mini.model.response.RespProductInfoPage;
 import com.mini.service.IDicService;
 import com.mini.service.IInfoService;
 import org.springframework.stereotype.Controller;
@@ -178,7 +178,7 @@ public class InfoController {
 
     @RequestMapping(value = "/SubmitSupplierManager", method = {RequestMethod.POST})
     @ResponseBody
-    public RespCode SubmitSupplierManager(@RequestBody ReqSupplier reqInfoSupplier){
+    public RespCode SubmitSupplierManager(@RequestBody ReqGrid<INFO_SUPPLIER> reqInfoSupplier){
         System.out.println("SubmitSupplierManager size:" + reqInfoSupplier.getGrid().size());
 
         RespCode code = new RespCode();
@@ -187,7 +187,7 @@ public class InfoController {
             return code;
         }
 
-        if (mInfoService.SaveSupplier(reqInfoSupplier.getGrid())) {
+        if (SupplierCode.SaveSuccess == mInfoService.SaveSupplier(reqInfoSupplier.getGrid())) {
             code.setCode(Constant.REQUEST_SUCCESS);
         } else {
             code.setCode(Constant.REQUEST_FAIL);
@@ -220,44 +220,16 @@ public class InfoController {
         return mInfoService.GetAllSupplier();
     }
 
-    @RequestMapping(value = "/GetProductInfo", method = {RequestMethod.POST})
-    @ResponseBody
-    public ProductInfoPage GetProductInfo(@RequestBody INFO_PRODUCT reqInfoProduct) {
-        System.out.println("GetProductInfo id:" + reqInfoProduct.getProduct_id());
-
-        ProductInfoPage productInfoPage = new ProductInfoPage();
-        INFO_PRODUCT infoProduct;
-        DIC_PRODUCT dicProduct;
-
-        infoProduct = mInfoService.GetProductInfo(reqInfoProduct.getProduct_id());
-        if (infoProduct != null) {
-            productInfoPage.setProduct_id(infoProduct.getProduct_id());
-            productInfoPage.setProduct_name(infoProduct.getProduct_name());
-
-            dicProduct = mDicService.GetProduct(infoProduct.getProduct_type());
-            if (dicProduct != null) {
-                productInfoPage.setProduct_type(dicProduct.getProduct_type());
-                productInfoPage.setProduct_type_name(dicProduct.getProduct_type_name());
-            } else {
-                System.out.println("GetProductInfo dicProduct is null!!!");
-            }
-        } else {
-            System.out.println("GetProductInfo infoProduct is null!!!");
-        }
-
-        return productInfoPage;
-    }
-
     @RequestMapping(value = "/GetAllProductInfoPage", method = {RequestMethod.GET})
     @ResponseBody
-    public RespProductInfoPage GetAllProductInfoPage(@RequestParam(defaultValue = "0") int page,
-                                               @RequestParam(defaultValue = "0") int start,
-                                               @RequestParam(defaultValue = "0") int limit,
-                                               @RequestParam(defaultValue = "false") boolean isReqDB) {
+    public RespPage<ProductInfoPage> GetAllProductInfoPage(@RequestParam(defaultValue = "0") int page,
+                                                                              @RequestParam(defaultValue = "0") int start,
+                                                                              @RequestParam(defaultValue = "0") int limit,
+                                                                              @RequestParam(defaultValue = "false") boolean isReqDB) {
         System.out.println("GetAllProductInfoPage entry");
         System.out.println("GetAllProductInfoPage page:" + page + ",start:" + start + ",limit:" + limit + ",isReqDB" + isReqDB);
 
-        RespProductInfoPage respProductInfoPage = new RespProductInfoPage();
+        RespPage<ProductInfoPage> respProductInfoPage = new RespPage();
 
         if (isReqDB) {
             mInfoService.GetAllProductInfo();
@@ -317,7 +289,7 @@ public class InfoController {
 
     @RequestMapping(value = "/DeleteProductInfo", method = {RequestMethod.POST})
     @ResponseBody
-    public RespCode DeleteProductInfo(@RequestBody ReqProductInfo reqArrayProductInfo) {
+    public RespCode DeleteProductInfo(@RequestBody ReqGrid<INFO_PRODUCT> reqArrayProductInfo) {
         System.out.println("DeleteProductInfo size=" + reqArrayProductInfo.getGrid().size());
 
         RespCode code = new RespCode();
