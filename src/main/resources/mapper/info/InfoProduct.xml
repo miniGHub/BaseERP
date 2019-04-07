@@ -4,10 +4,6 @@
 <!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.mini.dao.info.IInfoProduct">
 
-    <select id="SelectProductInfo" resultType="INFO_PRODUCT" parameterType="String">
-        SELECT * FROM INFO_PRODUCT WHERE product_id = #{product_id};
-    </select>
-
     <select id="SelectAllProductInfo" resultType="com.mini.model.page.ProductInfoPage">
         select info_product.product_id, info_product.product_type, info_product.product_name, info_product.barcode, info_product.state,
                 (select product_type_name from dic_product where dic_product.product_type = info_product.product_type) as product_type_name from info_product ORDER BY product_id;

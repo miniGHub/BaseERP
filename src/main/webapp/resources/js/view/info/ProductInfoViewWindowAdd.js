@@ -37,7 +37,7 @@ Ext.define('AppIndex.view.info.ProductInfoViewWindowAdd',{
                 maxLength:3,
                 minLength:3,
                 regex:/^[0-9]+$/
-            },,
+            },
             {
                 xtype: 'combo',
                 name: 'product_type_name',

@@ -2,8 +2,9 @@ package com.mini.service.impl;
 
 import com.mini.common.Constant;
 import com.mini.dao.info.*;
-import com.mini.model.code.ProductCode;
 import com.mini.model.code.OperationResultCode;
+import com.mini.model.code.ProductCode;
+import com.mini.model.code.SupplierCode;
 import com.mini.model.code.UserCode;
 import com.mini.model.db.info.*;
 import com.mini.model.page.ProductInfoPage;
@@ -145,10 +146,10 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
-    public boolean SaveSupplier(ArrayList<INFO_SUPPLIER> supplier) {
+    public SupplierCode SaveSupplier(ArrayList<INFO_SUPPLIER> supplier) {
         mInfoSupplier.DeleteSupplier();
         mInfoSupplier.InsertSupplier(supplier);
-        return true;
+        return SupplierCode.SaveSuccess;
     }
 
     @Override
@@ -160,11 +161,6 @@ public class InfoServiceImpl implements IInfoService {
     public ArrayList<INFO_SUPPLIER> GetAllSupplier() {
         System.out.println("service GetAllSupplier come in");
         return mInfoSupplier.SelectAllSupplier();
-    }
-
-    @Override
-    public INFO_PRODUCT GetProductInfo(String product_id) {
-        return mInfoProduct.SelectProductInfo(product_id);
     }
 
     @Override
@@ -200,7 +196,7 @@ public class InfoServiceImpl implements IInfoService {
         String newId = mInfoProduct.SelectMaxId();
 
         if (null == newId) {
-            newId = Constant.DEFAULT_ID;
+            newId = Constant.DEFAULT_PRODUCT_ID;
         } else {
             newId = String.format("%03d", Integer.parseInt(newId) + 1);
         }
@@ -417,7 +413,7 @@ public class InfoServiceImpl implements IInfoService {
     public String GetNewRepositoryId() {
         String maxId = mInfoRepository.GetMaxId();
         if (maxId == null) {
-            return "000";
+            return Constant.DEFAULT_REPOSITORY_ID;
         }
         else {
             return String.format("%03d", Integer.valueOf(maxId)+1);

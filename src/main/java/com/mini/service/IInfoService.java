@@ -2,6 +2,7 @@ package com.mini.service;
 
 import com.mini.model.code.OperationResultCode;
 import com.mini.model.code.ProductCode;
+import com.mini.model.code.SupplierCode;
 import com.mini.model.code.UserCode;
 import com.mini.model.db.info.*;
 import com.mini.model.page.ProductInfoPage;
@@ -27,12 +28,11 @@ public interface IInfoService {
     int GetAllUserPasswordSize();
 	
     UserCode ResetPassword(ArrayList<String> listId);
-    boolean SaveSupplier(ArrayList<INFO_SUPPLIER> supplier);
+    SupplierCode SaveSupplier(ArrayList<INFO_SUPPLIER> supplier);
     INFO_SUPPLIER GetSupplier(String supplier_id);
     ArrayList<INFO_SUPPLIER> GetAllSupplier();
 
     String GetProductInfoNewId();
-    INFO_PRODUCT GetProductInfo(String product_id);
     ArrayList<ProductInfoPage> GetAllProductInfo();
     ArrayList<ProductInfoPage> GetAllProductInfoPage(int page, int start, int limit);
     int GetAllProductInfoSize();

@@ -6,7 +6,6 @@ import com.mini.model.db.info.INFO_PRODUCT;
 import java.util.ArrayList;
 
 public interface IInfoProduct {
-    INFO_PRODUCT SelectProductInfo(String productId);
     ArrayList<ProductInfoPage> SelectAllProductInfo();
     void InsertProductInfo(INFO_PRODUCT productInfo);
     void UpdateProductInfo(INFO_PRODUCT productInfo);
